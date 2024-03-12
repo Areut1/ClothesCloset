@@ -6,7 +6,7 @@ import java.util.Properties;
 import java.util.Vector;
 
 public class ColorCollection extends EntityBase implements IView {
-    private static final String myTableName = "Book";
+    private static final String myTableName = "Color";
     Vector<Color> colorList;
 
     public ColorCollection() {
