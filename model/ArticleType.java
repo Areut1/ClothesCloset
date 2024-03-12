@@ -181,7 +181,7 @@ public class ArticleType extends EntityBase implements IView
                 whereClause.setProperty("articleTypeId",
                         persistentState.getProperty("articleTypeId"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Article Type data for article type id : " + persistentState.getProperty("patronId") + " updated successfully in database!";
+                updateStatusMessage = "Article Type data for article type id : " + persistentState.getProperty("articleTypeId") + " updated successfully in database!";
             }
             else
             {
