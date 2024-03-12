@@ -1,7 +1,5 @@
 package model;
 
-import model.EntityBase;
-
 // system imports
 import java.util.Properties;
 import java.util.Vector;
@@ -63,5 +61,10 @@ public class ArticleTypeCollection extends EntityBase {
     @Override
     protected void initializeSchema(String tableName) {
 
+    }
+
+    @Override
+    public void updateState(String key, Object value) {
+        stateChangeRequest(key, value);
     }
 }
