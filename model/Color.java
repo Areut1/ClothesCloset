@@ -22,7 +22,7 @@ public class Color extends EntityBase implements IView {
 		
 		setDependencies();
 
-		String query = "SELECT * FROM " + myTableName + " WHERE (id = " + colorId + ")";
+		String query = "SELECT * FROM " + myTableName + " WHERE (colorId = " + colorId + ")";
 
 		Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -102,7 +102,7 @@ public class Color extends EntityBase implements IView {
 	{
 		Vector<String> v = new Vector<String>();
 
-		v.addElement(persistentState.getProperty("id"));
+		v.addElement(persistentState.getProperty("colorId"));
 		v.addElement(persistentState.getProperty("description"));
 		v.addElement(persistentState.getProperty("barcodePrefix"));
 		v.addElement(persistentState.getProperty("alphaCode"));
@@ -127,15 +127,15 @@ public class Color extends EntityBase implements IView {
 		try {
 			if (persistentState.getProperty("colorId") != null) {
 				Properties whereClause = new Properties();
-				whereClause.setProperty("id",
-				persistentState.getProperty("id"));
+				whereClause.setProperty("colorId",
+				persistentState.getProperty("colorId"));
 				updatePersistentState(mySchema, persistentState, whereClause);
-				updateStatusMessage = "Color data for color id : " + persistentState.getProperty("id") + " updated successfully in database!";
+				updateStatusMessage = "Color data for color id : " + persistentState.getProperty("colorId") + " updated successfully in database!";
 			} else {
 				Integer colorId =
 					insertAutoIncrementalPersistentState(mySchema, persistentState);
-				persistentState.setProperty("id", "" + colorId.intValue());
-				updateStatusMessage = "Color data for new color : " +  persistentState.getProperty("id")
+				persistentState.setProperty("colorId", "" + colorId.intValue());
+				updateStatusMessage = "Color data for new color : " +  persistentState.getProperty("colorId")
 					+ "installed successfully in database!";
 			}
 		}
