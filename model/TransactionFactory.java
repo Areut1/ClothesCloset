@@ -12,18 +12,25 @@ public class TransactionFactory
 		Transaction retValue = null;
 
 		switch (transType) {
-			case "InsertBook":
-//				retValue = new InsertBookTransaction();
+			case "AddColor":
+//				retValue = new AddColorTransaction();
 				break;
-			case "InsertPatron":
-//				retValue = new InsertPatronTransaction();
+			case "ModifyColor":
+//				retValue = new ModifyColorTransaction();
 				break;
-			case "SearchBooks":
-//				retValue = new SearchBooksTransaction();
+			case "DeleteColor":
+//				retValue = new DeleteColorTransaction();
 				break;
-			case "SearchPatrons":
-//				retValue = new SearchPatronsTransaction();
+			case "AddArticleType":
+//				retValue = new AddArticleTypeTransaction();
 				break;
+			case "ModifyArticleType":
+//				retValue = new ModifyArticleTypeTransaction();
+				break;
+			case "DeleteArticleType":
+//				retValue = new DeleteArticleTypeTransaction();
+				break;
+
 		}
 
 		return retValue;
