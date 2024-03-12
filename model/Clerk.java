@@ -54,7 +54,7 @@ public class Clerk implements IView, IModel
         setDependencies();
 
         // Set up the initial view
-        createAndShowClerkView();
+        createAndShowTransactionChoiceView();
     }
 
     //-----------------------------------------------------------------------------------
@@ -107,7 +107,6 @@ public class Clerk implements IView, IModel
     }
 
     //----------------------------------------------------------
-    //----------------------------------------------------------
     public void doTransaction(String transactionType)
     {
         try
@@ -127,17 +126,18 @@ public class Clerk implements IView, IModel
         }
     }
 
-    //-----------------------------------------------------------------
-    private void createAndShowView(String viewKey)
+
+    //----------------------------------------------------------
+    private void createAndShowTransactionChoiceView()
     {
-        Scene currentScene = (Scene)myViews.get(viewKey);
+        Scene currentScene = (Scene)myViews.get("TransactionChoiceView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView(viewKey, this); // USE VIEW FACTORY
+            View newView = ViewFactory.createView("TransactionChoiceView", this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
-            myViews.put(viewKey, currentScene);
+            myViews.put("TransactionChoiceView", currentScene);
         }
 
 
@@ -146,23 +146,24 @@ public class Clerk implements IView, IModel
 
     }
 
-    //------------------------------------------------------------
-    private void createAndShowLibrarianView()
+    //-----------------------------------------------------------------
+    private void createAndShowView(String viewName)
     {
-        Scene currentScene = (Scene)myViews.get("ClerkView");
+        Scene currentScene = (Scene)myViews.get(viewName);
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("ClerkView", this); // USE VIEW FACTORY
+            View newView = ViewFactory.createView(viewName, this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
-            myViews.put("ClerkView", currentScene);
+            myViews.put(viewName, currentScene);
         }
 
+
+        // make the view visible by installing it into the frame
         swapToView(currentScene);
 
     }
-
 
     /** Register objects to receive state updates. */
     //----------------------------------------------------------
