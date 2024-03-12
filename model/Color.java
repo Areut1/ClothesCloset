@@ -143,4 +143,12 @@ public class Color extends EntityBase implements IView {
 			updateStatusMessage = "Error in installing color data in database!";
 		}
 	}
+
+	public String toString()
+	{
+		return "Description: " + persistentState.getProperty("description") + "\n Barcode Prefix: " +
+				persistentState.getProperty("barcodePrefix") + "\n Alpha Code: " +
+				persistentState.getProperty("alphaCode");
+	}
+
 }

@@ -164,7 +164,7 @@ public class ArticleType extends EntityBase implements IView
     }
 
     //-----------------------------------------------------------------------------------
-    public void save()
+    public void update()
     {
         updateStateInDatabase();
     }
