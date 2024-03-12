@@ -13,7 +13,7 @@ public class TransactionFactory
 
 		switch (transType) {
 			case "AddColor":
-//				retValue = new AddColorTransaction();
+				retValue = new AddColorTransaction();
 				break;
 			case "ModifyColor":
 //				retValue = new ModifyColorTransaction();
