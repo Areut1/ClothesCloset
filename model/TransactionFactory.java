@@ -22,7 +22,7 @@ public class TransactionFactory
 //				retValue = new DeleteColorTransaction();
 				break;
 			case "AddArticleType":
-//				retValue = new AddArticleTypeTransaction();
+				retValue = new AddArticleTypeTransaction();
 				break;
 			case "ModifyArticleType":
 //				retValue = new ModifyArticleTypeTransaction();
