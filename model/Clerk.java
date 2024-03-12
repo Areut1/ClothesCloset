@@ -34,6 +34,9 @@ public class Clerk implements IView, IModel
     private Hashtable<String, Scene> myViews;
     private Stage myStage;
 
+    private String loginErrorMessage = "";
+    private String transactionErrorMessage = "";
+
 
     // constructor for this class
     //----------------------------------------------------------
@@ -82,7 +85,17 @@ public class Clerk implements IView, IModel
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        return "";
+        if (key.equals("LoginError"))
+        {
+            return loginErrorMessage;
+        }
+        else
+        if (key.equals("TransactionError"))
+        {
+            return transactionErrorMessage;
+        }
+        else
+            return "";
     }
 
     //----------------------------------------------------------------
@@ -112,7 +125,7 @@ public class Clerk implements IView, IModel
         try
         {
             Transaction trans = TransactionFactory.createTransaction(
-                    transactionType, myAccountHolder);
+                    transactionType);
 
             trans.subscribe("CancelTransaction", this);
             trans.stateChangeRequest("DoYourJob", "");
@@ -147,16 +160,16 @@ public class Clerk implements IView, IModel
     }
 
     //-----------------------------------------------------------------
-    private void createAndShowView(String viewName)
+    private void createAndShowClerkView()
     {
-        Scene currentScene = (Scene)myViews.get(viewName);
+        Scene currentScene = (Scene)myViews.get("ClerkView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView(viewName, this); // USE VIEW FACTORY
+            View newView = ViewFactory.createView("ClerkView", this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
-            myViews.put(viewName, currentScene);
+            myViews.put("ClerkView", currentScene);
         }
 
 
