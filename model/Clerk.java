@@ -118,8 +118,9 @@ public class Clerk implements IView, IModel
             createAndShowTransactionChoiceView();
         }
         else
-        if ((key.equals("InsertBook")) || (key.equals("InsertPatron")) ||
-                (key.equals("SearchBooks")) || (key.equals("SearchPatrons")))
+        if ((key.equals("AddColor")) || (key.equals("AddArticleType")) ||
+                (key.equals("ModifyColor")) || (key.equals("ModifyArticleType")) ||
+                (key.equals("DeleteColor")) || (key.equals("DeleteArticleType")))
         {
             String transType = key;
 
@@ -128,7 +129,7 @@ public class Clerk implements IView, IModel
 
         }
         else
-        if (key.equals("Logout") == true)
+        if (key.equals("Logout"))
         {
             myViews.remove("TransactionChoiceView");
 
