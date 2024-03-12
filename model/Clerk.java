@@ -57,7 +57,7 @@ public class Clerk implements IView, IModel
         setDependencies();
 
         // Set up the initial view
-        createAndShowTransactionChoiceView();
+        createAndShowClerkView();
     }
 
     //-----------------------------------------------------------------------------------
@@ -102,10 +102,36 @@ public class Clerk implements IView, IModel
     public void stateChangeRequest(String key, Object value)
     {
 
+        if (key.equals("Login"))
+        {
+            if (value != null)
+            {
+                loginErrorMessage = "";
 
+                createAndShowTransactionChoiceView();
 
+            }
+        }
+        else
         if (key.equals("CancelTransaction"))
         {
+            createAndShowTransactionChoiceView();
+        }
+        else
+        if ((key.equals("InsertBook")) || (key.equals("InsertPatron")) ||
+                (key.equals("SearchBooks")) || (key.equals("SearchPatrons")))
+        {
+            String transType = key;
+
+
+            doTransaction(transType);
+
+        }
+        else
+        if (key.equals("Logout") == true)
+        {
+            myViews.remove("TransactionChoiceView");
+
             createAndShowClerkView();
         }
 

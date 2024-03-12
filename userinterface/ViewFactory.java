@@ -5,26 +5,26 @@ public class ViewFactory {
 	public static View createView(String viewName, IModel model)
 	{
 		switch (viewName) {
-//			case "LibrarianView":
-//				return  new LibrarianView(model);
-//			case "TransactionChoiceView":
-//				return  new TransactionChoiceView(model);
-//			case "InsertBookView":
-//				return new InsertBookView(model);
-//			case "InsertBookReceipt":
-//				return  new InsertBookReceiptView(model);
-//			case "InsertPatronView":
-//				return new InsertPatronView(model);
-//			case "InsertPatronReceipt":
-//				return new InsertPatronReceiptView(model);
-//			case "SearchBooksView":
-//				return new SearchBooksView(model);
-//			case "SearchPatronsView":
-//				return new SearchPatronsView(model);
-//			case "SearchBooksResults":
-//				return new BookCollectionView(model);
-//			case "SearchPatronsResults":
-//				return new PatronCollectionView(model);
+//			case "ClerkView":
+//				return  new ClerkView(model);
+			case "TransactionChoiceView":
+				return  new TransactionChoiceView(model);
+//			case "AddColorView":
+//				return new AddColorView(model);
+//			case "AddColorReceipt":
+//				return  new AddColorReceipt(model);
+//			case "AddArticleTypeView":
+//				return new AddArticleTypeView(model);
+//			case "AddArticleTypeReceipt":
+//				return new AddArticleTypeReceipt(model);
+//			case "ModifyColorView":
+//				return new ModifyColorView(model);
+//			case "ModifyArticleTypeView":
+//				return new ModifyArticleTypeView(model);
+//			case "DeleteColorView":
+//				return new DeleteColorView(model);
+//			case "DeleteArticleTypeView":
+//				return new DeleteArticleTypeView(model);
 			default: return null;
 		}
 	}
