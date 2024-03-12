@@ -140,5 +140,6 @@ public abstract class EntityBase extends Persistable
 		
     }
 
+	public abstract void updateState(String key, Object value);
 }
 
