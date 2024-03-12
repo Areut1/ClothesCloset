@@ -14,7 +14,7 @@ public class ColorCollection extends EntityBase implements IView {
         colorList = new Vector<>();
     }
 
-//    public void findColors(Properties props) throws Exception {
+    public void findColors(Properties props) throws Exception {
 //        String query = "SELECT * FROM " + myTableName + " WHERE ";
 //
 //        //start generic query, add on for each requirement
@@ -49,27 +49,26 @@ public class ColorCollection extends EntityBase implements IView {
 //
 //        if (allDataRetrieved != null)
 //        {
-//            bookList = new Vector<>();
+//            colorList = new Vector<>();
 //
 //            for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
 //            {
-//                Properties nextBookData = (Properties)allDataRetrieved.elementAt(cnt);
+//                Properties nextColorData = (Properties)allDataRetrieved.elementAt(cnt);
 //
-//                Book book = new Book(nextBookData);
+//                Color color = new Color(nextBookData);
 //
-//                bookList.add(book);
+//                colorList.add(color);
 //            }
 //
 //        }
 //        else
 //        {
-//            throw new Exception("No Books found with specified fields");
+//            throw new Exception("No Colors found with specified fields");
 //        }
-//
-//    }
+
+    }
 
 
-    // TODO: All these -v
     @Override
     public Object getState(String key) {
         if (key.equals("Colors"))
