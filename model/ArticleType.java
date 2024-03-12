@@ -15,8 +15,6 @@ import database.*;
 
 import impresario.IView;
 
-import userinterface.PatronView;
-import userinterface.View;
 import userinterface.ViewFactory;
 
 /** The class containing the Patron for pair programming1: Database access from java */
@@ -91,8 +89,8 @@ public class ArticleType extends EntityBase implements IView
 
         setDependencies();
         persistentState = new Properties();
-        Enumeration allKeys = props.propertyNames();
-        while (allKeys.hasMoreElements() == true)
+        Enumeration<?> allKeys = props.propertyNames();
+        while (allKeys.hasMoreElements())
         {
             String nextKey = (String)allKeys.nextElement();
             String nextValue = props.getProperty(nextKey);
@@ -135,7 +133,7 @@ public class ArticleType extends EntityBase implements IView
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("UpdateStatusMessage") == true)
+        if (key.equals("UpdateStatusMessage"))
             return updateStatusMessage;
 
         return persistentState.getProperty(key);

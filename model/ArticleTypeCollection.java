@@ -13,19 +13,19 @@ public class ArticleTypeCollection extends EntityBase {
 
     public ArticleTypeCollection() {
         super(myTableName);
-        ArticleTypes = new Vector<ArticleType>();
+        articleTypes = new Vector<ArticleType>();
     }
 
     public void updateBookListFromSQL(String query) throws Exception {
         // Reset bookList
-        this.ArticleTypes = new Vector<ArticleType>();
+        this.articleTypes = new Vector<ArticleType>();
 
         // Pull the data
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
         // Loop through data received and make fill bookList with Book objects
         for (int i = 0; i < allDataRetrieved.size(); i++) {
-            this.ArticleTypes.add(new ArticleType(allDataRetrieved.elementAt(i)));
+            this.articleTypes.add(new ArticleType(allDataRetrieved.elementAt(i)));
         }
     }
 
@@ -58,5 +58,10 @@ public class ArticleTypeCollection extends EntityBase {
     @Override
     public void stateChangeRequest(String key, Object value) {
         myRegistry.updateSubscribers(key, this);
+    }
+
+    @Override
+    protected void initializeSchema(String tableName) {
+
     }
 }
