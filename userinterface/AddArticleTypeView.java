@@ -1,5 +1,28 @@
 package userinterface;
 
+import javafx.event.Event;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+
+import java.util.Properties;
+import impresario.IModel;
+import model.ArticleType;
+
 public class AddArticleTypeView {
     // GUI components
     protected TextField description;
@@ -226,7 +249,7 @@ public class AddArticleTypeView {
         if (key.equals("articleTypeMessage") == true)
         {
             String val = (String)value;
-            serviceCharge.setText(val);
+            //serviceCharge.setText(val);
             displayMessage(val);
         }
     }
