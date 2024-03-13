@@ -23,7 +23,7 @@ import java.util.Properties;
 import impresario.IModel;
 import model.ArticleType;
 
-public class AddArticleTypeView {
+public class AddArticleTypeView extends View {
     // GUI components
     protected TextField description;
     protected TextField barcodePrefix;
