@@ -5,8 +5,8 @@ public class ViewFactory {
 	public static View createView(String viewName, IModel model)
 	{
 		switch (viewName) {
-//			case "ClerkView":
-//				return  new ClerkView(model);
+			case "ClerkView":
+				return  new ClerkView(model);
 			case "TransactionChoiceView":
 				return  new TransactionChoiceView(model);
 //			case "AddColorView":

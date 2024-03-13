@@ -260,13 +260,13 @@ public class TransactionChoiceView extends View
         grid.add(listCheckedOutInventoryButton, 2, 3);
         grid.setHalignment(listCheckedOutInventoryButton, HPos.CENTER);
 
-        cancelButton = new Button("Done");
+        cancelButton = new Button("Logout");
         cancelButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
-                System.exit(0);
+                myModel.stateChangeRequest("Logout", null);
             }
         });
         grid.add(cancelButton, 1, 6);

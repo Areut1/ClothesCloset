@@ -57,7 +57,7 @@ public class Clerk implements IView, IModel
         setDependencies();
 
         // Set up the initial view
-        createAndShowTransactionChoiceView();
+        createAndShowClerkView();
     }
 
     //-----------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ public class Clerk implements IView, IModel
         {
             myViews.remove("TransactionChoiceView");
 
-            //createAndShowClerkView();
+            createAndShowClerkView();
         }
 
         myRegistry.updateSubscribers(key, this);
@@ -185,7 +185,7 @@ public class Clerk implements IView, IModel
         swapToView(currentScene);
 
     }
-/**
+
     //-----------------------------------------------------------------
     private void createAndShowClerkView()
     {
@@ -204,7 +204,7 @@ public class Clerk implements IView, IModel
         swapToView(currentScene);
 
     }
-*/
+
     /** Register objects to receive state updates. */
     //----------------------------------------------------------
     public void subscribe(String key, IView subscriber)
