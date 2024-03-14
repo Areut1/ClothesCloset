@@ -62,6 +62,18 @@ public class DeleteColorTransaction extends Transaction{
         swapToView(newScene);
     }
 
+    protected void createAndShowSearchView(){
+
+    }
+
+    protected void createAndShowSelectView(){
+
+    }
+
+    protected void createAndShowConfirmView(){
+
+    }
+
 
     @Override
     public Object getState(String key) {
