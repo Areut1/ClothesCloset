@@ -15,8 +15,8 @@ public class ViewFactory {
 //				return  new AddColorReceipt(model);
 			case "AddArticleTypeView":
 				return new AddArticleTypeView(model);
-//			case "AddArticleTypeReceipt":
-//				return new AddArticleTypeReceipt(model);
+			case "AddArticleTypeReceipt":
+				return new AddArticleTypeReceipt(model);
 //			case "ModifyColorView":
 //				return new ModifyColorView(model);
 //			case "ModifyArticleTypeView":

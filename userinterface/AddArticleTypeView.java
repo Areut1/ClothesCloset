@@ -213,7 +213,7 @@ public class AddArticleTypeView extends View {
             insertProp.setProperty("status", statusString);
 
             //Call Librarian method to create and save book
-            myModel.stateChangeRequest("processArticleType", insertProp);
+            myModel.stateChangeRequest("AddArticleType", insertProp);
 
             //Print confirmation
             displayMessage("New Article Type was added!");
