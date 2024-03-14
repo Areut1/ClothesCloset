@@ -62,36 +62,34 @@ public class DeleteColorTransaction extends Transaction{
         swapToView(newScene);
     }
 
+    protected void createAndShowSearchView(){
+
+    }
+
+    protected void createAndShowSelectView(){
+
+    }
+
+    protected void createAndShowConfirmView(){
+
+    }
+
 
     @Override
     public Object getState(String key) {
-        if (key.equals("TransactionError") == true)
-        {
-            return transactionErrorMessage;
-        }
-        else
-        if (key.equals("UpdateStatusMessage") == true)
-        {
-            return updateStatusMessage;
-        }
-        else
-        if (key.equals("Color") == true)
-        {
-            return color;
-        }
-        return null;
+        return switch (key) {
+            case "TransactionError" -> transactionErrorMessage;
+            case "UpdateStatusMessage" -> updateStatusMessage;
+            case "Color" -> color;
+            default -> null;
+        };
     }
 
     @Override
     public void stateChangeRequest(String key, Object value) {
-        if (key.equals("DoYourJob") == true)
-        {
-            doYourJob();
-        }
-        else
-        if (key.equals("DeleteColor") == true)
-        {
-            processTransaction((Properties)value);
+        switch (key) {
+            case "DoYourJob" -> doYourJob();
+            case "DeleteColor" -> processTransaction((Properties) value);
         }
 
         myRegistry.updateSubscribers(key, this);
