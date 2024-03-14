@@ -98,8 +98,30 @@ public class DeleteColorTransaction extends Transaction{
     //TODO: work on processTransaction to delete color
     public void processTransaction(Properties props)
     {
-        color = new Color(props);
-        color.update();
+
         createAndShowReceiptView();
     }
+
+    public void processSearch(Properties props){
+
+    }
+
+
+
+    /*
+    Delete process:
+
+        User selects delete transaction
+        transaction class is made
+        search view is created - text fields to search for color to delete
+        button is clicked to change state
+        process search transaction to get color collection
+        create selection view with collection displayed
+        user selects record and hits button
+        state change request to show confirm view
+        confirm button is pressed to process full transaction, deleting color
+        receipt view is shown
+        button on receipt view takes screen back to transaction choice view
+
+     */
 }
