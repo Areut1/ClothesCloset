@@ -80,7 +80,7 @@ public class Color extends EntityBase implements IView {
 
 	@Override
 	public Object getState(String key) {
-		if (key.equals("UpdateStatusMessage") == true) {
+		if (key.equals("UpdateStatusMessage")) {
 			return updateStatusMessage;
 		}
 		return persistentState.getProperty(key);
