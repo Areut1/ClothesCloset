@@ -9,8 +9,8 @@ public class ViewFactory {
 				return  new ClerkView(model);
 			case "TransactionChoiceView":
 				return  new TransactionChoiceView(model);
-//			case "AddColorView":
-//				return new AddColorView(model);
+			case "AddColorView":
+				return new AddColorView(model);
 //			case "AddColorReceipt":
 //				return  new AddColorReceipt(model);
 			case "AddArticleTypeView":
