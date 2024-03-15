@@ -9,9 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -33,7 +30,6 @@ public class SearchArticleTypeView extends View{
 
     private Button subButton;
     private Button cancelButton;
-    private TextField searchBarcodePrefix;
     private TextField searchDescription;
     private TextField searchAlphaCode;
 
@@ -75,7 +71,7 @@ public class SearchArticleTypeView extends View{
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" SEARCH Article Type ");
+        Text titleText = new Text(" SEARCH ARTICLE TYPE ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -101,36 +97,27 @@ private VBox createFormContent(){
     grid.setPadding(new Insets(25, 25, 25, 25));
 
     //SearchLabel and Text Field------------
-    Text searchBarcodePrefixLabel = new Text("Barcode Prefix: ");
     Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
-    searchBarcodePrefixLabel.setFont(myFont);
-    searchBarcodePrefixLabel.setWrappingWidth(150);
-    searchBarcodePrefixLabel.setTextAlignment(TextAlignment.RIGHT);
-    grid.add(searchBarcodePrefixLabel, 0, 0);
-
-    searchBarcodePrefix = new TextField();
-    searchBarcodePrefix.setEditable(true);
-    grid.add(searchBarcodePrefix, 0, 1);
 
     Text searchDescriptionLabel = new Text("Description: ");
     searchDescriptionLabel.setFont(myFont);
     searchDescriptionLabel.setWrappingWidth(150);
     searchDescriptionLabel.setTextAlignment(TextAlignment.RIGHT);
-    grid.add(searchDescriptionLabel, 1, 0);
+    grid.add(searchDescriptionLabel, 0, 0);
 
     searchDescription = new TextField();
     searchDescription.setEditable(true);
-    grid.add(searchDescription, 1, 1);
+    grid.add(searchDescription, 0, 1);
 
     Text searchAlphaCodeLabel = new Text("Alphacode: ");
     searchAlphaCodeLabel.setFont(myFont);
     searchAlphaCodeLabel.setWrappingWidth(150);
     searchAlphaCodeLabel.setTextAlignment(TextAlignment.RIGHT);
-    grid.add(searchAlphaCodeLabel, 2, 0);
+    grid.add(searchAlphaCodeLabel, 1, 0);
 
     searchAlphaCode = new TextField();
     searchAlphaCode.setEditable(true);
-    grid.add(searchAlphaCode, 2, 1);
+    grid.add(searchAlphaCode, 1, 1);
 
     //Setup separate hbox for submit and back buttons
     HBox subBack = new HBox(10);
@@ -172,68 +159,41 @@ private VBox createFormContent(){
 }//End createFormContent----------------------------
 
     //----------------------------------------------------
-    /*processSubACtion
-     * On submit click method will set up BookCollection
+    /*processSubAction
+     * On submit click method will set up ArticleTypeCollection
      */
     public void processSubAction(Event evt){
         //Validate user input
-        if ((searchBarcodePrefix == null) && (searchDescription == null) && (searchAlphaCode == null)){
+        if ((searchDescription == null) && (searchAlphaCode == null)){
             clearErrorMessage();
-            displayErrorMessage("Please enter a barcode prefix, description and/or alpha code");
-        } else {
+            displayErrorMessage("Please enter a description and/or alpha code");
+        }
+        else {
 
             //Convert textfield to strings based on filled out fields
             //Call Modify/Delete ArticleTypeTransaction to create Article Type Collection
             //for an article type to be selected
-            if ((searchDescription == null) && (searchAlphaCode == null)) {
-                String searchBarcodePrefixString = searchBarcodePrefix.getText();
-                populateFields();
-                myModel.stateChangeRequest("searchArticleType", searchBarcodePrefixString);
-            }
-            else
-            if ((searchBarcodePrefix == null) && (searchAlphaCode == null)) {
+            if (searchAlphaCode == null) {
                 String searchDescriptionString = searchDescription.getText();
+
                 populateFields();
                 myModel.stateChangeRequest("searchArticleType", searchDescriptionString);
             }
-            else
-            if ((searchBarcodePrefix == null) && (searchDescription == null)) {
+            else if ((searchDescription == null)) {
                 String searchAlphaCodeString = searchAlphaCode.getText();
+
                 populateFields();
                 myModel.stateChangeRequest("searchArticleType", searchAlphaCodeString);
             }
-            else
-            if (searchDescription == null) {
-                String searchBarcodePrefixString = searchBarcodePrefix.getText();
-                String searchAlphaCodeString = searchAlphaCode.getText();
-                populateFields();
-                myModel.stateChangeRequest("searchArticleType", searchBarcodePrefixString +
-                                                                " && " + searchAlphaCodeString);
-            }
-            else
-            if (searchBarcodePrefix == null) {
-                String searchDescriptionString = searchDescription.getText();
-                String searchAlphaCodeString = searchAlphaCode.getText();
-                populateFields();
-                myModel.stateChangeRequest("searchArticleType", searchDescriptionString +
-                                                                " && " + searchAlphaCodeString);
-            }
-            else
-            if (searchAlphaCode == null) {
-                String searchBarcodePrefixString = searchBarcodePrefix.getText();
-                String searchDescriptionString = searchDescription.getText();
-                populateFields();
-                myModel.stateChangeRequest("searchArticleType", searchBarcodePrefixString +
-                                                                " && " + searchDescriptionString);
-            }
             else {
-                String searchBarcodePrefixString = searchBarcodePrefix.getText();
                 String searchDescriptionString = searchDescription.getText();
                 String searchAlphaCodeString = searchAlphaCode.getText();
+                Properties props = new Properties();
+                props.setProperty("description", searchDescriptionString);
+                props.setProperty("alphaCode", searchAlphaCodeString);
+
                 populateFields();
-                myModel.stateChangeRequest("searchArticleType", searchBarcodePrefixString +
-                                                                " && " + searchDescriptionString +
-                                                                " && " + searchAlphaCodeString);
+                myModel.stateChangeRequest("searchArticleType", props);
             }
         }
 
@@ -253,7 +213,6 @@ private VBox createFormContent(){
     {
         //If test does not work change to match searchBook or searchPatron for this method
         //Intended result clears fields after search is done
-        searchBarcodePrefix.setText("");
         searchDescription.setText("");
         searchAlphaCode.setText("");
     }
@@ -270,7 +229,6 @@ private VBox createFormContent(){
         if (key.equals("searchArticleTypeMessage") == true)
         {
             String val = (String)value;
-            searchBarcodePrefix.setText(val);
             displayMessage(val);
         }
     }
