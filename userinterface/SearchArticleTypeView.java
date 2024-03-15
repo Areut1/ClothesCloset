@@ -173,28 +173,25 @@ private VBox createFormContent(){
             //Convert textfield to strings based on filled out fields
             //Call Modify/Delete ArticleTypeTransaction to create Article Type Collection
             //for an article type to be selected
+            Properties props = new Properties();
             if (searchAlphaCode == null) {
                 String searchDescriptionString = searchDescription.getText();
-
-                populateFields();
-                myModel.stateChangeRequest("searchArticleType", searchDescriptionString);
+                props.setProperty("description", searchDescriptionString);
+                props.setProperty("alphaCode", null);
             }
             else if ((searchDescription == null)) {
                 String searchAlphaCodeString = searchAlphaCode.getText();
-
-                populateFields();
-                myModel.stateChangeRequest("searchArticleType", searchAlphaCodeString);
+                props.setProperty("description", null);
+                props.setProperty("alphaCode", searchAlphaCodeString);
             }
             else {
                 String searchDescriptionString = searchDescription.getText();
                 String searchAlphaCodeString = searchAlphaCode.getText();
-                Properties props = new Properties();
                 props.setProperty("description", searchDescriptionString);
                 props.setProperty("alphaCode", searchAlphaCodeString);
-
-                populateFields();
-                myModel.stateChangeRequest("searchArticleType", props);
             }
+            populateFields();
+            myModel.stateChangeRequest("searchArticleType", props);
         }
 
     }//End processSubAction------------------------------
