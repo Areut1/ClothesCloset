@@ -79,9 +79,9 @@ public class SelectArticleTypeView extends View
         ObservableList<ArticleTypeTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            ArticleTypeCollection bookCollection = (ArticleTypeCollection) myModel.getState("ArticleTypeList");
+            ArticleTypeCollection articleTypeCollection = (ArticleTypeCollection) myModel.getState("ArticleTypeList");
 
-            Vector entryList = (Vector)bookCollection.getState("ArticleTypes");
+            Vector entryList = (Vector)articleTypeCollection.getState("ArticleTypes");
             Enumeration entries = entryList.elements();
 
             while (entries.hasMoreElements() == true)
