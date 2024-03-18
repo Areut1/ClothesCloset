@@ -7,38 +7,65 @@ import java.util.Vector;
 public class ArticleTypeCollection extends EntityBase {
 
     private static final String myTableName = "ArticleType";
-    private Vector<ArticleType> articleTypes;
+    private Vector<ArticleType> articleTypeList;
 
     public ArticleTypeCollection() {
         super(myTableName);
-        articleTypes = new Vector<ArticleType>();
+        articleTypeList = new Vector<ArticleType>();
     }
 
-    public void updateBookListFromSQL(String query) throws Exception {
-        // Reset bookList
-        this.articleTypes = new Vector<ArticleType>();
+    public void findArticleTypes(Properties props) throws Exception {
+        String query = "SELECT * FROM " + myTableName + " WHERE ";
 
-        // Pull the data
-        Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
-
-        // Loop through data received and make fill bookList with Book objects
-        for (int i = 0; i < allDataRetrieved.size(); i++) {
-            this.articleTypes.add(new ArticleType(allDataRetrieved.elementAt(i)));
+        //start generic query, add on for each requirement
+        if (props.getProperty("description") != null){
+            //add on to query
+            query += "(description LIKE \"%" + props.getProperty("description") + "%\")";
         }
-    }
+        if (props.getProperty("barcodePrefix") != null){
+            //add on to query
+            if (props.getProperty("description") != null){
+                query += " AND ";
+            }
+            query += "(barcodePrefix = \"" + props.getProperty("barcodePrefix") + "\")";
 
-    // Finder methods
-    public Vector<ArticleType> findSomeFilter(String searchQuery) {
-
-        String query = "SELECT * FROM " + myTableName;
-
-        try {
-            updateBookListFromSQL(query);
-        } catch (Exception e) {
-            System.out.println("ERROR: <something>");
+        }
+        if (props.getProperty("alphaCode") != null){
+            //add on to query
+            if ((props.getProperty("description") != null) || (props.getProperty("barcodePrefix") != null)){
+                query += " AND ";
+            }
+            query += "(alphaCode = \"" + props.getProperty("alphaCode") + "\")";
+        }
+        if ((props.getProperty("description") == null) && (props.getProperty("barcodePrefix") == null) && (props.getProperty("alphaCode") == null)){
+            System.out.println("Error: no fields");
         }
 
-        return this.articleTypes;
+        query += " ORDER BY barcodePrefix";
+
+//        System.out.println(query);
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        if (allDataRetrieved != null)
+        {
+            articleTypeList = new Vector<>();
+
+            for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
+            {
+                Properties nextArticleTypeData = (Properties)allDataRetrieved.elementAt(cnt);
+
+                ArticleType at = new ArticleType(nextArticleTypeData);
+
+                articleTypeList.add(at);
+            }
+
+        }
+        else
+        {
+            throw new Exception("No ArticleType found with specified fields");
+        }
+
     }
 
 
@@ -46,7 +73,7 @@ public class ArticleTypeCollection extends EntityBase {
     @Override
     public Object getState(String key) {
         if (key.equals("ArticleTypes"))
-            return this.articleTypes;
+            return this.articleTypeList;
         else
         if (key.equals("ArticleTypeCollection"))
             return this;

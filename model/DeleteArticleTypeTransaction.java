@@ -5,7 +5,6 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-import java.util.Vector;
 
 public class DeleteArticleTypeTransaction extends Transaction{
     // GUI Components
@@ -14,7 +13,7 @@ public class DeleteArticleTypeTransaction extends Transaction{
     private String updateStatusMessage = "";
     private ArticleType oldArticleType;
 
-    private Vector<ArticleType> ArticleTypeList;
+    private ArticleTypeCollection atCol;
 
 
     protected DeleteArticleTypeTransaction() throws Exception {
@@ -81,7 +80,13 @@ public class DeleteArticleTypeTransaction extends Transaction{
         switch (key) {
             case "DoYourJob" -> doYourJob();
             case "DeleteArticleType" -> processTransaction((Properties) value);
-            case "SearchTableArticleType" -> processSearch((Properties) value);
+            case "SearchTableArticleType" -> {
+                try {
+                    processSearch((Properties) value);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
             case "ConfirmArticleTypeChoice" -> processConfirm((Properties) value);
         }
 
@@ -90,18 +95,20 @@ public class DeleteArticleTypeTransaction extends Transaction{
 
     public void processTransaction(Properties props) //process based on object or id?
     {
-        oldArticleType = new ArticleType(props);
-        oldArticleType.deleteValue();
+        //set status to inactive
+//        oldArticleType = new ArticleType(props);
+//        oldArticleType.deleteValue();
         createAndShowView("DeleteArticleTypeReceipt");
     }
 
-    public void processSearch(Properties props){
+    public void processSearch(Properties props) throws Exception {
 
-        String query = "";
-
-        ArticleTypeCollection atc = new ArticleTypeCollection();
-        //run query - article type collection search
-        ArticleTypeList = atc.findSomeFilter(query);
+        atCol = new ArticleTypeCollection();
+        try {
+            atCol.findArticleTypes(props);
+        } catch (Exception e) {
+            throw new Exception("Unable to search for ArticleTypes");
+        }
 
         createAndShowView("SearchArticleTypeView");
 
