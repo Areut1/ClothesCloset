@@ -28,7 +28,7 @@ public class TransactionFactory
 //				retValue = new ModifyArticleTypeTransaction();
 				break;
 			case "DeleteArticleType":
-//				retValue = new DeleteArticleTypeTransaction();
+				retValue = new DeleteArticleTypeTransaction();
 				break;
 
 		}
