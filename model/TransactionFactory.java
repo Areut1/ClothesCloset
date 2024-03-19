@@ -1,7 +1,7 @@
 // specify the package
 package model;
 
-/** The class containing the TransactionFactory for the ATM application */
+/** The class containing the TransactionFactory for the ClothesCloset application */
 //==============================================================
 public class TransactionFactory
 {
