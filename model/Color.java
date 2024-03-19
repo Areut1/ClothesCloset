@@ -71,6 +71,16 @@ public class Color extends EntityBase implements IView {
 		setDependencies();
 		persistentState = new Properties();
 	}
+
+	public void changeValue(String key, String value){
+		persistentState.setProperty(key, value);
+		System.out.println("The Color's " + key + " has been changed to " +
+				persistentState.getProperty(key) + "!");
+	}
+
+	public String getValue(String key){
+		return persistentState.getProperty(key);
+	}
 	
 		// Public \\
 	@Override

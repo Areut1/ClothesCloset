@@ -96,8 +96,8 @@ public class DeleteArticleTypeTransaction extends Transaction{
     public void processTransaction(Properties props) //process based on object or id?
     {
         //set status to inactive
-//        oldArticleType = new ArticleType(props);
-//        oldArticleType.deleteValue();
+        oldArticleType = new ArticleType(props);
+        oldArticleType.changeValue("status", "Inactive"); //not sure if this will work
         createAndShowView("DeleteArticleTypeReceipt");
     }
 
