@@ -91,7 +91,7 @@ public class ModifyArticleTypeView extends View {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         //Add Article Type page title---------------------------------------
-        Text prompt = new Text("Modify ARTICLE TYPE INFO");
+        Text prompt = new Text("MODIFY ARTICLE TYPE INFO");
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
