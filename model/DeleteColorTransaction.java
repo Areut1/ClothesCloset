@@ -29,7 +29,21 @@ public class DeleteColorTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
+    //------------------------------------------------------
+    protected void createAndShowView(String view)
+    {
+        Scene newScene = myViews.get(view);
 
+        if (newScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView(view, this);
+            newScene = new Scene(newView);
+            myViews.put(view, newScene);
+
+        }
+        swapToView(newScene);
+    }
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("DeleteColorView");
@@ -115,7 +129,7 @@ public class DeleteColorTransaction extends Transaction{
             throw new Exception("Unable to search for Color");
         }
 
-        createView();
+        createAndShowView("SearchColorView");
 
     }
 
