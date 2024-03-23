@@ -25,13 +25,13 @@ public class ViewFactory {
 //				return new DeleteColorView(model);
 //			case "DeleteArticleTypeView":
 //				return new DeleteArticleTypeView(model);
-//			case "DeleteColorReceiptView":
+//			case "DeleteColorReceipt":
 //				return new DeleteColorReceipt(model);
-//			case "DeleteArticleTypeReceiptView":
+//			case "DeleteArticleTypeReceipt":
 //				return new DeleteArticleTypeReceipt(model);
-//			case "ModifyColorReceiptView":
+//			case "ModifyColorReceipt":
 //				return new ModifyColorReceipt(model);
-//			case "ModifyArticleTypeReceiptView":
+//			case "ModifyArticleTypeReceipt":
 //				return new ModifyArticleTypeReceipt(model);
 			default: return null;
 		}
