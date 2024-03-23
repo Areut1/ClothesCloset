@@ -97,7 +97,7 @@ public class DeleteColorTransaction extends Transaction{
         return switch (key) {
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
-            case "Color" -> color;
+            case "Color" -> oldColor;
             default -> null;
         };
     }
@@ -135,7 +135,7 @@ public class DeleteColorTransaction extends Transaction{
 
     public void processConfirm(Properties props){
 
-        createView();
+        createAndShowView("SearchColorConfirm");
 
     }
 
