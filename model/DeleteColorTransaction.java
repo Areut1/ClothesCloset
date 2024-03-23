@@ -12,6 +12,9 @@ public class DeleteColorTransaction extends Transaction{
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private Color color;
+    private Color oldColor;
+
+    private ColorCollection colCol;
 
 
     protected DeleteColorTransaction() throws Exception {
@@ -98,14 +101,29 @@ public class DeleteColorTransaction extends Transaction{
     //TODO: work on processTransaction to delete color
     public void processTransaction(Properties props)
     {
-
+        oldColor = new Color(props);
+        oldColor.changeValue("status", "Inactive");
         createAndShowReceiptView();
     }
 
-    public void processSearch(Properties props){
+    public void processSearch(Properties props) throws Exception {
+
+        colCol = new ColorCollection();
+        try {
+            colCol.findColors(props);
+        } catch (Exception e) {
+            throw new Exception("Unable to search for Color");
+        }
+
+        createView();
 
     }
 
+    public void processConfirm(Properties props){
+
+        createView();
+
+    }
 
 
     /*
