@@ -163,8 +163,12 @@ private VBox createFormContent(){
      * On submit click method will set up ArticleTypeCollection
      */
     public void processSubAction(Event evt){
+
+        String descEntered = searchDescription.getText();
+        String acEntered = searchAlphaCode.getText();
+
         //Validate user input
-        if ((searchDescription == null) && (searchAlphaCode == null)){
+        if ((descEntered == null) && (acEntered == null)){
             clearErrorMessage();
             displayErrorMessage("Please enter a description and/or alpha code");
         }
@@ -174,24 +178,33 @@ private VBox createFormContent(){
             //Call Modify/Delete ArticleTypeTransaction to create Article Type Collection
             //for an article type to be selected
             Properties props = new Properties();
-            if (searchAlphaCode == null) {
-                String searchDescriptionString = searchDescription.getText();
-                props.setProperty("description", searchDescriptionString);
-                props.setProperty("alphaCode", null);
+            if ((acEntered != null) && (acEntered.length() != 0)) {
+//                String searchDescriptionString = searchDescription.getText();
+//                props.setProperty("description", searchDescriptionString);
+//                props.setProperty("alphaCode", null);
+                props.setProperty("alphaCode", acEntered);
+
             }
-            else if ((searchDescription == null)) {
-                String searchAlphaCodeString = searchAlphaCode.getText();
-                props.setProperty("description", null);
-                props.setProperty("alphaCode", searchAlphaCodeString);
+            //else
+            if ((descEntered != null) && (descEntered.length() != 0)) {
+//                String searchAlphaCodeString = searchAlphaCode.getText();
+//                props.setProperty("description", null);
+//                props.setProperty("alphaCode", searchAlphaCodeString);
+                props.setProperty("description", descEntered);
             }
-            else {
-                String searchDescriptionString = searchDescription.getText();
-                String searchAlphaCodeString = searchAlphaCode.getText();
-                props.setProperty("description", searchDescriptionString);
-                props.setProperty("alphaCode", searchAlphaCodeString);
-            }
-            populateFields();
-            myModel.stateChangeRequest("searchArticleType", props);
+//            else {
+//                String searchDescriptionString = searchDescription.getText();
+//                String searchAlphaCodeString = searchAlphaCode.getText();
+//                props.setProperty("description", searchDescriptionString);
+//                props.setProperty("alphaCode", searchAlphaCodeString);
+//            }
+//            populateFields();
+
+            searchDescription.setText("");
+            searchAlphaCode.setText("");
+
+
+            myModel.stateChangeRequest("SearchTableArticleType", props);
         }
 
     }//End processSubAction------------------------------

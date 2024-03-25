@@ -23,16 +23,24 @@ public class ViewFactory {
 //				return new ModifyArticleTypeView(model);
 //			case "DeleteColorView":
 //				return new DeleteColorView(model);
-//			case "DeleteArticleTypeView":
-//				return new DeleteArticleTypeView(model);
+			case "DeleteArticleTypeView":
+				return new DeleteArticleTypeView(model);
 //			case "DeleteColorReceipt":
 //				return new DeleteColorReceipt(model);
-//			case "DeleteArticleTypeReceipt":
-//				return new DeleteArticleTypeReceipt(model);
+			case "DeleteArticleTypeReceipt":
+				return new DeleteArticleTypeReceipt(model);
 //			case "ModifyColorReceipt":
 //				return new ModifyColorReceipt(model);
 //			case "ModifyArticleTypeReceipt":
 //				return new ModifyArticleTypeReceipt(model);
+			case "SearchArticleTypeView":
+					return new SearchArticleTypeView(model);
+			case "SelectArticleTypeView":
+					return new SelectArticleTypeView(model);
+//			case "SearchColorView":
+//					return new SearchColorView(model);
+//			case "SelectColorView":
+//					return new SelectColorView(model);
 			default: return null;
 		}
 	}

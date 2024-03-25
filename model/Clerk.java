@@ -151,8 +151,7 @@ public class Clerk implements IView, IModel
     {
         try
         {
-            Transaction trans = TransactionFactory.createTransaction(
-                    transactionType);
+            Transaction trans = TransactionFactory.createTransaction(transactionType);
 
             trans.subscribe("CancelTransaction", this);
             trans.stateChangeRequest("DoYourJob", "");

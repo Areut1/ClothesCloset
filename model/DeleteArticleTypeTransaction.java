@@ -1,5 +1,6 @@
 package model;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.scene.Scene;
 import userinterface.View;
 import userinterface.ViewFactory;
@@ -31,14 +32,14 @@ public class DeleteArticleTypeTransaction extends Transaction{
 
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("DeleteArticleTypeView");
+        Scene currentScene = myViews.get("SearchArticleTypeView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("DeleteArticleTypeView", this);
+            View newView = ViewFactory.createView("SearchArticleTypeView", this);
             currentScene = new Scene(newView);
-            myViews.put("DeleteArticleTypeView", currentScene);
+            myViews.put("SearchArticleTypeView", currentScene);
 
             return currentScene;
         }
@@ -71,6 +72,7 @@ public class DeleteArticleTypeTransaction extends Transaction{
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "ArticleType" -> oldArticleType;
+            case "ArticleTypeCollection" -> atCol;
             default -> null;
         };
     }
@@ -88,6 +90,7 @@ public class DeleteArticleTypeTransaction extends Transaction{
                 }
             }
             case "ConfirmArticleTypeChoice" -> processConfirm((Properties) value);
+//            case "StartOver" -> createAndShowView("SearchArticleTypeView");
         }
 
         myRegistry.updateSubscribers(key, this);
@@ -96,8 +99,8 @@ public class DeleteArticleTypeTransaction extends Transaction{
     public void processTransaction(Properties props) //process based on object or id?
     {
         //set status to inactive
-        oldArticleType = new ArticleType(props);
         oldArticleType.changeValue("status", "Inactive"); //not sure if this will work
+        oldArticleType.update();
         createAndShowView("DeleteArticleTypeReceipt");
     }
 
@@ -110,13 +113,21 @@ public class DeleteArticleTypeTransaction extends Transaction{
             throw new Exception("Unable to search for ArticleTypes");
         }
 
-        createAndShowView("SearchArticleTypeView");
+        createAndShowView("SelectArticleTypeView");
 
     }
 
     public void processConfirm(Properties props){
 
-        createAndShowView("SearchArticleTypeConfirm");
+        String id = props.getProperty("articleTypeId");
+
+        try {
+            oldArticleType = new ArticleType(id);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
+        createAndShowView("DeleteArticleTypeView");
+
 
     }
 

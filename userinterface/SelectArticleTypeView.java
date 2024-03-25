@@ -27,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.util.Properties;
 import java.util.Vector;
 import java.util.Enumeration;
 
@@ -79,7 +80,7 @@ public class SelectArticleTypeView extends View
         ObservableList<ArticleTypeTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            ArticleTypeCollection articleTypeCollection = (ArticleTypeCollection) myModel.getState("ArticleTypeList");
+            ArticleTypeCollection articleTypeCollection = (ArticleTypeCollection) myModel.getState("ArticleTypeCollection");
 
             Vector entryList = (Vector)articleTypeCollection.getState("ArticleTypes");
             Enumeration entries = entryList.elements();
@@ -182,7 +183,7 @@ public class SelectArticleTypeView extends View
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(115, 150);
+        scrollPane.setPrefSize(500, 150);
         scrollPane.setContent(tableOfArticleTypes);
 
 		submitButton = new Button("Submit");
@@ -242,8 +243,13 @@ public class SelectArticleTypeView extends View
         if(selectedItem != null)
         {
             String selectedArticleTypeId = selectedItem.getArticleTypeId();
+            Properties props = new Properties();
+            props.setProperty("articleTypeId", selectedArticleTypeId);
 
-            myModel.stateChangeRequest("ArticleTypeSelected", selectedArticleTypeId);
+
+
+
+            myModel.stateChangeRequest("ConfirmArticleTypeChoice", props);
         }
     }
 

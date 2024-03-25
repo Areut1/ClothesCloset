@@ -31,8 +31,7 @@ public class ArticleType extends EntityBase implements IView
 
     // constructor for this class
     //----------------------------------------------------------
-    public ArticleType(String articleTypeId)
-            throws InvalidPrimaryKeyException
+    public ArticleType(String articleTypeId) throws InvalidPrimaryKeyException
     {
         super(myTableName);
 
