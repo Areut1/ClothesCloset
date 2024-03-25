@@ -8,6 +8,7 @@ import java.util.Vector;
 import exception.InvalidPrimaryKeyException;
 import impresario.IView;
 
+//==============================================================
 public class Color extends EntityBase implements IView {
 	// Attributes \\
 		// Private \\
@@ -15,9 +16,9 @@ public class Color extends EntityBase implements IView {
 
 	protected Properties dependencies;
 	private String updateStatusMessage = "";
-	
-	// Methods \\
-		// Constructor \\
+
+	// Constructor for this class
+	//----------------------------------------------------------------
 	public Color(String colorId) throws InvalidPrimaryKeyException {
 		super(myTableName);
 		
@@ -51,13 +52,13 @@ public class Color extends EntityBase implements IView {
 			throw new InvalidPrimaryKeyException("No color matching id : " + colorId + " found.");
 		}
 	}
-	
+	//-------------------------------------------------------------------------------
 	public Color(Properties props) {
 		super(myTableName);
 		setDependencies();
 		persistentState = new Properties();
 		Enumeration<?> allKeys = props.propertyNames();
-		while (allKeys.hasMoreElements() == true) {
+		while (allKeys.hasMoreElements()) {
 			String nextKey = (String)allKeys.nextElement();
 			String nextValue = props.getProperty(nextKey);
 
@@ -66,29 +67,26 @@ public class Color extends EntityBase implements IView {
 			}
 		}
 	}
-	
+	//-----------------------------------------------------------------------------------
 	public Color() {
 		super(myTableName);
 		setDependencies();
 		persistentState = new Properties();
 	}
-
+	//-----------------------------------------------------------------------------------
 	public void changeValue(String key, String value){
 		persistentState.setProperty(key, value);
 		System.out.println("The Color's " + key + " has been changed to " +
 				persistentState.getProperty(key) + "!");
 	}
+	//-----------------------------------------------------------------------------------
+	private void setDependencies()
+	{
+		dependencies = new Properties();
 
-	public String getValue(String key){
-		return persistentState.getProperty(key);
+		myRegistry.setDependencies(dependencies);
 	}
-	
-		// Public \\
-	@Override
-	public void updateState(String key, Object value) {
-		stateChangeRequest(key, value);
-	}
-
+	//-----------------------------------------------------------------------------------
 	@Override
 	public Object getState(String key) {
 		if (key.equals("UpdateStatusMessage")) {
@@ -96,19 +94,54 @@ public class Color extends EntityBase implements IView {
 		}
 		return persistentState.getProperty(key);
 	}
-
+	//------------------------------------------------------------------------------------
 	@Override
 	public void stateChangeRequest(String key, Object value) {
 		myRegistry.updateSubscribers(key, this);
 	}
-
+	//------------------------------------------------------------------------------------
 	@Override
-	protected void initializeSchema(String tableName) {
-		if (mySchema == null) {
-			mySchema = getSchemaInfo(tableName);
+	public void updateState(String key, Object value) {
+		stateChangeRequest(key, value);
+	}
+	//-------------------------------------------------------------------------------------
+	public void update() {
+		updateStateInDatabase();
+	}
+	//-------------------------------------------------------------------------------------
+	private void updateStateInDatabase()  {
+		try {
+			if (persistentState.getProperty("colorId") != null) {
+				Properties whereClause = new Properties();
+				whereClause.setProperty("colorId",
+						persistentState.getProperty("colorId"));
+				updatePersistentState(mySchema, persistentState, whereClause);
+				updateStatusMessage = "Color data for color id : " + persistentState.getProperty("colorId") + " updated successfully in database!";
+			} else {
+				Integer colorIdVal =
+						insertAutoIncrementalPersistentState(mySchema, persistentState);
+				persistentState.setProperty("colorId", "" + colorIdVal);
+				updateStatusMessage = "Color data for new color : " +  persistentState.getProperty("colorId")
+						+ "installed successfully in database!";
+			}
+		}
+		catch (SQLException ex) {
+			updateStatusMessage = "Error in installing color data in database!";
 		}
 	}
-
+	//---------------------------------------------------------------------------------------
+	public String toString()
+	{
+		return "Description: " + persistentState.getProperty("description") + "\n Barcode Prefix: " +
+				persistentState.getProperty("barcodePrefix") + "\n Alpha Code: " +
+				persistentState.getProperty("alphaCode");
+	}
+	//----------------------------------------------------------------------------------------
+	public void display()
+	{
+		System.out.println(toString());
+	}
+	//-----------------------------------------------------------------------------------------
 	public Vector<String> getEntryListView()
 	{
 		Vector<String> v = new Vector<String>();
@@ -121,45 +154,12 @@ public class Color extends EntityBase implements IView {
 
 		return v;
 	}
-	
-	public void update() {
-		updateStateInDatabase();
-	}
-
-		// Private \\
-	private void setDependencies()
-	{
-		dependencies = new Properties();
-	
-		myRegistry.setDependencies(dependencies);
-	}
-	
-	private void updateStateInDatabase()  {
-		try {
-			if (persistentState.getProperty("colorId") != null) {
-				Properties whereClause = new Properties();
-				whereClause.setProperty("colorId",
-				persistentState.getProperty("colorId"));
-				updatePersistentState(mySchema, persistentState, whereClause);
-				updateStatusMessage = "Color data for color id : " + persistentState.getProperty("colorId") + " updated successfully in database!";
-			} else {
-				Integer colorId =
-					insertAutoIncrementalPersistentState(mySchema, persistentState);
-				persistentState.setProperty("colorId", "" + colorId.intValue());
-				updateStatusMessage = "Color data for new color : " +  persistentState.getProperty("colorId")
-					+ "installed successfully in database!";
-			}
+	//------------------------------------------------------------------------------------------
+	@Override
+	protected void initializeSchema(String tableName) {
+		if (mySchema == null) {
+			mySchema = getSchemaInfo(tableName);
 		}
-		catch (SQLException ex) {
-			updateStatusMessage = "Error in installing color data in database!";
-		}
-	}
-
-	public String toString()
-	{
-		return "Description: " + persistentState.getProperty("description") + "\n Barcode Prefix: " +
-				persistentState.getProperty("barcodePrefix") + "\n Alpha Code: " +
-				persistentState.getProperty("alphaCode");
 	}
 
 }
