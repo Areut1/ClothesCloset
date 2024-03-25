@@ -37,10 +37,10 @@ public class ViewFactory {
 					return new SearchArticleTypeView(model);
 			case "SelectArticleTypeView":
 					return new SelectArticleTypeView(model);
-//			case "SearchColorView":
-//					return new SearchColorView(model);
-//			case "SelectColorView":
-//					return new SelectColorView(model);
+			case "SearchColorView":
+					return new SearchColorView(model);
+			case "SelectColorView":
+					return new SelectColorView(model);
 			default: return null;
 		}
 	}
