@@ -1,7 +1,5 @@
 package userinterface;
 
-//TODO: Confirm screen, will call processTransaction through stateChangeRequest
-
 import impresario.IModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
