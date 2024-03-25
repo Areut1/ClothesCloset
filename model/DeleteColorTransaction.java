@@ -107,7 +107,7 @@ public class DeleteColorTransaction extends Transaction{
         createAndShowView("SelectColorView");
 
     }
-    public void processConfirm(Properties props){
+    public void processConfirm(Properties props) {
 
         String id = props.getProperty("ColorId");
 
@@ -117,10 +117,7 @@ public class DeleteColorTransaction extends Transaction{
             throw new RuntimeException(e);
         }
         createAndShowView("DeleteColorView");
-
-
     }
-
 
 
 
