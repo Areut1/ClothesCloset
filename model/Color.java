@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
 
+import exception.InvalidPrimaryKeyException;
 import impresario.IView;
 
 public class Color extends EntityBase implements IView {
@@ -12,12 +13,12 @@ public class Color extends EntityBase implements IView {
 		// Private \\
 	private static final String myTableName = "Color";
 
-	private Properties dependencies;
+	protected Properties dependencies;
 	private String updateStatusMessage = "";
 	
 	// Methods \\
 		// Constructor \\
-	public Color(int colorId) throws Exception {
+	public Color(String colorId) throws InvalidPrimaryKeyException {
 		super(myTableName);
 		
 		setDependencies();
@@ -30,7 +31,7 @@ public class Color extends EntityBase implements IView {
 			int size = allDataRetrieved.size();
 
 			if (size != 1) {
-				throw new Exception("Multiple colors matching id : " + colorId + " found.");
+				throw new InvalidPrimaryKeyException("Multiple colors matching id : " + colorId + " found.");
 			} else {
 				Properties retrievedColorData = allDataRetrieved.elementAt(0);
 				persistentState = new Properties();
@@ -47,7 +48,7 @@ public class Color extends EntityBase implements IView {
 
 			}
 		} else {
-			throw new Exception("No color matching id : " + colorId + " found.");
+			throw new InvalidPrimaryKeyException("No color matching id : " + colorId + " found.");
 		}
 	}
 	
