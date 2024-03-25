@@ -101,17 +101,6 @@ public class ArticleType extends EntityBase implements IView
         }
     }
 
-    //--------------METHODS--------------------------------------------------------------
-    /*deleteValue
-     * Method inputs void and outputs void just deletes the database entry
-     */
-    public void deleteValue() {
-    }
-
-    /*changeValue
-     * Method takes key and value strings and changes value in property object
-     */
-
     public void changeValue(String key, String value){
         persistentState.setProperty(key, value);
         System.out.println("The Article Type's " + key + " has been changed to " +

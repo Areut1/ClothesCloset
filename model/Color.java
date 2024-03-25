@@ -33,7 +33,9 @@ public class Color extends EntityBase implements IView {
 
 			if (size != 1) {
 				throw new InvalidPrimaryKeyException("Multiple colors matching id : " + colorId + " found.");
-			} else {
+			}
+			else
+			{
 				Properties retrievedColorData = allDataRetrieved.elementAt(0);
 				persistentState = new Properties();
 
@@ -66,12 +68,6 @@ public class Color extends EntityBase implements IView {
 				persistentState.setProperty(nextKey, nextValue);
 			}
 		}
-	}
-	//-----------------------------------------------------------------------------------
-	public Color() {
-		super(myTableName);
-		setDependencies();
-		persistentState = new Properties();
 	}
 	//-----------------------------------------------------------------------------------
 	public void changeValue(String key, String value){
