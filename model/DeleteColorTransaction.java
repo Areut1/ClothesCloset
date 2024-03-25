@@ -1,5 +1,6 @@
 package model;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.scene.Scene;
 import userinterface.View;
 import userinterface.ViewFactory;
@@ -11,7 +12,6 @@ public class DeleteColorTransaction extends Transaction{
 
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
-    private Color color;
     private Color oldColor;
 
     private ColorCollection colCol;
@@ -28,21 +28,6 @@ public class DeleteColorTransaction extends Transaction{
         dependencies.setProperty("OK", "CancelTransaction");
 
         myRegistry.setDependencies(dependencies);
-    }
-    //------------------------------------------------------
-    protected void createAndShowView(String view)
-    {
-        Scene newScene = myViews.get(view);
-
-        if (newScene == null)
-        {
-            // create our initial view
-            View newView = ViewFactory.createView(view, this);
-            newScene = new Scene(newView);
-            myViews.put(view, newScene);
-
-        }
-        swapToView(newScene);
     }
     @Override
     protected Scene createView() {
@@ -62,64 +47,54 @@ public class DeleteColorTransaction extends Transaction{
             return currentScene;
         }
     }
-
     //------------------------------------------------------
-    protected void createAndShowReceiptView()
+    protected void createAndShowView(String view)
     {
-        Scene newScene = myViews.get("DeleteColorReceipt");
+        Scene newScene = myViews.get(view);
 
         if (newScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("DeleteColorReceipt", this);
+            View newView = ViewFactory.createView(view, this);
             newScene = new Scene(newView);
-            myViews.put("DeleteColorReceipt", newScene);
+            myViews.put(view, newScene);
 
         }
         swapToView(newScene);
     }
-
-    protected void createAndShowSearchView(){
-
-    }
-
-    protected void createAndShowSelectView(){
-
-    }
-
-    protected void createAndShowConfirmView(){
-
-    }
-
-
     @Override
     public Object getState(String key) {
         return switch (key) {
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "Color" -> oldColor;
+            case "ColorCollection" -> colCol;
             default -> null;
         };
     }
-
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
             case "DoYourJob" -> doYourJob();
             case "DeleteColor" -> processTransaction((Properties) value);
+            case "SearchTableColor" -> {
+                try {
+                    processSearch((Properties) value);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case "ConfirmColorChoice" -> processConfirm((Properties) value);
         }
-
         myRegistry.updateSubscribers(key, this);
     }
-
-    //TODO: work on processTransaction to delete color
     public void processTransaction(Properties props)
     {
-        oldColor = new Color(props);
-        oldColor.changeValue("status", "Inactive");
-        createAndShowReceiptView();
+        //set status to inactive
+        oldColor.changeValue("status", "Inactive"); //not sure if this will work
+        oldColor.update();
+        createAndShowView("DeleteColorReceipt");
     }
-
     public void processSearch(Properties props) throws Exception {
 
         colCol = new ColorCollection();
@@ -129,15 +104,26 @@ public class DeleteColorTransaction extends Transaction{
             throw new Exception("Unable to search for Color");
         }
 
-        createAndShowView("SearchColorView");
+        createAndShowView("SelectColorView");
 
     }
-
     public void processConfirm(Properties props){
 
-        createAndShowView("SearchColorConfirm");
+        String id = props.getProperty("ColorId");
+
+        try {
+            oldColor = new Color(id);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
+        createAndShowView("DeleteColorView");
+
 
     }
+
+
+
+
 
 
     /*
