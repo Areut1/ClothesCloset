@@ -24,7 +24,7 @@ import javafx.scene.text.TextAlignment;
 // project imports
 import impresario.IModel;
 
-/** The class containing the Deposit Receipt  for the ATM application */
+/** The class containing the Add Article Type Receipt  for the Clothes Coset application */
 //==============================================================
 public class AddArticleTypeReceipt extends View
 {
@@ -32,11 +32,10 @@ public class AddArticleTypeReceipt extends View
     // Model
 
     private	String todaysDateAndTimeString;
-//    private Text authorName;
-//    private Text bookTitle;
-//    private Text publishYear;
-//    private Text status;
-
+    private Text description;
+    private Text barcodePrefix;
+    private Text alphaCode;
+    private Text status;
     // GUI controls
     private Text todaysDateAndTime;
 
@@ -75,7 +74,7 @@ public class AddArticleTypeReceipt extends View
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" Brockport Clothes Closet ");
+        Text titleText = new Text(" Added Article Type Receipt ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -105,37 +104,38 @@ public class AddArticleTypeReceipt extends View
         todaysDateAndTime = new Text("                       ");
         grid.add(todaysDateAndTime, 1, 0);
 
-//        Text authorLabel = new Text("Author : ");
-//        authorLabel.setWrappingWidth(150);
-//        authorLabel.setTextAlignment(TextAlignment.RIGHT);
-//        grid.add(authorLabel, 0, 1);
-//
-//        authorName = new Text("                       ");
-//        grid.add(authorName, 1, 1);
-//
-//        Text titleLabel = new Text("Title : ");
-//        titleLabel.setWrappingWidth(150);
-//        titleLabel.setTextAlignment(TextAlignment.RIGHT);
-//        grid.add(titleLabel, 0, 2);
-//
-//        bookTitle = new Text("                       ");
-//        grid.add(bookTitle, 1, 2);
-//
-//        Text publishLabel = new Text("Published : ");
-//        publishLabel.setWrappingWidth(150);
-//        publishLabel.setTextAlignment(TextAlignment.RIGHT);
-//        grid.add(publishLabel, 0, 3);
-//
-//        publishYear = new Text("                       ");
-//        grid.add(publishYear, 1, 3);
-//
-//        Text statusLabel = new Text("Status : ");
-//        statusLabel.setWrappingWidth(150);
-//        statusLabel.setTextAlignment(TextAlignment.RIGHT);
-//        grid.add(statusLabel, 0, 4);
-//
-//        status = new Text("                       ");
-//        grid.add(status, 1, 4);
+        Text descriptionLabel = new Text("Description : ");
+        descriptionLabel.setWrappingWidth(150);
+        descriptionLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(descriptionLabel, 0, 1);
+
+        description = new Text("                       ");
+        grid.add(description, 1, 1);
+
+        Text titleLabel = new Text("Barcode Prefix : ");
+        titleLabel.setWrappingWidth(150);
+        titleLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(titleLabel, 0, 2);
+
+        barcodePrefix = new Text("                       ");
+        grid.add(barcodePrefix, 1, 2);
+
+        Text publishLabel = new Text("Published : ");
+        publishLabel.setWrappingWidth(150);
+        publishLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(publishLabel, 0, 3);
+
+        alphaCode = new Text("                       ");
+        grid.add(alphaCode, 1, 3);
+
+        Text statusLabel = new Text("Status : ");
+        statusLabel.setWrappingWidth(150);
+        statusLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(statusLabel, 0, 4);
+
+        status = new Text("                       ");
+        grid.add(status, 1, 4);
+
 
         okButton = new Button("OK");
         okButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -169,15 +169,15 @@ public class AddArticleTypeReceipt extends View
     //-------------------------------------------------------------
     public void populateFields()
     {
-//        IModel newBookInfo = (IModel)myModel.getState("Book");
-//        String title = (String)newBookInfo.getState("bookTitle");
-//        bookTitle.setText(title);
-//        String author = (String)newBookInfo.getState("author");
-//        authorName.setText(author);
-//        String pubYear = (String)newBookInfo.getState("pubYear");
-//        publishYear.setText(pubYear);
-//        String stat = (String)newBookInfo.getState("status");
-//        status.setText(stat);
+        IModel newArticleTypeInfo = (IModel)myModel.getState("ArticleType");
+        String title = (String)newArticleTypeInfo.getState("description");
+        description.setText(title);
+        String author = (String)newArticleTypeInfo.getState("barcodePrefix");
+        barcodePrefix.setText(author);
+        String pubYear = (String)newArticleTypeInfo.getState("alphaCode");
+        alphaCode.setText(pubYear);
+        String stat = (String)newArticleTypeInfo.getState("status");
+        status.setText(stat);
 
         todaysDateAndTime.setText(todaysDateAndTimeString);
 
