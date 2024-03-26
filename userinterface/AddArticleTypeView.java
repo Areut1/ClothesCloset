@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -68,7 +69,7 @@ public class AddArticleTypeView extends View {
     //-------------------------------------------------------------
     private Node createTitle()
     {
-        HBox container = new HBox();
+        VBox container = new VBox();
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" Add Article Type ");
@@ -77,6 +78,16 @@ public class AddArticleTypeView extends View {
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
         container.getChildren().add(titleText);
+
+        // Add white space to follow design spec
+        container.getChildren().add(new Label(" "));
+
+        //Add Article Type page title---------------------------------------
+        Text prompt = new Text("Enter new information:");
+        prompt.setWrappingWidth(400);
+        prompt.setTextAlignment(TextAlignment.CENTER);
+        prompt.setFill(Color.BLACK);
+        container.getChildren().add(prompt);
 
         return container;
     }
@@ -93,46 +104,39 @@ public class AddArticleTypeView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        //Add Article Type page title---------------------------------------
-        Text prompt = new Text("ENTER NEW ARTICLE TYPE INFO");
-        prompt.setWrappingWidth(400);
-        prompt.setTextAlignment(TextAlignment.CENTER);
-        prompt.setFill(Color.BLACK);
-        grid.add(prompt, 0, 0, 2, 1);
-
         //Article Type Description Label and Text Field-----------------------------
         Text articleTypeDescriptionLabel = new Text(" Description : ");
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
         articleTypeDescriptionLabel.setFont(myFont);
         articleTypeDescriptionLabel.setWrappingWidth(150);
         articleTypeDescriptionLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(articleTypeDescriptionLabel, 0, 1);
+        grid.add(articleTypeDescriptionLabel, 0, 0);
 
         description = new TextField();
         description.setEditable(true);
-        grid.add(description, 1, 1);
+        grid.add(description, 1, 0);
 
         //Article Type Barcode Prefix Title Label and Text Field-----------------------------
         Text barcodePrefixLabel = new Text(" Barcode Prefix : ");
         barcodePrefixLabel.setFont(myFont);
         barcodePrefixLabel.setWrappingWidth(150);
         barcodePrefixLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(barcodePrefixLabel, 0, 2);
+        grid.add(barcodePrefixLabel, 0, 1);
 
         barcodePrefix = new TextField();
         barcodePrefix.setEditable(true);
-        grid.add(barcodePrefix, 1, 2);
+        grid.add(barcodePrefix, 1, 1);
 
         //Article Type Alpha Code Label and Text Field------------------------
         Text alphaCodeLabel = new Text(" Alpha Code : ");
         alphaCodeLabel.setFont(myFont);
         alphaCodeLabel.setWrappingWidth(150);
         alphaCodeLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(alphaCodeLabel, 0, 3);
+        grid.add(alphaCodeLabel, 0, 2);
 
         alphaCode = new TextField();
         alphaCode.setEditable(true);
-        grid.add(alphaCode, 1, 3);
+        grid.add(alphaCode, 1, 2);
 
         //ComboBox for Active Status-----------------------------
         activeComboBox = new ComboBox<>();
@@ -146,7 +150,7 @@ public class AddArticleTypeView extends View {
             //activeString = activeComboBox.getValue();
             //System.out.println("Active string: " + activeString);
         });
-        grid.add(activeComboBox, 1, 4);
+        grid.add(activeComboBox, 1, 3);
 
         //Setup separate hbox for submit and back buttons
         HBox submitCancel = new HBox(10);
