@@ -213,7 +213,7 @@ public class AddColorView extends View {
             insertProp.setProperty("status", statusString);
 
             //Call Librarian method to create and save book
-            myModel.stateChangeRequest("AddColorType", insertProp);
+            myModel.stateChangeRequest("AddColor", insertProp);
 
             //Print confirmation
             displayMessage("New Color was added!");
