@@ -7,8 +7,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,14 +16,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class DeleteArticleTypeView extends View{
+public class ConfirmDeleteArticleTypeView extends View{
 
     protected Button cancelButton;
     protected Button confirmButton;
 
     protected MessageView statusLog;
 
-    public DeleteArticleTypeView(IModel clerk)
+    public ConfirmDeleteArticleTypeView(IModel clerk)
     {
         super(clerk, "DeleteArticleTypeView");
 

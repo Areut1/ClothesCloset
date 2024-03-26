@@ -96,10 +96,10 @@ public class DeleteArticleTypeTransaction extends Transaction{
         myRegistry.updateSubscribers(key, this);
     }
 
-    public void processTransaction(Properties props) //process based on object or id?
+    public void processTransaction(Properties props)
     {
         //set status to inactive
-        oldArticleType.changeValue("status", "Inactive"); //not sure if this will work
+        oldArticleType.changeValue("status", "Inactive");
         oldArticleType.update();
         createAndShowView("DeleteArticleTypeReceipt");
     }

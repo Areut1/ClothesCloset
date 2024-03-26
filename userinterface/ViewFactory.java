@@ -19,12 +19,12 @@ public class ViewFactory {
 				return new AddArticleTypeReceipt(model);
 //			case "ModifyColorView":
 //				return new ModifyColorView(model);
-//			case "ModifyArticleTypeView":
-//				return new ModifyArticleTypeView(model);
+			case "ModifyArticleTypeView":
+				return new ModifyArticleTypeView(model);
 			case "DeleteColorView":
 				return new DeleteColorView(model);
 			case "DeleteArticleTypeView":
-				return new DeleteArticleTypeView(model);
+				return new ConfirmDeleteArticleTypeView(model);
 			case "DeleteColorReceipt":
 				return new DeleteColorReceipt(model);
 			case "DeleteArticleTypeReceipt":
