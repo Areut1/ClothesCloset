@@ -112,7 +112,7 @@ public class ModifyColorTransaction extends Transaction{
     }
     public void processConfirm(Properties props) {
 
-        String id = props.getProperty("ColorId");
+        String id = props.getProperty("colorId");
 
         try {
             oldColor = new Color(id);
