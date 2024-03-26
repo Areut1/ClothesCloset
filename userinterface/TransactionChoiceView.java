@@ -141,7 +141,7 @@ public class TransactionChoiceView extends View
         updateArticleTypeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("UpdateArticleType", null);
+                myModel.stateChangeRequest("ModifyArticleType", null);
             }
         });
         grid.add(updateArticleTypeButton, 1, 0);
@@ -175,7 +175,7 @@ public class TransactionChoiceView extends View
         updateColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("UpdateColor", null);
+                myModel.stateChangeRequest("ModifyColor", null);
             }
         });
         grid.add(updateColorButton, 1, 1);
