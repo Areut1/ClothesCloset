@@ -213,9 +213,10 @@ public class ModifyArticleTypeView extends View {
     //-------------------------------------------------------------
     public void populateFields()
     {
-        description.setText((String)myModel.getState("description"));
-        barcodePrefix.setText((String)myModel.getState("barcodePrefix"));
-        alphaCode.setText((String)myModel.getState("alphaCode"));
+        ArticleType at = (ArticleType)myModel.getState("ArticleType");
+        description.setText((String)at.getValue("description"));
+        barcodePrefix.setText((String)at.getValue("barcodePrefix"));
+        alphaCode.setText((String)at.getValue("alphaCode"));
     }
 
     /**
