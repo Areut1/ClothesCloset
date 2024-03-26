@@ -16,7 +16,7 @@ public class TransactionFactory
 				retValue = new AddColorTransaction();
 				break;
 			case "ModifyColor":
-//				retValue = new ModifyColorTransaction();
+				retValue = new ModifyColorTransaction();
 				break;
 			case "DeleteColor":
 				retValue = new DeleteColorTransaction();
