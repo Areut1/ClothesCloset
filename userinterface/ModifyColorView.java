@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 
 import java.util.Properties;
 import impresario.IModel;
-import model.ArticleType;
 
 public class ModifyColorView extends View {
     // GUI components
@@ -213,7 +212,7 @@ public class ModifyColorView extends View {
     //-------------------------------------------------------------
     public void populateFields()
     {
-        Color c = (Color)myModel.getState("Color");
+        model.Color c = (model.Color)myModel.getState("Color");
         description.setText((String)c.getValue("description"));
         barcodePrefix.setText((String)c.getValue("barcodePrefix"));
         alphaCode.setText((String)c.getValue("alphaCode"));
