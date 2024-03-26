@@ -120,10 +120,10 @@ public class AddArticleTypeReceipt extends View
         barcodePrefix = new Text("                       ");
         grid.add(barcodePrefix, 1, 2);
 
-        Text publishLabel = new Text("Published : ");
-        publishLabel.setWrappingWidth(150);
-        publishLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(publishLabel, 0, 3);
+        Text alphaCodeLabel = new Text("Alpha Code : ");
+        alphaCodeLabel.setWrappingWidth(150);
+        alphaCodeLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(alphaCodeLabel, 0, 3);
 
         alphaCode = new Text("                       ");
         grid.add(alphaCode, 1, 3);
@@ -170,12 +170,12 @@ public class AddArticleTypeReceipt extends View
     public void populateFields()
     {
         IModel newArticleTypeInfo = (IModel)myModel.getState("ArticleType");
-        String title = (String)newArticleTypeInfo.getState("description");
-        description.setText(title);
-        String author = (String)newArticleTypeInfo.getState("barcodePrefix");
-        barcodePrefix.setText(author);
-        String pubYear = (String)newArticleTypeInfo.getState("alphaCode");
-        alphaCode.setText(pubYear);
+        String desc = (String)newArticleTypeInfo.getState("description");
+        description.setText(desc);
+        String bcPrefix = (String)newArticleTypeInfo.getState("barcodePrefix");
+        barcodePrefix.setText(bcPrefix);
+        String ac = (String)newArticleTypeInfo.getState("alphaCode");
+        alphaCode.setText(ac);
         String stat = (String)newArticleTypeInfo.getState("status");
         status.setText(stat);
 
