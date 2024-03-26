@@ -25,7 +25,7 @@ public class TransactionFactory
 				retValue = new AddArticleTypeTransaction();
 				break;
 			case "ModifyArticleType":
-//				retValue = new ModifyArticleTypeTransaction();
+				retValue = new ModifyArticleTypeTransaction();
 				break;
 			case "DeleteArticleType":
 				retValue = new DeleteArticleTypeTransaction();
