@@ -31,14 +31,14 @@ public class DeleteColorTransaction extends Transaction{
     }
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("DeleteColorView");
+        Scene currentScene = myViews.get("SearchColorView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("DeleteColorView", this);
+            View newView = ViewFactory.createView("SearchColorView", this);
             currentScene = new Scene(newView);
-            myViews.put("DeletColorView", currentScene);
+            myViews.put("SearchColorView", currentScene);
 
             return currentScene;
         }
