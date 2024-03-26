@@ -90,7 +90,9 @@ public class ModifyColorTransaction extends Transaction{
     }
     public void processTransaction(Properties props)
     {
-        oldColor.changeValue("status", "Inactive");
+        oldColor.changeValue("description", props.getProperty("description"));
+        oldColor.changeValue("barcodePrefix", props.getProperty("barcodePrefix"));
+        oldColor.changeValue("alphaCode", props.getProperty("alphaCode"));
 
 
         oldColor.update();

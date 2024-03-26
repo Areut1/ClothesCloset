@@ -98,8 +98,10 @@ public class ModifyArticleTypeTransaction extends Transaction{
 
     public void processTransaction(Properties props)
     {
-        //set status to inactive
-        oldArticleType.changeValue("status", "Inactive"); //change this
+        oldArticleType.changeValue("description", props.getProperty("description"));
+        oldArticleType.changeValue("barcodePrefix", props.getProperty("barcodePrefix"));
+        oldArticleType.changeValue("alphaCode", props.getProperty("alphaCode"));
+
 
         oldArticleType.update();
         createAndShowView("ModifyArticleTypeReceipt");
