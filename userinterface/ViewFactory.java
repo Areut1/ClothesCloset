@@ -11,8 +11,8 @@ public class ViewFactory {
 				return  new TransactionChoiceView(model);
 			case "AddColorView":
 				return new AddColorView(model);
-//			case "AddColorReceipt":
-//				return  new AddColorReceipt(model);
+			case "AddColorReceipt":
+				return  new AddColorReceipt(model);
 			case "AddArticleTypeView":
 				return new AddArticleTypeView(model);
 			case "AddArticleTypeReceipt":
@@ -21,12 +21,12 @@ public class ViewFactory {
 //				return new ModifyColorView(model);
 //			case "ModifyArticleTypeView":
 //				return new ModifyArticleTypeView(model);
-//			case "DeleteColorView":
-//				return new DeleteColorView(model);
+			case "DeleteColorView":
+				return new DeleteColorView(model);
 			case "DeleteArticleTypeView":
 				return new DeleteArticleTypeView(model);
-//			case "DeleteColorReceipt":
-//				return new DeleteColorReceipt(model);
+			case "DeleteColorReceipt":
+				return new DeleteColorReceipt(model);
 			case "DeleteArticleTypeReceipt":
 				return new DeleteArticleTypeReceipt(model);
 //			case "ModifyColorReceipt":

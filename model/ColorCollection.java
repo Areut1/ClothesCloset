@@ -11,7 +11,7 @@ public class ColorCollection extends EntityBase implements IView {
 
     public ColorCollection() {
         super(myTableName);
-        colorList = new Vector<>();
+        colorList = new Vector<Color>();
     }
 
     public void findColors(Properties props) throws Exception {
@@ -86,10 +86,6 @@ public class ColorCollection extends EntityBase implements IView {
 
     @Override
     protected void initializeSchema(String tableName) {
-        if (mySchema == null)
-        {
-            mySchema = getSchemaInfo(tableName);
-        }
     }
 
     @Override

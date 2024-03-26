@@ -1,10 +1,11 @@
 package model;
 
+import impresario.IView;
 // system imports
 import java.util.Properties;
 import java.util.Vector;
 
-public class ArticleTypeCollection extends EntityBase {
+public class ArticleTypeCollection extends EntityBase implements IView {
 
     private static final String myTableName = "ArticleType";
     private Vector<ArticleType> articleTypeList;
