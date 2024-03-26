@@ -76,6 +76,14 @@ public class Color extends EntityBase implements IView {
 				persistentState.getProperty(key) + "!");
 	}
 	//-----------------------------------------------------------------------------------
+	/*getValue
+	 * Method takes key string and returns corresponding value
+	 */
+	public String getValue(String key){
+		return persistentState.getProperty(key);
+	}
+
+	//-----------------------------------------------------------------------------------
 	private void setDependencies()
 	{
 		dependencies = new Properties();
