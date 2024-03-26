@@ -30,7 +30,18 @@ public class TransactionFactory
 			case "DeleteArticleType":
 				retValue = new DeleteArticleTypeTransaction();
 				break;
-
+//			case "AddInventory":
+//				retValue = new AddInventoryTransaction();
+//			case "ModifyInventory":
+//				retValue = new AddInventoryTransaction();
+//			case "DeleteInventory":
+//				retValue = new AddInventoryTransaction();
+//			case "CheckOut":
+//				retValue = new CheckOutTransaction();
+//			case "ListInventory":
+//				retValue = new ListInventoryTransaction();
+//			case "ListCheckedOut":
+//				retValue = new ListCheckOutTransaction();
 		}
 
 		return retValue;
