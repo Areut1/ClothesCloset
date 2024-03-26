@@ -90,8 +90,8 @@ public class DeleteColorTransaction extends Transaction{
     }
     public void processTransaction(Properties props)
     {
-        //set status to inactive
-        oldColor.changeValue("status", "Inactive"); //not sure if this will work
+        oldColor.changeValue("status", "Inactive");
+
         oldColor.update();
         createAndShowView("DeleteColorReceipt");
     }
