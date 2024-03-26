@@ -194,12 +194,12 @@ public class AddArticleTypeView extends View {
      */
     public void processSubmitAction(Event evt){
         //validate user input
-        if (description == null || barcodePrefix == null || alphaCode == null){
+        if (description.getText() == null || barcodePrefix.getText() == null || alphaCode.getText() == null){
             clearErrorMessage();
-            displayErrorMessage("Please completly fill in all fields");
+            displayErrorMessage("Please completely fill in all fields");
         } else {
 
-            //Convert properties to string
+            // Convert properties to string
             String descriptionString = description.getText();
             String barcodePrefixString = barcodePrefix.getText();
             String alphaCodeString = alphaCode.getText();
@@ -246,10 +246,9 @@ public class AddArticleTypeView extends View {
         clearErrorMessage();
         String temp = ((String)value);
 
-        if (key.equals("articleTypeMessage") == true)
+        if (key.equals("articleTypeMessage"))
         {
             String val = (String)value;
-            //serviceCharge.setText(val);
             displayMessage(val);
         }
     }
