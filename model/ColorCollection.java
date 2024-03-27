@@ -35,7 +35,7 @@ public class ColorCollection extends EntityBase implements IView {
             if ((props.getProperty("description") != null) || (props.getProperty("barcodePrefix") != null)){
                 query += " AND ";
             }
-            query += "(alphaCode = \"" + props.getProperty("alphaCode") + "\")";
+            query += "(alphaCode LIKE \"%" + props.getProperty("alphaCode") + "%\")";
         }
         if ((props.getProperty("description") == null) && (props.getProperty("barcodePrefix") == null) && (props.getProperty("alphaCode") == null)){
             System.out.println("Error: no fields");
