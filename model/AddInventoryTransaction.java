@@ -84,14 +84,10 @@ public class AddInventoryTransaction extends Transaction{
 
     @Override
     public void stateChangeRequest(String key, Object value) {
-        if (key.equals("DoYourJob") == true)
-        {
-            doYourJob();
-        }
-        else
-        if (key.equals("AddInventory") == true)
-        {
-            processTransaction((Properties)value);
+        switch (key) {
+            case "DoYourJob" -> doYourJob();
+            case "AddInventory" -> processTransaction((Properties) value);
+
         }
 
         myRegistry.updateSubscribers(key, this);
