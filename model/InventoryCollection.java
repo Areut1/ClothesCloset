@@ -39,9 +39,9 @@ public class InventoryCollection extends EntityBase implements IView {
 
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
-                Properties nextArticleTypeData = (Properties)allDataRetrieved.elementAt(cnt);
+                Properties nextInventoryData = (Properties)allDataRetrieved.elementAt(cnt);
 
-//                Inventory in = new ArticleType(nextArticleTypeData);
+//                Inventory in = new ArticleType(nextInventoryData);
 //
 //                inventoryList.add(in);
             }
