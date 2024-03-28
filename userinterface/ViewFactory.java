@@ -41,6 +41,15 @@ public class ViewFactory {
 					return new SearchColorView(model);
 			case "SelectColorView":
 					return new SelectColorView(model);
+			case "AddInventoryBarcodeView":
+				return new AddInventoryBarcodeView(model);
+			case "AddInventoryConfirmView":
+				return new AddInventoryConfirmView(model);
+			case "AddInventoryInputView":
+				return new AddInventoryInputView(model);
+//			case "AddInventoryReceipt":
+//				return new AddInventoryReceipt(model);
+
 			default: return null;
 		}
 	}
