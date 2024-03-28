@@ -120,7 +120,9 @@ public class Clerk implements IView, IModel
         else
         if ((key.equals("AddColor")) || (key.equals("AddArticleType")) ||
                 (key.equals("ModifyColor")) || (key.equals("ModifyArticleType")) ||
-                (key.equals("DeleteColor")) || (key.equals("DeleteArticleType")))
+                (key.equals("DeleteColor")) || (key.equals("DeleteArticleType")) ||
+                (key.equals("AddInventory")) || (key.equals("ModifyInventory")) ||
+                (key.equals("DeleteInventory")))
         {
             String transType = key;
 

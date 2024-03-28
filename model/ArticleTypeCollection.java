@@ -69,6 +69,32 @@ public class ArticleTypeCollection extends EntityBase implements IView {
 
     }
 
+    public void findAllArticleTypes() throws Exception {
+        String query = "SELECT * FROM " + myTableName + " ORDER BY barcodePrefix";
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        if (allDataRetrieved != null)
+        {
+            articleTypeList = new Vector<>();
+
+            for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
+            {
+                Properties nextArticleTypeData = (Properties)allDataRetrieved.elementAt(cnt);
+
+                ArticleType at = new ArticleType(nextArticleTypeData);
+
+                articleTypeList.add(at);
+            }
+
+        }
+        else
+        {
+            throw new Exception("No ArticleType found with specified fields");
+        }
+
+    }
+
 
 
     @Override

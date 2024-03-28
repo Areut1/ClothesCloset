@@ -68,6 +68,32 @@ public class ColorCollection extends EntityBase implements IView {
 
     }
 
+    public void findAllColors() throws Exception {
+        String query = "SELECT * FROM " + myTableName + " ORDER BY barcodePrefix";
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        if (allDataRetrieved != null)
+        {
+            colorList = new Vector<>();
+
+            for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
+            {
+                Properties nextColorData = (Properties)allDataRetrieved.elementAt(cnt);
+
+                Color c = new Color(nextColorData);
+
+                colorList.add(c);
+            }
+
+        }
+        else
+        {
+            throw new Exception("No C found with specified fields");
+        }
+
+    }
+
 
     @Override
     public Object getState(String key) {

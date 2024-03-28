@@ -13,9 +13,26 @@ public class AddInventoryTransaction extends Transaction{
     private String updateStatusMessage = "";
 //    private Inventory newInventory;
 
+    private ArticleTypeCollection atCol;
+    private ColorCollection cCol;
+
 
     protected AddInventoryTransaction() throws Exception {
         super();
+        createCollections();
+    }
+
+    private void createCollections() throws Exception {
+        atCol = new ArticleTypeCollection();
+        cCol = new ColorCollection();
+        try {
+            atCol.findAllArticleTypes();
+            cCol.findAllColors();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Override
@@ -65,21 +82,14 @@ public class AddInventoryTransaction extends Transaction{
 
     @Override
     public Object getState(String key) {
-        if (key.equals("TransactionError") == true)
-        {
-            return transactionErrorMessage;
-        }
-        else
-        if (key.equals("UpdateStatusMessage") == true)
-        {
-            return updateStatusMessage;
-        }
-        else
-//        if (key.equals("Inventory") == true)
-//        {
-//            return newInventory;
-//        }
-        return null;
+        return switch (key) {
+            case "TransactionError" -> transactionErrorMessage;
+            case "UpdateStatusMessage" -> updateStatusMessage;
+            case "ArticleTypeList" -> atCol;
+            case "ColorList" -> cCol;
+//            case "Inventory" -> newInventory;
+            default -> null;
+        };
     }
 
     @Override
