@@ -136,7 +136,7 @@ public class TransactionChoiceView extends View
         grid.add(addArticleTypeButton, 0, 0);
         grid.setHalignment(addArticleTypeButton, HPos.CENTER);
 
-        updateArticleTypeButton = new Button("Update Article Type");
+        updateArticleTypeButton = new Button("Modify Article Type");
         updateArticleTypeButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         updateArticleTypeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -170,7 +170,7 @@ public class TransactionChoiceView extends View
         grid.add(addColorButton, 0, 1);
         grid.setHalignment(addColorButton, HPos.CENTER);
 
-        updateColorButton = new Button("Update Color");
+        updateColorButton = new Button("Modify Color");
         updateColorButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         updateColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -204,7 +204,7 @@ public class TransactionChoiceView extends View
         grid.add(addInventoryButton, 0, 2);
         grid.setHalignment(addInventoryButton, HPos.CENTER);
 
-        updateInventoryButton = new Button("Update Inventory");
+        updateInventoryButton = new Button("Modify Inventory");
         updateInventoryButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         updateInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
