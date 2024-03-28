@@ -8,41 +8,26 @@ import java.util.Vector;
 public class InventoryCollection extends EntityBase implements IView {
 
     private static final String myTableName = "Inventory";
-    private Vector<Inventory> InventoryList;
+    private Vector<Inventory> inventoryList;
 
     public InventoryCollection() {
         super(myTableName);
-        InventoryList = new Vector<Inventory>();
+        inventoryList = new Vector<Inventory>();
     }
 
     public void findInventory(Properties props) throws Exception {
         String query = "SELECT * FROM " + myTableName + " WHERE ";
 
         //start generic query, add on for each requirement
-//        if (props.getProperty("description") != null){
-//            //add on to query
-//            query += "(description LIKE \"%" + props.getProperty("description") + "%\")";
-//        }
-//        if (props.getProperty("barcodePrefix") != null){
-//            //add on to query
-//            if (props.getProperty("description") != null){
-//                query += " AND ";
-//            }
-//            query += "(barcodePrefix = \"" + props.getProperty("barcodePrefix") + "\")";
-//
-//        }
-//        if (props.getProperty("alphaCode") != null){
-//            //add on to query
-//            if ((props.getProperty("description") != null) || (props.getProperty("barcodePrefix") != null)){
-//                query += " AND ";
-//            }
-//            query += "(alphaCode LIKE \"%" + props.getProperty("alphaCode") + "%\")";
-//        }
-//        if ((props.getProperty("description") == null) && (props.getProperty("barcodePrefix") == null) && (props.getProperty("alphaCode") == null)){
-//            System.out.println("Error: no fields");
-//        }
-//
-//        query += " ORDER BY barcodePrefix";
+        if (props.getProperty("barcode") != null){
+            //add on to query
+            query += "(barcode = \"" + props.getProperty("barcode") + "\")";
+        }
+        if (props.getProperty("barcode") == null){
+            System.out.println("Error: no fields");
+        }
+
+        query += " ORDER BY barcode";
 
 //        System.out.println(query);
 
@@ -50,7 +35,7 @@ public class InventoryCollection extends EntityBase implements IView {
 
         if (allDataRetrieved != null)
         {
-            InventoryList = new Vector<>();
+            inventoryList = new Vector<>();
 
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
@@ -58,7 +43,7 @@ public class InventoryCollection extends EntityBase implements IView {
 
 //                Inventory in = new ArticleType(nextArticleTypeData);
 //
-//                InventoryList.add(in);
+//                inventoryList.add(in);
             }
 
         }
@@ -74,7 +59,7 @@ public class InventoryCollection extends EntityBase implements IView {
     @Override
     public Object getState(String key) {
         if (key.equals("Inventory"))
-            return this.InventoryList;
+            return this.inventoryList;
         else
         if (key.equals("InventoryCollection"))
             return this;
