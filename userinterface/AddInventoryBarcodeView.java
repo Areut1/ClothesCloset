@@ -165,11 +165,11 @@ public class AddInventoryBarcodeView extends View{
 
             //Convert textfield to property object to then be passed to
             //AddInventoryTransaction
-            Properties props = new Properties();
-            props.setProperty("barcode", barcodeEntered);
+//            Properties props = new Properties();
+//            props.setProperty("barcode", barcodeEntered);
 
             populateFields();
-            myModel.stateChangeRequest("addInventoryBarcode", props);
+            myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
         }
 
     }//End processSubAction------------------------------

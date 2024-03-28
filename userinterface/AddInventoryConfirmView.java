@@ -226,7 +226,7 @@ public class AddInventoryConfirmView extends View {
 
 
     public void processConfirm() {
-        myModel.stateChangeRequest("DeleteArticleType", null);
+        myModel.stateChangeRequest("SubmitBarcode", null);
     }
 
     public void updateState(String key, Object value) {    }
