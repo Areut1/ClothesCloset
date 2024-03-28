@@ -178,6 +178,24 @@ public class AddInventoryConfirmView extends View {
 
 
     private void populateFields() {
+        /*
+        IDEA:
+        We can access the full table of the relevant tables using the getState() in `initBarcodeMappings`.
+
+        Using those tables, we will populate these `genderBarcodeMapping`, ... to create the barcode mapping properties.
+        The mapping will ideally be of the form:
+        {
+            "0": "Male",
+            "1": "Female"
+        }
+        In this form, the "barcode" is the key of the Properties object and the contents is the value. The VALUES (contents)
+        of this properties object will exactly correspond to the options inside the combo box. However, using the keys, we'll
+        build the barcode and use it to initialize the selected choice in the combo boxes.
+
+        Then, we will use those mappings to populate the combo boxes and create the barcode builder.
+         */
+
+
         // Get user inputted barcode from prev view
         String barcode = (String) myModel.getState("barcode");
 
