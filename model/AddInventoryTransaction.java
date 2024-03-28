@@ -11,7 +11,7 @@ public class AddInventoryTransaction extends Transaction{
 
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
-//    private Inventory newInventory;
+    private Inventory newInventory;
 
     private ArticleTypeCollection atCol;
     private ColorCollection cCol;
@@ -87,7 +87,7 @@ public class AddInventoryTransaction extends Transaction{
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "ArticleTypeList" -> atCol;
             case "ColorList" -> cCol;
-//            case "Inventory" -> newInventory;
+            case "Inventory" -> newInventory;
             default -> null;
         };
     }
@@ -105,8 +105,8 @@ public class AddInventoryTransaction extends Transaction{
 
     public void processTransaction(Properties props)
     {
-//        newInventory = new Inventory(props);
-//        newInventory.update();
+        newInventory = new Inventory(props);
+        newInventory.update();
         createAndShowReceiptView();
     }
 
