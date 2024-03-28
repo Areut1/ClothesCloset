@@ -107,7 +107,22 @@ public class Inventory extends EntityBase implements IView {
     }
 
     public String toString() {
-        return "";
+        return "Gender: " + persistentState.getProperty("gender") +
+                "\nSize: " + persistentState.getProperty("size") +
+                "\nArticle Type Id: " + persistentState.getProperty("articleType") +
+                "\nColor 1 Id: " + persistentState.getProperty("color1") +
+                "\nColor 2 Id: " + persistentState.getProperty("color2") +
+                "\nBrand: " + persistentState.getProperty("brand") +
+                "\nNotes: " + persistentState.getProperty("notes") +
+                "\nDonor Lastname: " + persistentState.getProperty("donorLastName") +
+                "\nDonor Firstname: " + persistentState.getProperty("donorFirstName") +
+                "\nDonor Phone: " + persistentState.getProperty("donorPhone") +
+                "\nDonor Email: " + persistentState.getProperty("donorEmail") +
+                "\nReceiver NetId: " + persistentState.getProperty("receiverNetId") +
+                "\nReceiver Lastname: " + persistentState.getProperty("receiverLastName") +
+                "\nReceiver Firstname: " + persistentState.getProperty("receiverFirstName") +
+                "\nDate donated: " + persistentState.getProperty("dateDonated") +
+                "\nDate taken: " + persistentState.getProperty("dateTaken");
     }
 
     public void display()  {
