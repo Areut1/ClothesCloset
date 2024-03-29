@@ -12,8 +12,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,6 +20,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 // project imports
 import impresario.IModel;
@@ -49,10 +49,22 @@ public class ClerkView extends View
         // create a container for showing the contents
         VBox container = new VBox(10);
 
+        //container.(Color.rgb(240, 235,230, 255));
+        container.setStyle("-fx-background-color: #F0EBE6;");
         container.setPadding(new Insets(15, 5, 5, 5));
 
         // create a Node (Text) for showing the title
-        container.getChildren().add(createTitle());
+        //container.getChildren().add(createTitle());
+
+        // create images
+        Image image1 = new Image("images/Brockport_Logo.PNG");
+        ImageView iv1 = createImage(image1);
+        container.getChildren().add(iv1);
+
+        Image image2 = new Image("images/Logo2.PNG");
+        ImageView iv2 = createImage(image2);
+        iv2.setFitWidth(300);
+        container.getChildren().add(iv2);
 
         // create a Node (GridPane) for showing data entry fields
         container.getChildren().add(createFormContents());
@@ -73,7 +85,7 @@ public class ClerkView extends View
     {
 
         Text titleText = new Text("       Brockport Clothes Closet          ");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
 
@@ -81,17 +93,31 @@ public class ClerkView extends View
         return titleText;
     }
 
+    private ImageView createImage(Image image)
+    {
+        ImageView iv = new ImageView();
+        iv.setImage(image);
+        iv.setFitWidth(350);
+        iv.setPreserveRatio(true);
+        iv.setSmooth(true);
+        iv.setCache(true);
+
+        return iv;
+    }
     // Create the main form contents
     //-------------------------------------------------------------
     private GridPane createFormContents()
     {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
+        //grid.setHgap(10);
+        //grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        enterButton = new Button("Enter");
+        enterButton = new Button("   Enter   ");
+        enterButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+        enterButton.setStyle("-fx-background-radius:5;\n" +
+                "-fx-focus-color:#00533E;");
         enterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -99,7 +125,10 @@ public class ClerkView extends View
             }
         });
 
-        quitButton = new Button("Quit");
+        quitButton = new Button("   Quit   ");
+        quitButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+        quitButton.setStyle("-fx-background-radius:5;\n" +
+                "-fx-focus-color:#00533E;");
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {System.exit(0);}
