@@ -17,8 +17,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.ArticleType;
+import model.ArticleTypeCollection;
+import model.ColorCollection;
 
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Vector;
 
 public class AddInventoryConfirmView extends View {
 
@@ -26,6 +31,8 @@ public class AddInventoryConfirmView extends View {
     protected Button confirmButton;
 
     protected MessageView statusLog;
+    private ArticleTypeCollection atCol;
+    private ColorCollection cCol;
 
     // GUI Components
     ComboBox<String> genderComboBox;
@@ -216,12 +223,19 @@ public class AddInventoryConfirmView extends View {
 
     private void initBarcodeMappings() {
         // Get the tables
-        // Properties genderTable = ()
+        atCol = (ArticleTypeCollection) myModel.getState("ArticleTypeList");
+        cCol = (ColorCollection) myModel.getState("ColorList");
 
         // Loop over and get the barcodes.
-        genderBarcodeMapping = (Properties) myModel.getState("genderBarcodes");
-        articleTypeBarcodeMapping = (Properties) myModel.getState("articleType");
-        primaryColorBarcodeMapping = (Properties) myModel.getState("primaryColorBarcodes");
+        for (int i = 0; i < atCol.size(); i++) {
+            articleTypeBarcodeMapping.setProperty(atCol.get(i).getValue("barcodePrefix"), atCol.get(i).getValue("description"));
+        }
+        for (int i = 0; i < cCol.size(); i++){
+            primaryColorBarcodeMapping.setProperty(cCol.get(i).getValue("barcodePrefix"), cCol.get(i).getValue("description"));
+        }
+
+        genderBarcodeMapping.setProperty("0", "male");
+        genderBarcodeMapping.setProperty("1", "female");
     }
 
 

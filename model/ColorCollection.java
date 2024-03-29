@@ -94,6 +94,14 @@ public class ColorCollection extends EntityBase implements IView {
 
     }
 
+    public Color get(int i){
+        return colorList.get(i);
+    }
+
+    public int size(){
+        return colorList.size();
+    }
+
 
     @Override
     public Object getState(String key) {

@@ -69,6 +69,14 @@ public class ArticleTypeCollection extends EntityBase implements IView {
 
     }
 
+    public ArticleType get(int i){
+        return articleTypeList.get(i);
+    }
+
+    public int size(){
+        return articleTypeList.size();
+    }
+
     public void findAllArticleTypes() throws Exception {
         String query = "SELECT * FROM " + myTableName + " ORDER BY barcodePrefix";
 
