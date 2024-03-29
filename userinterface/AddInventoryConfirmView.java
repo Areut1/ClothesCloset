@@ -35,14 +35,14 @@ public class AddInventoryConfirmView extends View {
     private ColorCollection cCol;
 
     // GUI Components
-    ComboBox<String> genderComboBox;
-    ComboBox<String> articleTypeComboBox;
-    ComboBox<String> primaryColorComboBox;
+    protected ComboBox<String> genderComboBox;
+    protected ComboBox<String> articleTypeComboBox;
+    protected ComboBox<String> primaryColorComboBox;
 
     // Properties object containing all the barcode mappings
-    Properties genderBarcodeMapping;
-    Properties articleTypeBarcodeMapping;
-    Properties primaryColorBarcodeMapping;
+    public Properties genderBarcodeMapping;
+    public Properties articleTypeBarcodeMapping;
+    public Properties primaryColorBarcodeMapping;
 
 
     public AddInventoryConfirmView(IModel clerk)
@@ -204,20 +204,19 @@ public class AddInventoryConfirmView extends View {
 
 
         // Get user inputted barcode from prev view
-        String barcode = (String) myModel.getState("barcode");
+        Properties barcode = (Properties) myModel.getState("Barcode");
 
-        // If barcode length is 8 then we want to autofill information
-        if (barcode.length() == 8) {
-            String genderBarcode = barcode.substring(0,1);
-            String articleTypeBarcode = barcode.substring(1,3);
-            String primaryColorBarcode = barcode.substring(3,5);
+        // If barcode length is 5 then we want to autofill information
+            String genderBarcode = barcode.getProperty("gender");
+            String articleTypeBarcode = barcode.getProperty("articleType");
+            String primaryColorBarcode = barcode.getProperty("color1");
 
             System.out.println("Gender barcode is: " + genderBarcode);
             System.out.println("ArticleType is: " + articleTypeBarcode);
             System.out.println("PrimaryColorBarcode is: " + primaryColorBarcode);
 
             // Update combo boxes
-        }
+
 
     }
 
@@ -225,6 +224,10 @@ public class AddInventoryConfirmView extends View {
         // Get the tables
         atCol = (ArticleTypeCollection) myModel.getState("ArticleTypeList");
         cCol = (ColorCollection) myModel.getState("ColorList");
+
+        articleTypeBarcodeMapping = new Properties();
+        primaryColorBarcodeMapping = new Properties();
+        genderBarcodeMapping = new Properties();
 
         // Loop over and get the barcodes.
         for (int i = 0; i < atCol.size(); i++) {
