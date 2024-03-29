@@ -273,7 +273,7 @@ public class AddInventoryInputView extends View {
             insertProp.setProperty("donorEmail", donorEmailString);
 
             //Call Librarian method to create and save book
-            myModel.stateChangeRequest("AddInventoryInput", insertProp);
+            myModel.stateChangeRequest("AddInventory", insertProp);
 
         }
     }

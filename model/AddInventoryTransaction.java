@@ -11,11 +11,31 @@ public class AddInventoryTransaction extends Transaction{
 
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
-//    private Inventory newInventory;
+    private Inventory newInventory;
+
+    private ArticleTypeCollection atCol;
+    private ColorCollection cCol;
+    private Properties barcode;
+
+    private int transCount = 0;
 
 
     protected AddInventoryTransaction() throws Exception {
         super();
+        createCollections();
+    }
+
+    private void createCollections() throws Exception {
+        atCol = new ArticleTypeCollection();
+        cCol = new ColorCollection();
+        try {
+            atCol.findAllArticleTypes();
+            cCol.findAllColors();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Override
@@ -29,14 +49,14 @@ public class AddInventoryTransaction extends Transaction{
 
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("AddInventoryView");
+        Scene currentScene = myViews.get("AddInventoryBarcodeView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("AddInventoryView", this);
+            View newView = ViewFactory.createView("AddInventoryBarcodeView", this);
             currentScene = new Scene(newView);
-            myViews.put("AddInventoryView", currentScene);
+            myViews.put("AddInventoryBarcodeView", currentScene);
 
             return currentScene;
         }
@@ -46,17 +66,16 @@ public class AddInventoryTransaction extends Transaction{
         }
     }
 
-    //------------------------------------------------------
-    protected void createAndShowReceiptView()
+    protected void createAndShowView(String view)
     {
-        Scene newScene = myViews.get("AddInventoryReceipt");
+        Scene newScene = myViews.get(view);
 
         if (newScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("AddInventoryReceipt", this);
+            View newView = ViewFactory.createView(view, this);
             newScene = new Scene(newView);
-            myViews.put("AddInventoryReceipt", newScene);
+            myViews.put(view, newScene);
 
         }
         swapToView(newScene);
@@ -65,21 +84,15 @@ public class AddInventoryTransaction extends Transaction{
 
     @Override
     public Object getState(String key) {
-        if (key.equals("TransactionError") == true)
-        {
-            return transactionErrorMessage;
-        }
-        else
-        if (key.equals("UpdateStatusMessage") == true)
-        {
-            return updateStatusMessage;
-        }
-        else
-//        if (key.equals("Inventory") == true)
-//        {
-//            return newInventory;
-//        }
-        return null;
+        return switch (key) {
+            case "TransactionError" -> transactionErrorMessage;
+            case "UpdateStatusMessage" -> updateStatusMessage;
+            case "ArticleTypeList" -> atCol;
+            case "ColorList" -> cCol;
+            case "Inventory" -> newInventory;
+            case "Barcode" -> barcode;
+            default -> null;
+        };
     }
 
     @Override
@@ -87,7 +100,7 @@ public class AddInventoryTransaction extends Transaction{
         switch (key) {
             case "DoYourJob" -> doYourJob();
             case "AddInventory" -> processTransaction((Properties) value);
-
+            case "SubmitBarcode" -> processBarcode((String) value);
         }
 
         myRegistry.updateSubscribers(key, this);
@@ -95,14 +108,37 @@ public class AddInventoryTransaction extends Transaction{
 
     public void processTransaction(Properties props)
     {
-//        newInventory = new Inventory(props);
-//        newInventory.update();
-        createAndShowReceiptView();
+        props.setProperty("barcode", barcode.getProperty("barcode"));
+        props.setProperty("gender", barcode.getProperty("gender"));
+        props.setProperty("color1", barcode.getProperty("color1"));
+
+        newInventory = new Inventory(props);
+        newInventory.update();
+        createAndShowView("AddInventoryReceipt");
     }
 
-    public void processBarcode(String barcode){
+    public void processBarcode(String barcodeString){
+        char[] barcodeArr = barcodeString.toCharArray();
+
+        String gender = "" + barcodeArr[0];
+        String articleType = "" + barcodeArr[1] + barcodeArr[2];
+        String color = "" + barcodeArr[3] + barcodeArr[4];
+
+        barcode = new Properties();
+        barcode.setProperty("gender", gender);
+        barcode.setProperty("articleType", articleType);
+        barcode.setProperty("color1", color);
+
+        switch (transCount) {
+            case 0 -> {
+                transCount++;
+                createAndShowView("AddInventoryConfirmView");
+            }
+            case 1 -> createAndShowView("AddInventoryInputView");
+        }
 
     }
+
 }
 
 

@@ -209,7 +209,7 @@ public class TransactionChoiceView extends View
         updateInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("UpdateInventory", null);
+                myModel.stateChangeRequest("ModifyInventory", null);
             }
         });
         grid.add(updateInventoryButton, 1, 2);
