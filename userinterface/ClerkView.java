@@ -61,7 +61,7 @@ public class ClerkView extends View
         ImageView iv1 = createImage(image1);
         container.getChildren().add(iv1);
 
-        Image image2 = new Image("images/Logo2.PNG");
+        Image image2 = new Image("images/Clothes_Closet_Title.PNG");
         ImageView iv2 = createImage(image2);
         iv2.setFitWidth(300);
         container.getChildren().add(iv2);
