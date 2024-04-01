@@ -47,8 +47,8 @@ public class ViewFactory {
 				return new AddInventoryConfirmView(model);
 			case "AddInventoryInputView":
 				return new AddInventoryInputView(model);
-//			case "AddInventoryReceipt":
-//				return new AddInventoryReceipt(model);
+			case "AddInventoryReceipt":
+				return new AddInventoryReceipt(model);
 
 			default: return null;
 		}
