@@ -47,8 +47,6 @@ public class AddInventoryReceipt extends View
     private Text donorEmail;
     private Text dateDonated;
 
-    // private Text dateReceived;
-
     // GUI controls
     private Button okButton;
 
