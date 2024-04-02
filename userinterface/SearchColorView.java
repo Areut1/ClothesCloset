@@ -47,7 +47,7 @@ public class SearchColorView extends View{
         //Create container
         VBox container = new VBox(10);
         container.setPadding(new Insets(15, 5, 5, 5));
-
+        container.getStyleClass().add("Vbox");
         //Create GUI components, and add
         container.getChildren().add(createTitle());
         container.getChildren().add(createFormContent());

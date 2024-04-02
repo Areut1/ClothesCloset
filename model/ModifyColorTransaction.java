@@ -39,7 +39,7 @@ public class ModifyColorTransaction extends Transaction{
             View newView = ViewFactory.createView("SearchColorView", this);
             currentScene = new Scene(newView);
             myViews.put("SearchColorView", currentScene);
-
+            currentScene.getStylesheets().add("userinterface/stylesheet.css");
             return currentScene;
         }
         else
@@ -58,6 +58,7 @@ public class ModifyColorTransaction extends Transaction{
             View newView = ViewFactory.createView(view, this);
             newScene = new Scene(newView);
             myViews.put(view, newScene);
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
 
         }
         swapToView(newScene);

@@ -49,15 +49,15 @@ public class AddInventoryTransaction extends Transaction{
 
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("AddInventoryBarcodeView");
+        Scene currentScene = myViews.get("SearchInventoryBarcodeView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("AddInventoryBarcodeView", this);
+            View newView = ViewFactory.createView("SearchInventoryBarcodeView", this);
             currentScene = new Scene(newView);
-            myViews.put("AddInventoryBarcodeView", currentScene);
-
+            myViews.put("SearchInventoryBarcodeView", currentScene);
+            currentScene.getStylesheets().add("userinterface/stylesheet.css");
             return currentScene;
         }
         else
@@ -76,7 +76,7 @@ public class AddInventoryTransaction extends Transaction{
             View newView = ViewFactory.createView(view, this);
             newScene = new Scene(newView);
             myViews.put(view, newScene);
-
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
         }
         swapToView(newScene);
     }
@@ -91,6 +91,7 @@ public class AddInventoryTransaction extends Transaction{
             case "ColorList" -> cCol;
             case "Inventory" -> newInventory;
             case "Barcode" -> barcode;
+            case "Transaction" -> "AddInventory";
             default -> null;
         };
     }

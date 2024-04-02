@@ -183,6 +183,7 @@ public class Clerk implements IView, IModel
 
 
         // make the view visible by installing it into the frame
+        currentScene.getStylesheets().add("userinterface/stylesheet.css");
         swapToView(currentScene);
 
     }
@@ -202,6 +203,7 @@ public class Clerk implements IView, IModel
 
 
         // make the view visible by installing it into the frame
+        currentScene.getStylesheets().add("userinterface/stylesheet.css");
         swapToView(currentScene);
 
     }

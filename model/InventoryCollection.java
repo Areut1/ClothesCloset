@@ -54,6 +54,14 @@ public class InventoryCollection extends EntityBase implements IView {
 
     }
 
+    public int size(){
+        return inventoryList.size();
+    }
+
+    public Inventory get(int i){
+        return inventoryList.get(i);
+    }
+
 
 
     @Override

@@ -37,6 +37,7 @@ public class AddArticleTypeTransaction extends Transaction{
             View newView = ViewFactory.createView("AddArticleTypeView", this);
             currentScene = new Scene(newView);
             myViews.put("AddArticleTypeView", currentScene);
+            currentScene.getStylesheets().add("userinterface/stylesheet.css");
 
             return currentScene;
         }
