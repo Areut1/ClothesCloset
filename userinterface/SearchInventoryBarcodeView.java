@@ -7,7 +7,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -18,19 +17,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-
-import java.util.Properties;
-import java.util.Vector;
 
 // project imports
 import impresario.IModel;
 
-public class AddInventoryBarcodeView extends View{
+public class SearchInventoryBarcodeView extends View{
 
     private Button subButton;
     private Button cancelButton;
-    private TextField addInventoryBarcode;
+    private TextField InventoryBarcode;
 
     //Show error message
     private MessageView statusLog;
@@ -40,8 +35,8 @@ public class AddInventoryBarcodeView extends View{
      * Takes model object from ViewFactory
      */
 
-    public AddInventoryBarcodeView(IModel clerk){
-        super(clerk, "AddInventoryBarcodeView");
+    public SearchInventoryBarcodeView(IModel clerk){
+        super(clerk, "SearchInventoryBarcodeView");
 
         //Create container
         VBox container = new VBox(10);
@@ -58,7 +53,7 @@ public class AddInventoryBarcodeView extends View{
 
         populateFields();
 
-        myModel.subscribe("addInventoryBarcodeMessage", this);
+        myModel.subscribe("InventoryBarcodeMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }//END CONSTRUCTOR--------------------------------
 
@@ -70,7 +65,7 @@ public class AddInventoryBarcodeView extends View{
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" ADD INVENTORY BARCODE ");
+        Text titleText = new Text(" BARCODE SEARCH ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -104,9 +99,9 @@ public class AddInventoryBarcodeView extends View{
         addInventoryBarcodeLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(addInventoryBarcodeLabel, 0, 0);
 
-        addInventoryBarcode = new TextField();
-        addInventoryBarcode.setEditable(true);
-        grid.add(addInventoryBarcode, 0, 1);
+        InventoryBarcode = new TextField();
+        InventoryBarcode.setEditable(true);
+        grid.add(InventoryBarcode, 0, 1);
 
         //Setup separate hbox for submit and back buttons
         HBox subBack = new HBox(10);
@@ -154,7 +149,7 @@ public class AddInventoryBarcodeView extends View{
      */
     public void processSubAction(Event evt){
 
-        String barcodeEntered = addInventoryBarcode.getText();
+        String barcodeEntered = InventoryBarcode.getText();
 
         //Validate user input
         if ((barcodeEntered == null) || (barcodeEntered.length() != 8)){
@@ -163,10 +158,8 @@ public class AddInventoryBarcodeView extends View{
         }
         else {
 
-            //Convert textfield to property object to then be passed to
-            //AddInventoryTransaction
-//            Properties props = new Properties();
-//            props.setProperty("barcode", barcodeEntered);
+
+
 
             populateFields();
             myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
@@ -187,7 +180,7 @@ public class AddInventoryBarcodeView extends View{
     public void populateFields()
     {
         //Clears field after search is done
-        addInventoryBarcode.setText("");
+        InventoryBarcode.setText("");
     }
 
     /**
@@ -199,7 +192,7 @@ public class AddInventoryBarcodeView extends View{
         clearErrorMessage();
         String temp = ((String)value);
 
-        if (key.equals("addInventoryBarcodeMessage") == true)
+        if (key.equals("InventoryBarcodeMessage"))
         {
             String val = (String)value;
             displayMessage(val);
