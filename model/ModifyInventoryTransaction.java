@@ -16,6 +16,8 @@ public class ModifyInventoryTransaction extends Transaction{
 
     private InventoryCollection iCol;
 
+    private Properties barcode;
+
 
     protected ModifyInventoryTransaction() throws Exception {
         super();
@@ -32,14 +34,14 @@ public class ModifyInventoryTransaction extends Transaction{
 
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("SearchInventoryView");
+        Scene currentScene = myViews.get("SearchInventoryBarcodeView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("SearchInventoryView", this);
+            View newView = ViewFactory.createView("SearchInventoryBarcodeView", this);
             currentScene = new Scene(newView);
-            myViews.put("SearchInventoryView", currentScene);
+            myViews.put("SearchInventoryBarcodeView", currentScene);
 
             return currentScene;
         }
@@ -82,14 +84,7 @@ public class ModifyInventoryTransaction extends Transaction{
         switch (key) {
             case "DoYourJob" -> doYourJob();
             case "ModifyInventory" -> processTransaction((Properties) value);
-            case "SearchTableInventory" -> {
-                try {
-                    processSearch((Properties) value);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            case "ConfirmInventoryChoice" -> processConfirm((Properties) value);
+            case "SubmitBarcode" -> processBarcode((String) value);
 //            case "StartOver" -> createAndShowView("SearchArticleTypeView");
         }
 
@@ -107,31 +102,21 @@ public class ModifyInventoryTransaction extends Transaction{
         createAndShowView("ModifyArticleTypeReceipt");
     }
 
-    public void processSearch(Properties props) throws Exception {
+    public void processBarcode(String barcodeString){
+        char[] barcodeArr = barcodeString.toCharArray();
 
-        iCol = new InventoryCollection();
-        try {
-            iCol.findInventory(props);
-        } catch (Exception e) {
-            throw new Exception("Unable to search for Inventory");
-        }
+        String gender = "" + barcodeArr[0];
+        String articleType = "" + barcodeArr[1] + barcodeArr[2];
+        String color = "" + barcodeArr[3] + barcodeArr[4];
+        String id = "" + barcodeArr[5] + barcodeArr[6] + barcodeArr[7];
 
-        createAndShowView("SelectInventoryView");
+        barcode = new Properties();
+        barcode.setProperty("gender", gender);
+        barcode.setProperty("articleType", articleType);
+        barcode.setProperty("color1", color);
+        barcode.setProperty("id", id);
 
-    }
-
-    public void processConfirm(Properties props){
-
-        String id = props.getProperty("inventoryId");
-
-        try {
-            oldInventory = new Inventory(id);
-        } catch (InvalidPrimaryKeyException e) {
-            throw new RuntimeException(e);
-        }
         createAndShowView("ModifyInventoryView");
-
-
     }
 
 }
