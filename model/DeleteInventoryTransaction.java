@@ -12,9 +12,9 @@ public class DeleteInventoryTransaction extends Transaction{
 
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
-//    private Inventory oldInventory;
-//
-//    private InventoryCollection iCol;
+    private Inventory oldInventory;
+    private InventoryCollection iCol;
+    private Properties barcode;
 
 
     protected DeleteInventoryTransaction() throws Exception {
@@ -71,8 +71,9 @@ public class DeleteInventoryTransaction extends Transaction{
         return switch (key) {
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
-//            case "Inventory" -> oldInventory;
-//            case "InventoryCollection" -> iCol;
+            case "Inventory" -> oldInventory;
+            case "InventoryCollection" -> iCol;
+            case "Barcode" -> barcode;
             case "Transaction" -> "DeleteInventory";
             default -> null;
         };
@@ -83,14 +84,7 @@ public class DeleteInventoryTransaction extends Transaction{
         switch (key) {
             case "DoYourJob" -> doYourJob();
             case "DeleteInventory" -> processTransaction((Properties) value);
-            case "SearchTableInventory" -> {
-                try {
-                    processSearch((Properties) value);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            case "ConfirmInventoryChoice" -> processConfirm((Properties) value);
+            case "SubmitBarcode" -> processBarcode((String) value);
 //            case "StartOver" -> createAndShowView("SearchArticleTypeView");
         }
 
@@ -100,63 +94,41 @@ public class DeleteInventoryTransaction extends Transaction{
     public void processTransaction(Properties props)
     {
         //set status to inactive
-//        oldInventory.changeValue("status", "Inactive");
-//        oldInventory.update();
+        oldInventory.changeValue("status", "Removed");
+        oldInventory.update();
         createAndShowView("DeleteInventoryReceipt");
     }
 
-    public void processSearch(Properties props) throws Exception {
+    public void processBarcode(String barcodeString){
+        char[] barcodeArr = barcodeString.toCharArray();
 
-//        iCol = new InventoryCollection();
-//        try {
-//            iCol.findInventory(props);
-//        } catch (Exception e) {
-//            throw new Exception("Unable to search for Inventory");
-//        }
+        String gender = "" + barcodeArr[0];
+        String articleType = "" + barcodeArr[1] + barcodeArr[2];
+        String color = "" + barcodeArr[3] + barcodeArr[4];
+        String id = "" + barcodeArr[5] + barcodeArr[6] + barcodeArr[7];
 
-        createAndShowView("SelectInventoryView");
+        barcode = new Properties();
+        barcode.setProperty("gender", gender);
+        barcode.setProperty("articleType", articleType);
+        barcode.setProperty("color1", color);
+        barcode.setProperty("id", id);
+
+        iCol = new InventoryCollection();
+        try {
+            iCol.findInventory(barcode);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (iCol.size() > 0){
+            oldInventory = iCol.get(0);
+            createAndShowView("DeleteInventoryView");
+        }
+        else{
+            throw new RuntimeException();
+        }
 
     }
 
-    public void processConfirm(Properties props){
-
-        String id = props.getProperty("inventoryId");
-
-//        try {
-//            oldInventory = new Inventory(id);
-//        } catch (InvalidPrimaryKeyException e) {
-//            throw new RuntimeException(e);
-//        }
-        createAndShowView("DeleteInventoryView");
-
-
-    }
-
-
-
-    /*
-    Delete process:
-
-        User selects delete transaction
-        transaction class is made
-        search view is created - text fields to search for color to delete
-        button is clicked to change state
-        process search transaction to get color collection
-        create selection view with collection displayed
-        user selects record and hits button
-        state change request to show confirm view
-        confirm button is pressed to process full transaction, deleting color
-        receipt view is shown
-        button on receipt view takes screen back to transaction choice view
-
-
-
-        StateChangeRequest Order:
-            SearchTableArticleType
-            ConfirmArticleTypeChoice
-            DeleteArticleType
-
-
-     */
 }
 

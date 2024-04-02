@@ -17,10 +17,13 @@ public class ModifyInventoryTransaction extends Transaction{
     private InventoryCollection iCol;
 
     private Properties barcode;
+    private ColorCollection cCol;
+    private ArticleTypeCollection atCol;
 
 
     protected ModifyInventoryTransaction() throws Exception {
         super();
+        createCollections();
     }
 
     @Override
@@ -30,6 +33,19 @@ public class ModifyInventoryTransaction extends Transaction{
         dependencies.setProperty("OK", "CancelTransaction");
 
         myRegistry.setDependencies(dependencies);
+    }
+
+    private void createCollections() throws Exception {
+        atCol = new ArticleTypeCollection();
+        cCol = new ColorCollection();
+        try {
+            atCol.findAllArticleTypes();
+            cCol.findAllColors();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Override
@@ -73,6 +89,8 @@ public class ModifyInventoryTransaction extends Transaction{
         return switch (key) {
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
+            case "ArticleTypeList" -> atCol;
+            case "ColorList" -> cCol;
             case "Inventory" -> oldInventory;
             case "InventoryCollection" -> iCol;
             case "Barcode" -> barcode;
