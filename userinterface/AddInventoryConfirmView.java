@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
+import java.util.stream.IntStream;
 
 public class AddInventoryConfirmView extends View {
 
@@ -66,7 +67,7 @@ public class AddInventoryConfirmView extends View {
         // Initialize the barcode mappings
         initBarcodeMappings();
 
-        populateFields();
+        // updateBarcodeFromFields();
     }
 
     private Node createTitle()
@@ -105,11 +106,13 @@ public class AddInventoryConfirmView extends View {
         // START MAIN FORM CONTENTS
 
 
-        // ----- Prompt ----------------------------------------------
+        // ----- Barcode ----------------------------------------------
+        Text barcodeText = new Text("Inserted barcode is: " + null);
+        barcodeText.setWrappingWidth(350);
+        barcodeText.setTextAlignment(TextAlignment.CENTER);
+        barcodeText.setFill(Color.BLACK);
+        grid.add(barcodeText, 0,1);
 
-
-
-        // grid.add();
 
         // ----- Gender ----------------------------------------------
         Label genderLabel = new Label("Gender:");
@@ -137,7 +140,9 @@ public class AddInventoryConfirmView extends View {
 
         // Add a listener, so we can monitor the new barcode as the selection changes
         articleTypeComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            System.out.println(newValue);
+            System.out.println("Article type changed! Updating barcode...");
+
+            updateBarcodeFromFields(newValue, primaryColorComboBox.getValue(), genderComboBox.getValue());
         });
 
         grid.add(articleTypeComboBox, 1, 3);
@@ -200,7 +205,7 @@ public class AddInventoryConfirmView extends View {
     }
 
 
-    private void populateFields() {
+    private void updateBarcodeFromFields(String articleType, String primaryColor, String gender) {
         /*
         IDEA:
         We can access the full table of the relevant tables using the getState() in `initBarcodeMappings`.
@@ -216,11 +221,37 @@ public class AddInventoryConfirmView extends View {
         build the barcode and use it to initialize the selected choice in the combo boxes.
 
         Then, we will use those mappings to populate the combo boxes and create the barcode builder.
+
+
+
+        NOTE 4/2:
+
+        This runs with the new updated values every time a listener detects a change.
+
          */
-        Properties barcode = (Properties) myModel.getState("Barcode");
+        List<String> list = articleTypeComboBox.getItems();
+        int idx = getIndexOf(list, articleType);
+        System.out.println("article type idx is: " + idx);
+
+        list = primaryColorComboBox.getItems();
+        idx = getIndexOf(list, primaryColor);
+        System.out.println("primary color idx is: " + idx);
 
 
+        list = genderComboBox.getItems();
+        idx = getIndexOf(list, gender);
+        System.out.println("gender idx is: " + idx);
 
+    }
+
+    public static int getIndexOf(List<String> propValues, String name) {
+        int pos = 0;
+        for(String propValue : propValues) {
+            if(name.equalsIgnoreCase(propValue))
+                return pos;
+            pos++;
+        }
+        return -1;
     }
 
     private void initBarcodeMappings() {
