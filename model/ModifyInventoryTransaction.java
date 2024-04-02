@@ -116,6 +116,8 @@ public class ModifyInventoryTransaction extends Transaction{
         barcode.setProperty("color1", color);
         barcode.setProperty("id", id);
 
+
+
         createAndShowView("ModifyInventoryView");
     }
 
