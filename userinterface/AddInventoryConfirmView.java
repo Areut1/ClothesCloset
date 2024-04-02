@@ -76,10 +76,10 @@ public class AddInventoryConfirmView extends View {
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" Confirm Barcode Information ");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.getStyleClass().add("title");
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
+        titleText.getStyleClass().add("title");
         container.getChildren().add(titleText);
 
 //        Text prompt = new Text("Is this the correct?");

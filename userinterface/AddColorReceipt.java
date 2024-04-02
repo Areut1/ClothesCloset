@@ -75,10 +75,9 @@ public class AddColorReceipt extends View
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" Added Color Receipt ");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.getStyleClass().add("title");
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
         container.getChildren().add(titleText);
 
         return container;
