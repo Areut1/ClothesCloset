@@ -55,7 +55,7 @@ public class ClothesCloset extends Application
 	   System.out.println("Copyright 2024");
 
            // Create the top-level container (main frame) and add contents to it.
-	   MainStageContainer.setStage(primaryStage, "Brockport Clothes Closet version 1.00");
+	   MainStageContainer.setStage(primaryStage, "Brockport Clothes Closet v1.00");
 	   mainStage = MainStageContainer.getInstance();
 	   mainStage.getIcons().add(new Image("/images/Brockport_Icon.png"));
 	   mainStage.setResizable(false);

@@ -183,7 +183,7 @@ public class SelectArticleTypeView extends View
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(500, 150);
+        scrollPane.setPrefSize(520, 150);
         scrollPane.setContent(tableOfArticleTypes);
 
 		submitButton = new Button("Submit");
