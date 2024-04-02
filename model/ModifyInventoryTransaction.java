@@ -94,9 +94,24 @@ public class ModifyInventoryTransaction extends Transaction{
 
     public void processTransaction(Properties props)
     {
-//        oldInventory.changeValue("description", props.getProperty("description"));
-//        oldInventory.changeValue("barcodePrefix", props.getProperty("barcodePrefix"));
-//        oldInventory.changeValue("alphaCode", props.getProperty("alphaCode"));
+        oldInventory.changeValue("barcode", props.getProperty("barcode"));
+        oldInventory.changeValue("gender", props.getProperty("gender"));
+        oldInventory.changeValue("size", props.getProperty("size"));
+        oldInventory.changeValue("articleType", props.getProperty("articleType"));
+        oldInventory.changeValue("color1", props.getProperty("color1"));
+        oldInventory.changeValue("color2", props.getProperty("color2"));
+        oldInventory.changeValue("brand", props.getProperty("brand"));
+        oldInventory.changeValue("notes", props.getProperty("notes"));
+        oldInventory.changeValue("status", props.getProperty("status"));
+        oldInventory.changeValue("donorLastName", props.getProperty("donorLastName"));
+        oldInventory.changeValue("donorFirstName", props.getProperty("donorFirstName"));
+        oldInventory.changeValue("donorPhone", props.getProperty("donorPhone"));
+        oldInventory.changeValue("donorEmail", props.getProperty("donorEmail"));
+//        oldInventory.changeValue("receiverNetId", props.getProperty("receiverNetId"));
+//        oldInventory.changeValue("receiverLastName", props.getProperty("receiverLastName"));
+//        oldInventory.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
+//        oldInventory.changeValue("dateDonated", props.getProperty("dateDonated"));
+//        oldInventory.changeValue("dateTaken", props.getProperty("dateTaken"));
 
 
         oldInventory.update();
