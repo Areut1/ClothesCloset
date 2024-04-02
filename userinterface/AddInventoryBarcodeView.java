@@ -157,7 +157,7 @@ public class AddInventoryBarcodeView extends View{
         String barcodeEntered = addInventoryBarcode.getText();
 
         //Validate user input
-        if ((barcodeEntered == null) || (barcodeEntered.length() != 5)){
+        if ((barcodeEntered == null) || (barcodeEntered.length() != 8)){
             clearErrorMessage();
             displayErrorMessage("Please enter appropriate barcode");
         }
