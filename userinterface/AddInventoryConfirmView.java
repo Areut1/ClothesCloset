@@ -54,7 +54,7 @@ public class AddInventoryConfirmView extends View {
         // create a container for showing the contents
         VBox container = new VBox(10);
         container.setPadding(new Insets(15, 5, 5, 5));
-
+        container.getStyleClass().add("Vbox");
         // create our GUI components, add them to this panel
         container.getChildren().add(createTitle());
         container.getChildren().add(createFormContent());
