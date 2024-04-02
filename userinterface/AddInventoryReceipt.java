@@ -207,7 +207,7 @@ public class AddInventoryReceipt extends View
 
         return vbox;
     }
-    //help
+
 
     private Text createText(String text) {
         Text t = new Text(text);
