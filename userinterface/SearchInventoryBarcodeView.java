@@ -164,6 +164,7 @@ public class SearchInventoryBarcodeView extends View{
         }
 
         String transaction = (String) myModel.getState("Transaction");
+        System.out.println(transaction);
 
         //Validate user input
         if ((barcodeEntered == null) || (barcodeEntered.length() != 8)){
@@ -174,7 +175,7 @@ public class SearchInventoryBarcodeView extends View{
             if (iCol.size() != 0 && transaction.equals("AddInventory")) {
                 displayMessage("Barcode already exists");
             }
-            else if (iCol.size() > 0 && (transaction.equals("ModifyInventory") || transaction.equals("DeleteInventory"))){
+            else if (iCol.size() == 0 && (transaction.equals("ModifyInventory") || transaction.equals("DeleteInventory"))){
                 displayErrorMessage("Barcode does not exist");
             }
             else {
