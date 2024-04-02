@@ -123,11 +123,13 @@ public class AddInventoryTransaction extends Transaction{
         String gender = "" + barcodeArr[0];
         String articleType = "" + barcodeArr[1] + barcodeArr[2];
         String color = "" + barcodeArr[3] + barcodeArr[4];
+        String id = "" + barcodeArr[5] + barcodeArr[6] + barcodeArr[7];
 
         barcode = new Properties();
         barcode.setProperty("gender", gender);
         barcode.setProperty("articleType", articleType);
         barcode.setProperty("color1", color);
+        barcode.setProperty("id", id);
 
         switch (transCount) {
             case 0 -> {
