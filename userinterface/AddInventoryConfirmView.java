@@ -22,6 +22,7 @@ import model.ArticleTypeCollection;
 import model.ColorCollection;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -47,7 +48,7 @@ public class AddInventoryConfirmView extends View {
 
     public AddInventoryConfirmView(IModel clerk)
     {
-        super(clerk, "AddInventoryConfirm");
+        super(clerk, "AddInventoryConfirmView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -70,7 +71,7 @@ public class AddInventoryConfirmView extends View {
 
     private Node createTitle()
     {
-        HBox container = new HBox();
+        VBox container = new VBox();
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" Confirm Barcode Information ");
@@ -79,6 +80,12 @@ public class AddInventoryConfirmView extends View {
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
         container.getChildren().add(titleText);
+
+//        Text prompt = new Text("Is this the correct?");
+//        prompt.setWrappingWidth(350);
+//        prompt.setTextAlignment(TextAlignment.CENTER);
+//        prompt.setFill(Color.BLACK);
+//        container.getChildren(prompt);
 
         return container;
     }
@@ -99,11 +106,10 @@ public class AddInventoryConfirmView extends View {
 
 
         // ----- Prompt ----------------------------------------------
-        Text prompt = new Text(" Is this the correct? ");
-        prompt.setWrappingWidth(350);
-        prompt.setTextAlignment(TextAlignment.CENTER);
-        prompt.setFill(Color.BLACK);
-        grid.add(prompt, 0, 0, 2, 1);
+
+
+
+        // grid.add();
 
         // ----- Gender ----------------------------------------------
         Label genderLabel = new Label("Gender:");
@@ -114,7 +120,7 @@ public class AddInventoryConfirmView extends View {
         genderComboBox.getSelectionModel().select("Active");
         genderComboBox.setMinSize(100, 20);
 
-        // TESTING
+        // Add a listener, so we can monitor the new barcode as the selection changes
         genderComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
             System.out.println(newValue);
         });
@@ -128,6 +134,12 @@ public class AddInventoryConfirmView extends View {
         articleTypeComboBox = new ComboBox<>();
         articleTypeComboBox.getSelectionModel().select("Active");
         articleTypeComboBox.setMinSize(100, 20);
+
+        // Add a listener, so we can monitor the new barcode as the selection changes
+        articleTypeComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            System.out.println(newValue);
+        });
+
         grid.add(articleTypeComboBox, 1, 3);
 
         // ----- Primary Color (color 1) -----------------------------
@@ -137,6 +149,12 @@ public class AddInventoryConfirmView extends View {
         primaryColorComboBox = new ComboBox<>();
         primaryColorComboBox.getSelectionModel().select("Active");
         primaryColorComboBox.setMinSize(100, 20);
+
+        // Add a listener, so we can monitor the new barcode as the selection changes
+        primaryColorComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            System.out.println(newValue);
+        });
+
         grid.add(primaryColorComboBox, 1, 4);
 
         // -----------------------------------------------------------
@@ -144,13 +162,11 @@ public class AddInventoryConfirmView extends View {
 
         confirmButton = new Button("Submit");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
                 // do the inquiry
                 processConfirm();
-
             }
         });
 
@@ -201,21 +217,8 @@ public class AddInventoryConfirmView extends View {
 
         Then, we will use those mappings to populate the combo boxes and create the barcode builder.
          */
-
-
-        // Get user inputted barcode from prev view
         Properties barcode = (Properties) myModel.getState("Barcode");
 
-        // If barcode length is 5 then we want to autofill information
-            String genderBarcode = barcode.getProperty("gender");
-            String articleTypeBarcode = barcode.getProperty("articleType");
-            String primaryColorBarcode = barcode.getProperty("color1");
-
-            System.out.println("Gender barcode is: " + genderBarcode);
-            System.out.println("ArticleType is: " + articleTypeBarcode);
-            System.out.println("PrimaryColorBarcode is: " + primaryColorBarcode);
-
-            // Update combo boxes
 
 
     }
@@ -237,21 +240,85 @@ public class AddInventoryConfirmView extends View {
             primaryColorBarcodeMapping.setProperty(cCol.get(i).getValue("barcodePrefix"), cCol.get(i).getValue("description"));
         }
 
-        genderBarcodeMapping.setProperty("0", "male");
-        genderBarcodeMapping.setProperty("1", "female");
-    }
+        genderBarcodeMapping.setProperty("0", "Male");
+        genderBarcodeMapping.setProperty("1", "Female");
 
+
+        // SET ARTICLE TYPE COMBO BOX FIELDS
+        List<String> values = new ArrayList<>();
+        for (Object value : articleTypeBarcodeMapping.values()) {
+            values.add((String) value);
+        }
+        ObservableList<String> articleTypes = FXCollections.observableList(values);
+        articleTypeComboBox.setItems(articleTypes);
+
+        // SET GENDER BARCODE TYPE COMBO BOX FIELDS
+        values = new ArrayList<>();
+        for (Object value : genderBarcodeMapping.values()) {
+            values.add((String) value);
+        }
+        ObservableList<String> genderTypes = FXCollections.observableList(values);
+        genderComboBox.setItems(genderTypes);
+
+        // SET PRIMARY COLOR BARCODE COMBO BOX FIELDS
+        values = new ArrayList<>();
+        for (Object value : primaryColorBarcodeMapping.values()) {
+            values.add((String) value);
+        }
+        ObservableList<String> primaryColors = FXCollections.observableList(values);
+        primaryColorComboBox.setItems(primaryColors);
+
+
+        // Selecting the items according to inserted barcode
+        Properties barcode = (Properties) myModel.getState("Barcode");
+        String genderBarcode = barcode.getProperty("gender");
+        String articleTypeBarcode = barcode.getProperty("articleType");
+        String primaryColorBarcode = barcode.getProperty("color1");
+
+        System.out.println("this is : " + (String) primaryColorBarcodeMapping.get(primaryColorBarcode));
+        try {
+            String genderPick = (String) genderBarcodeMapping.get(genderBarcode);
+            String articleTypePick = (String) articleTypeBarcodeMapping.get(articleTypeBarcode);
+            String primaryColorPick = (String) primaryColorBarcodeMapping.get(primaryColorBarcode);
+
+            genderComboBox.setValue(genderPick);
+            articleTypeComboBox.setValue(articleTypePick);
+            primaryColorComboBox.setValue(primaryColorPick);
+
+            if (genderPick == null) {
+                throw new Exception("bad-gender");
+            } else if (articleTypePick == null) {
+                throw new Exception("bad-article-type");
+            } else if (primaryColorPick == null) {
+                throw new Exception("bad-primary-color");
+            }
+        }
+        catch (Exception e) {
+            System.out.println("ERROR! " + e.getMessage());
+
+            if (e.getMessage().equals("bad-gender")) {
+                displayErrorMessage("Invalid gender from barcode!");
+            } else if (e.getMessage().equals("bad-article-type")) {
+                displayErrorMessage("Invalid article type from barcode!");
+            } else if (e.getMessage().equals("bad-primary-color")) {
+                displayErrorMessage("Invalid primary color from barcode!");
+            } else {
+                displayErrorMessage("Uh oh.. An error occurred!");
+            }
+        }
+    }
 
     public void processConfirm() {
         myModel.stateChangeRequest("SubmitBarcode", null);
     }
 
-    public void updateState(String key, Object value) {    }
+    public void updateState(String key, Object value) {
+
+    }
 
     protected MessageView createStatusLog(String initialMessage)
     {
         statusLog = new MessageView(initialMessage);
-
         return statusLog;
     }
 
@@ -263,6 +330,10 @@ public class AddInventoryConfirmView extends View {
     public void displayMessage(String message)
     {
         statusLog.displayMessage(message);
+    }
+
+    public void displayErrorMessage(String message) {
+        statusLog.displayErrorMessage(message);
     }
 
     /**
