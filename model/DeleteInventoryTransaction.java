@@ -73,6 +73,7 @@ public class DeleteInventoryTransaction extends Transaction{
             case "UpdateStatusMessage" -> updateStatusMessage;
 //            case "Inventory" -> oldInventory;
 //            case "InventoryCollection" -> iCol;
+            case "Transaction" -> "DeleteInventory";
             default -> null;
         };
     }

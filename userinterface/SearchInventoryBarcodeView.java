@@ -20,6 +20,9 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
+import model.InventoryCollection;
+
+import java.util.Properties;
 
 public class SearchInventoryBarcodeView extends View{
 
@@ -150,6 +153,17 @@ public class SearchInventoryBarcodeView extends View{
     public void processSubAction(Event evt){
 
         String barcodeEntered = InventoryBarcode.getText();
+        Properties props = new Properties();
+        props.setProperty("barcode", barcodeEntered);
+
+        InventoryCollection iCol = new InventoryCollection();
+        try {
+            iCol.findInventory(props);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        String transaction = (String) myModel.getState("Transaction");
 
         //Validate user input
         if ((barcodeEntered == null) || (barcodeEntered.length() != 8)){
@@ -157,8 +171,17 @@ public class SearchInventoryBarcodeView extends View{
             displayErrorMessage("Please enter appropriate barcode");
         }
         else {
-            populateFields();
-            myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+            //TODO: Different for each transaction
+            if (iCol.size() != 0 && transaction.equals("AddInventory")) {
+                displayMessage("Barcode already exists");
+            }
+            else if (iCol.size() > 0 && (transaction.equals("ModifyInventory") || transaction.equals("DeleteInventory"))){
+                displayErrorMessage("Barcode does not exist");
+            }
+            else {
+                populateFields();
+                myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+            }
         }
 
     }//End processSubAction------------------------------

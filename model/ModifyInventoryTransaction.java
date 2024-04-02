@@ -75,6 +75,7 @@ public class ModifyInventoryTransaction extends Transaction{
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "Inventory" -> oldInventory;
             case "InventoryCollection" -> iCol;
+            case "Transaction" -> "ModifyInventory";
             default -> null;
         };
     }

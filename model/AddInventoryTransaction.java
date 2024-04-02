@@ -91,6 +91,7 @@ public class AddInventoryTransaction extends Transaction{
             case "ColorList" -> cCol;
             case "Inventory" -> newInventory;
             case "Barcode" -> barcode;
+            case "Transaction" -> "AddInventory";
             default -> null;
         };
     }
