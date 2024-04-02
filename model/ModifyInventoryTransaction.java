@@ -12,9 +12,9 @@ public class ModifyInventoryTransaction extends Transaction{
 
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
-//    private Inventory oldInventory;
-//
-//    private InventoryCollection iCol;
+    private Inventory oldInventory;
+
+    private InventoryCollection iCol;
 
 
     protected ModifyInventoryTransaction() throws Exception {
@@ -71,8 +71,8 @@ public class ModifyInventoryTransaction extends Transaction{
         return switch (key) {
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
-//            case "Inventory" -> oldInventory;
-//            case "InventoryCollection" -> iCol;
+            case "Inventory" -> oldInventory;
+            case "InventoryCollection" -> iCol;
             default -> null;
         };
     }
@@ -101,20 +101,20 @@ public class ModifyInventoryTransaction extends Transaction{
 //        oldInventory.changeValue("description", props.getProperty("description"));
 //        oldInventory.changeValue("barcodePrefix", props.getProperty("barcodePrefix"));
 //        oldInventory.changeValue("alphaCode", props.getProperty("alphaCode"));
-//
-//
-//        oldInventory.update();
+
+
+        oldInventory.update();
         createAndShowView("ModifyArticleTypeReceipt");
     }
 
     public void processSearch(Properties props) throws Exception {
 
-//        iCol = new InventoryCollection();
-//        try {
-//            iCol.findInventory(props);
-//        } catch (Exception e) {
-//            throw new Exception("Unable to search for Inventory");
-//        }
+        iCol = new InventoryCollection();
+        try {
+            iCol.findInventory(props);
+        } catch (Exception e) {
+            throw new Exception("Unable to search for Inventory");
+        }
 
         createAndShowView("SelectInventoryView");
 
@@ -124,15 +124,35 @@ public class ModifyInventoryTransaction extends Transaction{
 
         String id = props.getProperty("inventoryId");
 
-//        try {
-//            oldInventory = new Inventory(id);
-//        } catch (InvalidPrimaryKeyException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            oldInventory = new Inventory(id);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
         createAndShowView("ModifyInventoryView");
 
 
     }
 
 }
+
+
+/*
+    Modify Transaction Process:
+        User provides barcode
+        Screen showing information of corresponding Inventory
+        Comboboxes and textfields to change information
+        Confirm screen
+        Update Inventory in database
+        Receipt screen
+
+
+        Screens:
+            Barcode entry screen
+            TextField modify screen
+            Confirm screen
+            Receipt Screen
+
+
+ */
 
