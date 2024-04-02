@@ -171,7 +171,6 @@ public class SearchInventoryBarcodeView extends View{
             displayErrorMessage("Please enter appropriate barcode");
         }
         else {
-            //TODO: Different for each transaction
             if (iCol.size() != 0 && transaction.equals("AddInventory")) {
                 displayMessage("Barcode already exists");
             }
