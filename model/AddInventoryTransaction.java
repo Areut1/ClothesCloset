@@ -57,7 +57,7 @@ public class AddInventoryTransaction extends Transaction{
             View newView = ViewFactory.createView("SearchInventoryBarcodeView", this);
             currentScene = new Scene(newView);
             myViews.put("SearchInventoryBarcodeView", currentScene);
-
+            currentScene.getStylesheets().add("userinterface/stylesheet.css");
             return currentScene;
         }
         else
@@ -76,7 +76,7 @@ public class AddInventoryTransaction extends Transaction{
             View newView = ViewFactory.createView(view, this);
             newScene = new Scene(newView);
             myViews.put(view, newScene);
-
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
         }
         swapToView(newScene);
     }

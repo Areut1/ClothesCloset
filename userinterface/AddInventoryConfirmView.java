@@ -54,7 +54,7 @@ public class AddInventoryConfirmView extends View {
         // create a container for showing the contents
         VBox container = new VBox(10);
         container.setPadding(new Insets(15, 5, 5, 5));
-
+        container.getStyleClass().add("Vbox");
         // create our GUI components, add them to this panel
         container.getChildren().add(createTitle());
         container.getChildren().add(createFormContent());
@@ -76,10 +76,10 @@ public class AddInventoryConfirmView extends View {
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" Confirm Barcode Information ");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.getStyleClass().add("title");
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
+        titleText.getStyleClass().add("title");
         container.getChildren().add(titleText);
 
 //        Text prompt = new Text("Is this the correct?");

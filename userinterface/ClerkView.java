@@ -116,8 +116,6 @@ public class ClerkView extends View
 
         enterButton = new Button("   Enter   ");
         enterButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        enterButton.setStyle("-fx-background-radius:5;\n" +
-                "-fx-focus-color:#00533E;");
         enterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -127,8 +125,6 @@ public class ClerkView extends View
 
         quitButton = new Button("   Quit   ");
         quitButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        quitButton.setStyle("-fx-background-radius:5;\n" +
-                "-fx-focus-color:#00533E;");
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {System.exit(0);}

@@ -50,7 +50,7 @@ public class AddInventoryInputView extends View {
         // create a container for showing the contents
         VBox container = new VBox(10);
         container.setPadding(new Insets(15, 5, 5, 5));
-
+        container.getStyleClass().add("Vbox");
         // Add a title for this panel
         container.getChildren().add(createTitle());
 
@@ -76,10 +76,9 @@ public class AddInventoryInputView extends View {
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" Add Inventory Input ");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.getStyleClass().add("title");
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
         container.getChildren().add(titleText);
 
         // Add white space to follow design spec

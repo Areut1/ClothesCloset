@@ -40,7 +40,7 @@ public class DeleteInventoryTransaction extends Transaction{
             View newView = ViewFactory.createView("SearchInventoryView", this);
             currentScene = new Scene(newView);
             myViews.put("SearchInventoryView", currentScene);
-
+            currentScene.getStylesheets().add("userinterface/stylesheet.css");
             return currentScene;
         }
         else
@@ -60,7 +60,7 @@ public class DeleteInventoryTransaction extends Transaction{
             View newView = ViewFactory.createView(view, this);
             newScene = new Scene(newView);
             myViews.put(view, newScene);
-
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
         }
         swapToView(newScene);
     }

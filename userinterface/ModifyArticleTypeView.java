@@ -43,7 +43,7 @@ public class ModifyArticleTypeView extends View {
         // create a container for showing the contents
         VBox container = new VBox(10);
         container.setPadding(new Insets(15, 5, 5, 5));
-
+        container.getStyleClass().add("Vbox");
         // Add a title for this panel
         container.getChildren().add(createTitle());
 
