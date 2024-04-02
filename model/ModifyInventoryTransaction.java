@@ -142,7 +142,6 @@ public class ModifyInventoryTransaction extends Transaction{
         User provides barcode
         Screen showing information of corresponding Inventory
         Comboboxes and textfields to change information
-        Confirm screen
         Update Inventory in database
         Receipt screen
 
@@ -150,7 +149,6 @@ public class ModifyInventoryTransaction extends Transaction{
         Screens:
             Barcode entry screen
             TextField modify screen
-            Confirm screen
             Receipt Screen
 
 
