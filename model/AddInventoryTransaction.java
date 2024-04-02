@@ -49,14 +49,14 @@ public class AddInventoryTransaction extends Transaction{
 
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("AddInventoryBarcodeView");
+        Scene currentScene = myViews.get("SearchInventoryBarcodeView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("AddInventoryBarcodeView", this);
+            View newView = ViewFactory.createView("SearchInventoryBarcodeView", this);
             currentScene = new Scene(newView);
-            myViews.put("AddInventoryBarcodeView", currentScene);
+            myViews.put("SearchInventoryBarcodeView", currentScene);
 
             return currentScene;
         }
