@@ -117,9 +117,21 @@ public class ModifyInventoryTransaction extends Transaction{
         barcode.setProperty("color1", color);
         barcode.setProperty("id", id);
 
+        iCol = new InventoryCollection();
+        try {
+            iCol.findInventory(barcode);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
+        if (iCol.size() > 0){
+            oldInventory = iCol.get(0);
+            createAndShowView("ModifyInventoryView");
+        }
+        else{
+            throw new RuntimeException();
+        }
 
-        createAndShowView("ModifyInventoryView");
     }
 
 }
