@@ -31,6 +31,8 @@ public class AddInventoryReceipt extends View
     // Model
 
     private	String todaysDateAndTimeString;
+    private Text todaysDateAndTime;
+    private Text barcode;
     private Text gender;
     private Text size;
     private Text articleType;
@@ -43,15 +45,11 @@ public class AddInventoryReceipt extends View
     private Text donorFirstName;
     private Text donorPhone;
     private Text donorEmail;
-    private Text receiverNetId;
-    private Text receiverLastName;
-    private Text receiverFirstName;
     private Text dateDonated;
-    private Text dateTaken;
-    // GUI controls
-    private Text todaysDateAndTime;
 
+    // GUI controls
     private Button okButton;
+
     // constructor for this class
     //----------------------------------------------------------
     public AddInventoryReceipt(IModel trans)
@@ -108,78 +106,125 @@ public class AddInventoryReceipt extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        grid.add(createText("Date/Time : "), 0, 0);
+        Text dateAndTimeLabel = new Text("Date/Time : ");
+        dateAndTimeLabel.setWrappingWidth(150);
+        dateAndTimeLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(dateAndTimeLabel, 0, 0);
+
         todaysDateAndTime = new Text("                       ");
         grid.add(todaysDateAndTime, 1, 0);
 
-        grid.add(createText("Gender : "), 0, 1);
+        Text barcodeLabel = new Text("Barcode : ");
+        barcodeLabel.setWrappingWidth(150);
+        barcodeLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(barcodeLabel, 0, 1);
+
+        barcode = new Text("                       ");
+        grid.add(barcode, 1, 1);
+
+        Text genderLabel = new Text("Gender : ");
+        genderLabel.setWrappingWidth(150);
+        genderLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(genderLabel, 0, 2);
+
         gender = new Text("                       ");
-        grid.add(gender, 1, 1);
+        grid.add(gender, 1, 2);
 
-        grid.add(createText("Size : "), 0, 2);
+        Text sizeLabel = new Text("Size : ");
+        sizeLabel.setWrappingWidth(150);
+        sizeLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(sizeLabel, 0, 3);
+
         size = new Text("                       ");
-        grid.add(size, 1, 2);
+        grid.add(size, 1, 3);
 
-        grid.add(createText("Article Type : "), 0, 3);
+        Text articleTypeLabel = new Text("Article Type : ");
+        articleTypeLabel.setWrappingWidth(150);
+        articleTypeLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(articleTypeLabel, 0, 4);
+
         articleType = new Text("                       ");
-        grid.add(articleType, 1, 3);
+        grid.add(articleType, 1, 4);
 
-        grid.add(createText("Color 1 : "), 0, 4);
+        Text color1Label = new Text("Color 1 : ");
+        color1Label.setWrappingWidth(150);
+        color1Label.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(color1Label, 0, 5);
+
         color1 = new Text("                       ");
-        grid.add(color1, 1, 4);
+        grid.add(color1, 1, 5);
 
-        grid.add(createText("Color 2 : "), 0, 5);
+        Text color2Label = new Text("Color 2 : ");
+        color2Label.setWrappingWidth(150);
+        color2Label.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(color2Label, 0, 6);
+
         color2 = new Text("                       ");
-        grid.add(color2, 1, 5);
+        grid.add(color2, 1, 6);
 
-        grid.add(createText("Brand : "), 0, 6);
+        Text brandLabel = new Text("Brand : ");
+        brandLabel.setWrappingWidth(150);
+        brandLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(brandLabel, 0, 7);
+
         brand = new Text("                       ");
-        grid.add(brand, 1, 6);
+        grid.add(brand, 1, 7);
 
-        grid.add(createText("Notes : "), 0, 7);
+        Text notesLabel = new Text("Notes : ");
+        notesLabel.setWrappingWidth(150);
+        notesLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(notesLabel, 0, 8);
+
         notes = new Text("                       ");
-        grid.add(notes, 1, 7);
+        grid.add(notes, 1, 8);
 
-        grid.add(createText("Status : "), 0, 8);
+        Text statusLabel = new Text("Status : ");
+        statusLabel.setWrappingWidth(150);
+        statusLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(statusLabel, 0, 9);
+
         status = new Text("                       ");
-        grid.add(status, 1, 8);
+        grid.add(status, 1, 9);
 
-        grid.add(createText("Donor Lastname : "), 0, 9);
+        Text donorLastNameLabel = new Text("Donor Last Name : ");
+        donorLastNameLabel.setWrappingWidth(150);
+        donorLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(donorLastNameLabel, 0, 10);
+
         donorLastName = new Text("                       ");
-        grid.add(donorLastName, 1, 9);
+        grid.add(donorLastName, 1, 10);
 
-        grid.add(createText("Donor Firstname : "), 0, 10);
+        Text donorFirstNameLabel = new Text("Donor First Name : ");
+        donorFirstNameLabel.setWrappingWidth(150);
+        donorFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(donorFirstNameLabel, 0, 11);
+
         donorFirstName = new Text("                       ");
-        grid.add(donorFirstName, 1, 10);
+        grid.add(donorFirstName, 1, 11);
 
-        grid.add(createText("Donor Phone : "), 0, 11);
+        Text donorPhoneLabel = new Text("Donor Phone : ");
+        donorPhoneLabel.setWrappingWidth(150);
+        donorPhoneLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(donorPhoneLabel, 0, 12);
+
         donorPhone = new Text("                       ");
-        grid.add(donorPhone, 1, 11);
+        grid.add(donorPhone, 1, 12);
 
-        grid.add(createText("Donor Email : "), 0, 12);
+        Text donorEmailLabel = new Text("Donor Email : ");
+        donorEmailLabel.setWrappingWidth(150);
+        donorEmailLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(donorEmailLabel, 0, 13);
+
         donorEmail = new Text("                       ");
-        grid.add(donorEmail, 1, 12);
+        grid.add(donorEmail, 1, 13);
 
-        grid.add(createText("Receiver NetId : "), 0, 13);
-        receiverNetId = new Text("                       ");
-        grid.add(receiverNetId, 1, 13);
+        Text dateDonatedLabel = new Text("Date Donated : ");
+        dateDonatedLabel.setWrappingWidth(150);
+        dateDonatedLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(dateDonatedLabel, 0, 14);
 
-        grid.add(createText("Receiver Lastname : "), 0, 14);
-        receiverLastName = new Text("                       ");
-        grid.add(receiverLastName, 1, 14);
-
-        grid.add(createText("Receiver Firstname : "), 0, 15);
-        receiverFirstName = new Text("                       ");
-        grid.add(receiverFirstName, 1, 15);
-
-        grid.add(createText("Date donated : "), 0, 16);
         dateDonated = new Text("                       ");
-        grid.add(dateDonated, 1, 16);
-
-        grid.add(createText("Date taken : "), 0, 17);
-        dateTaken = new Text("                       ");
-        grid.add(dateTaken, 1, 17);
-
+        grid.add(dateDonated, 1, 14);
 
         okButton = new Button("OK");
         okButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -208,22 +253,13 @@ public class AddInventoryReceipt extends View
         return vbox;
     }
 
-
-    private Text createText(String text) {
-        Text t = new Text(text);
-
-        t.setWrappingWidth(150);
-        t.setTextAlignment(TextAlignment.RIGHT);
-
-        return t;
-    }
-
-
     //-------------------------------------------------------------
     public void populateFields()
     {
         IModel newInventoryInfo = (IModel)myModel.getState("Inventory");
 
+        String barcodeSt = (String)newInventoryInfo.getState("barcode");
+        barcode.setText(barcodeSt);
         String genderSt = (String)newInventoryInfo.getState("gender");
         gender.setText(genderSt);
         String sizeSt = (String)newInventoryInfo.getState("size");
@@ -248,16 +284,8 @@ public class AddInventoryReceipt extends View
         donorPhone.setText(donorPhoneSt);
         String donorEmailSt = (String)newInventoryInfo.getState("donorEmail");
         donorEmail.setText(donorEmailSt);
-        String receiverNetIdSt = (String)newInventoryInfo.getState("receiverNetId");
-        receiverNetId.setText(receiverNetIdSt);
-        String receiverLastNameSt = (String)newInventoryInfo.getState("receiverLastName");
-        receiverLastName.setText(receiverLastNameSt);
-        String receiverFirstNameSt = (String)newInventoryInfo.getState("receiverFirstName");
-        receiverFirstName.setText(receiverFirstNameSt);
         String dateDonatedSt = (String)newInventoryInfo.getState("dateDonated");
         dateDonated.setText(dateDonatedSt);
-        String dateTakenSt = (String)newInventoryInfo.getState("dateTaken");
-        dateTaken.setText(dateTakenSt);
 
         todaysDateAndTime.setText(todaysDateAndTimeString);
 
