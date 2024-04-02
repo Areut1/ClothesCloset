@@ -158,7 +158,7 @@ public class ModifyInventoryTransaction extends Transaction{
             throw new RuntimeException(e);
         }
 
-        if (iCol.size() > 0){
+        if (iCol.size() == 1){
             oldInventory = iCol.get(0);
             createAndShowView("ModifyInventoryView");
         }
