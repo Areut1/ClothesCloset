@@ -37,7 +37,7 @@ public class AddColorTransaction extends Transaction{
             View newView = ViewFactory.createView("AddColorView", this);
             currentScene = new Scene(newView);
             myViews.put("AddColorView", currentScene);
-
+            currentScene.getStylesheets().add("userinterface/stylesheet.css");
             return currentScene;
         }
         else
