@@ -58,6 +58,7 @@ public class ClothesCloset extends Application
 	   MainStageContainer.setStage(primaryStage, "Brockport Clothes Closet version 1.00");
 	   mainStage = MainStageContainer.getInstance();
 	   mainStage.getIcons().add(new Image("/images/Brockport_Icon.png"));
+	   mainStage.setResizable(false);
 
 	   // Finish setting up the stage (ENABLE THE GUI TO BE CLOSED USING THE TOP RIGHT
 	   // 'X' IN THE WINDOW), and show it.

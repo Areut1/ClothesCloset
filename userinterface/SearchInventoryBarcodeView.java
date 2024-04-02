@@ -157,10 +157,6 @@ public class SearchInventoryBarcodeView extends View{
             displayErrorMessage("Please enter appropriate barcode");
         }
         else {
-
-
-
-
             populateFields();
             myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
         }
