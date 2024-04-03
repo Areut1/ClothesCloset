@@ -35,17 +35,13 @@ import java.util.Enumeration;
 import impresario.IModel;
 import model.ArticleType;
 import model.ArticleTypeCollection;
-
 //==============================================================================
 public class SelectArticleTypeView extends View
 {
     protected TableView<ArticleTypeTableModel> tableOfArticleTypes;
     protected Button cancelButton;
     protected Button submitButton;
-
     protected MessageView statusLog;
-
-
     //--------------------------------------------------------------------------
     public SelectArticleTypeView(IModel clerk)
     {
@@ -66,13 +62,11 @@ public class SelectArticleTypeView extends View
 
         populateFields();
     }
-
     //--------------------------------------------------------------------------
     protected void populateFields()
     {
         getEntryTableModelValues();
     }
-
     //--------------------------------------------------------------------------
     protected void getEntryTableModelValues()
     {
@@ -103,7 +97,6 @@ public class SelectArticleTypeView extends View
             // Need to handle this exception
         }
     }
-
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
@@ -120,7 +113,6 @@ public class SelectArticleTypeView extends View
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     @SuppressWarnings("unchecked")
@@ -170,7 +162,6 @@ public class SelectArticleTypeView extends View
 
         tableOfArticleTypes.getColumns().addAll(articleTypeIdColumn,
                 descriptionColumn, barcodePrefixColumn, alphaCodeColumn, statusColumn);
-
 
         tableOfArticleTypes.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -227,14 +218,10 @@ public class SelectArticleTypeView extends View
 
         return vbox;
     }
-
-
-
     //--------------------------------------------------------------------------
     public void updateState(String key, Object value)
     {
     }
-
     //--------------------------------------------------------------------------
     protected void processArticleTypeSelected()
     {
@@ -246,13 +233,9 @@ public class SelectArticleTypeView extends View
             Properties props = new Properties();
             props.setProperty("articleTypeId", selectedArticleTypeId);
 
-
-
-
             myModel.stateChangeRequest("ConfirmArticleTypeChoice", props);
         }
     }
-
     //--------------------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
     {
@@ -260,8 +243,6 @@ public class SelectArticleTypeView extends View
 
         return statusLog;
     }
-
-
     /**
      * Display info message
      */
@@ -270,7 +251,6 @@ public class SelectArticleTypeView extends View
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */
@@ -279,7 +259,6 @@ public class SelectArticleTypeView extends View
     {
         statusLog.clearErrorMessage();
     }
-
 	//--------------------------------------------------------------------------
 	public void mouseClicked(MouseEvent click)
 	{

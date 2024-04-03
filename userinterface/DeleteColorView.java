@@ -17,13 +17,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-
+//---------------------------------------------------------------
 public class DeleteColorView extends View{
 
     protected Button cancelButton;
     protected Button confirmButton;
     protected MessageView statusLog;
-
+    //---------------------------------------------------------------
     public DeleteColorView(IModel clerk)
     {
         super(clerk, "DeleteColorView");
@@ -41,9 +41,9 @@ public class DeleteColorView extends View{
 
         getChildren().add(container);
 
-//        populateFields();
+//       populateFields();
     }
-
+    //---------------------------------------------------------------
     private Node createTitle()
     {
         HBox container = new HBox();
@@ -58,7 +58,6 @@ public class DeleteColorView extends View{
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     @SuppressWarnings("unchecked")
@@ -119,24 +118,19 @@ public class DeleteColorView extends View{
 
         return vbox;
     }
-
+    //---------------------------------------------------------------
     public void processConfirm(){
         myModel.stateChangeRequest("DeleteColor", null);
     }
-
-    public void updateState(String key, Object value)
-    {
-    }
-
-
+    //---------------------------------------------------------------
+    public void updateState(String key, Object value) { }
+    //---------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
     {
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
     }
-
-
     /**
      * Display info message
      */
@@ -145,7 +139,6 @@ public class DeleteColorView extends View{
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */
@@ -154,5 +147,4 @@ public class DeleteColorView extends View{
     {
         statusLog.clearErrorMessage();
     }
-
 }

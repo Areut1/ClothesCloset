@@ -23,14 +23,11 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
-
 /** The class containing the Modify Color Receipt  for the Clothes Closet application */
 //==============================================================
 public class ModifyColorReceipt extends View
 {
-
     // Model
-
     private	String todaysDateAndTimeString;
     private Text description;
     private Text barcodePrefix;
@@ -38,7 +35,6 @@ public class ModifyColorReceipt extends View
     private Text status;
     // GUI controls
     private Text todaysDateAndTime;
-
     private Button okButton;
     // constructor for this class
     //----------------------------------------------------------
@@ -65,8 +61,6 @@ public class ModifyColorReceipt extends View
         populateFields();
 
     }
-
-
     // Create the Node (HBox) for the title
     //-------------------------------------------------------------
     private Node createTitle()
@@ -83,7 +77,6 @@ public class ModifyColorReceipt extends View
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -163,9 +156,6 @@ public class ModifyColorReceipt extends View
 
         return vbox;
     }
-
-
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -182,15 +172,11 @@ public class ModifyColorReceipt extends View
         todaysDateAndTime.setText(todaysDateAndTimeString);
 
     }
-
-
     /**
      * Required by interface, but has no role here
      */
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-
     }
-
 }

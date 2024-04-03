@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import java.util.Properties;
 import impresario.IModel;
 import model.ArticleType;
-
+//---------------------------------------------------------------
 public class AddColorView extends View {
     // GUI components
     protected TextField description;
@@ -36,7 +36,6 @@ public class AddColorView extends View {
 
     // For showing error message
     protected MessageView statusLog;
-
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public AddColorView(IModel clerk)
@@ -62,8 +61,6 @@ public class AddColorView extends View {
         myModel.subscribe("colorMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }
-
-
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
@@ -79,7 +76,6 @@ public class AddColorView extends View {
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -183,7 +179,6 @@ public class AddColorView extends View {
 
         return vbox;
     }
-
     //--------------------------------------------------------------------------------------------
     /*processAction
      * On submit button click, method will set up properties object with values taken from
@@ -218,7 +213,6 @@ public class AddColorView extends View {
             displayMessage("New Color was added!");
         }
     }
-
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -227,7 +221,6 @@ public class AddColorView extends View {
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -235,7 +228,6 @@ public class AddColorView extends View {
         barcodePrefix.setText((String)myModel.getState("BarcodePrefix"));
         alphaCode.setText((String)myModel.getState("AlphaCode"));
     }
-
     /**
      * Update method
      */
@@ -252,7 +244,6 @@ public class AddColorView extends View {
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */
@@ -261,7 +252,6 @@ public class AddColorView extends View {
     {
         statusLog.displayErrorMessage(message);
     }
-
     /**
      * Display info message
      */
@@ -270,7 +260,6 @@ public class AddColorView extends View {
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */

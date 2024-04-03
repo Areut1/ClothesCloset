@@ -23,24 +23,18 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
-
 /** The class containing the Delete Article Type Receipt  for the Clothes Closet application */
 //==============================================================
 public class DeleteArticleTypeReceipt extends View
 {
-
     // Model
-
     private	String todaysDateAndTimeString;
-
     // GUI controls
     private Text todaysDateAndTime;
     private Text description;
     private Text barcodePrefix;
     private Text alphaCode;
     private Text status;
-
-
     private Button okButton;
     // constructor for this class
     //----------------------------------------------------------
@@ -65,10 +59,7 @@ public class DeleteArticleTypeReceipt extends View
         getChildren().add(container);
 
         populateFields();
-
     }
-
-
     // Create the Node (HBox) for the title
     //-------------------------------------------------------------
     private Node createTitle()
@@ -85,7 +76,6 @@ public class DeleteArticleTypeReceipt extends View
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -164,9 +154,6 @@ public class DeleteArticleTypeReceipt extends View
 
         return vbox;
     }
-
-
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -179,19 +166,13 @@ public class DeleteArticleTypeReceipt extends View
         alphaCode.setText(ac);
         String stat = (String)newArticleTypeInfo.getState("status");
         status.setText(stat);
-
         todaysDateAndTime.setText(todaysDateAndTimeString);
-
     }
-
-
     /**
      * Required by interface, but has no role here
      */
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-
     }
-
 }

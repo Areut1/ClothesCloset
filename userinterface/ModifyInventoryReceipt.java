@@ -19,14 +19,11 @@ import javafx.scene.text.TextAlignment;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 /** The class containing the Add Article Type Receipt  for the Clothes Coset application */
 //==============================================================
 public class ModifyInventoryReceipt extends View
 {
-
     // Model
-
     private	String todaysDateAndTimeString;
     private Text gender;
     private Text size;
@@ -47,7 +44,6 @@ public class ModifyInventoryReceipt extends View
     private Text dateTaken;
     // GUI controls
     private Text todaysDateAndTime;
-
     private Button okButton;
     // constructor for this class
     //----------------------------------------------------------
@@ -74,8 +70,6 @@ public class ModifyInventoryReceipt extends View
         populateFields();
 
     }
-
-
     // Create the Node (HBox) for the title
     //-------------------------------------------------------------
     private Node createTitle()
@@ -92,7 +86,6 @@ public class ModifyInventoryReceipt extends View
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -276,8 +269,7 @@ public class ModifyInventoryReceipt extends View
 
         return vbox;
     }
-
-
+    //---------------------------------------------------------------
     private Text createText(String text) {
         Text t = new Text(text);
 
@@ -286,8 +278,6 @@ public class ModifyInventoryReceipt extends View
 
         return t;
     }
-
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -331,15 +321,11 @@ public class ModifyInventoryReceipt extends View
         todaysDateAndTime.setText(todaysDateAndTimeString);
 
     }
-
-
     /**
      * Required by interface, but has no role here
      */
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-
     }
-
 }

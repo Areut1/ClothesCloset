@@ -15,14 +15,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-
+//---------------------------------------------------------------
 public class ConfirmDeleteArticleTypeView extends View{
 
     protected Button cancelButton;
     protected Button confirmButton;
-
     protected MessageView statusLog;
-
+    //---------------------------------------------------------------
     public ConfirmDeleteArticleTypeView(IModel clerk)
     {
         super(clerk, "DeleteArticleTypeView");
@@ -42,7 +41,7 @@ public class ConfirmDeleteArticleTypeView extends View{
 
 //        populateFields();
     }
-
+    //---------------------------------------------------------------
     private Node createTitle()
     {
         HBox container = new HBox();
@@ -57,7 +56,6 @@ public class ConfirmDeleteArticleTypeView extends View{
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     @SuppressWarnings("unchecked")
@@ -118,24 +116,21 @@ public class ConfirmDeleteArticleTypeView extends View{
 
         return vbox;
     }
-
+    //---------------------------------------------------------------
     public void processConfirm(){
         myModel.stateChangeRequest("DeleteArticleType", null);
     }
-
+    //---------------------------------------------------------------
     public void updateState(String key, Object value)
     {
     }
-
-
+    //---------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
     {
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
     }
-
-
     /**
      * Display info message
      */
@@ -144,7 +139,6 @@ public class ConfirmDeleteArticleTypeView extends View{
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */
@@ -153,5 +147,4 @@ public class ConfirmDeleteArticleTypeView extends View{
     {
         statusLog.clearErrorMessage();
     }
-
 }

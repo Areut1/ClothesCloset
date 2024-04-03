@@ -25,22 +25,18 @@ import java.util.Vector;
 
 // project imports
 import impresario.IModel;
-
+//---------------------------------------------------------------
 public class SearchArticleTypeView extends View{
-
     private Button subButton;
     private Button cancelButton;
     private TextField searchDescription;
     private TextField searchAlphaCode;
-
     //Show error message
     private MessageView statusLog;
-
     //---------------------------------------------
     /*CONSTRUCTOR
      * Takes model object from ViewFactory
      */
-
     public SearchArticleTypeView(IModel clerk){
         super(clerk, "SearchArticleTypeView");
 
@@ -62,7 +58,6 @@ public class SearchArticleTypeView extends View{
         myModel.subscribe("searchArticleTypeMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }//END CONSTRUCTOR--------------------------------
-
     //-------------------------------------------------
     /*createTitle
      * Create title field for the view
@@ -79,9 +74,7 @@ public class SearchArticleTypeView extends View{
         container.getChildren().add(titleText);
 
         return container;
-
     }//End createTitle-------------------------------------
-
 //---------------------------------------------------
     /*createFormContent
      * Method creates actual form for user input
@@ -155,9 +148,8 @@ private VBox createFormContent(){
     vbox.getChildren().add(subBack);
 
     return vbox;
-
-}//End createFormContent----------------------------
-
+}
+//End createFormContent----------------------------
     //----------------------------------------------------
     /*processSubAction
      * On submit click method will set up ArticleTypeCollection
@@ -207,8 +199,8 @@ private VBox createFormContent(){
             myModel.stateChangeRequest("SearchTableArticleType", props);
         }
 
-    }//End processSubAction------------------------------
-
+    }
+    //End processSubAction------------------------------
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -217,7 +209,6 @@ private VBox createFormContent(){
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -226,7 +217,6 @@ private VBox createFormContent(){
         searchDescription.setText("");
         searchAlphaCode.setText("");
     }
-
     /**
      * Update method
      */
@@ -242,7 +232,6 @@ private VBox createFormContent(){
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */
@@ -251,7 +240,6 @@ private VBox createFormContent(){
     {
         statusLog.displayErrorMessage(message);
     }
-
     /**
      * Display info message
      */
@@ -260,7 +248,6 @@ private VBox createFormContent(){
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */
@@ -269,6 +256,4 @@ private VBox createFormContent(){
     {
         statusLog.clearErrorMessage();
     }
-
-
 }//END CLASS===============================================

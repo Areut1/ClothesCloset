@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import java.util.Properties;
 import impresario.IModel;
 import model.ArticleType;
-
+//---------------------------------------------------------------
 public class AddArticleTypeView extends View {
     // GUI components
     protected TextField description;
@@ -63,8 +63,6 @@ public class AddArticleTypeView extends View {
         myModel.subscribe("articleMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }
-
-
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
@@ -90,7 +88,6 @@ public class AddArticleTypeView extends View {
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -187,7 +184,6 @@ public class AddArticleTypeView extends View {
 
         return vbox;
     }
-
     //--------------------------------------------------------------------------------------------
     /*processAction
      * On submit button click, method will set up properties object with values taken from
@@ -222,7 +218,6 @@ public class AddArticleTypeView extends View {
             displayMessage("New Article Type was added!");
         }
     }
-
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -231,7 +226,6 @@ public class AddArticleTypeView extends View {
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -239,7 +233,6 @@ public class AddArticleTypeView extends View {
         barcodePrefix.setText((String)myModel.getState("BarcodePrefix"));
         alphaCode.setText((String)myModel.getState("AlphaCode"));
     }
-
     /**
      * Update method
      */
@@ -255,7 +248,6 @@ public class AddArticleTypeView extends View {
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */
@@ -264,7 +256,6 @@ public class AddArticleTypeView extends View {
     {
         statusLog.displayErrorMessage(message);
     }
-
     /**
      * Display info message
      */
@@ -273,7 +264,6 @@ public class AddArticleTypeView extends View {
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */

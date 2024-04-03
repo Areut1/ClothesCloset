@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import java.util.Properties;
 import impresario.IModel;
 import model.ArticleType;
-
+//---------------------------------------------------------------
 public class ModifyArticleTypeView extends View {
     // GUI components
     protected TextField description;
@@ -30,10 +30,8 @@ public class ModifyArticleTypeView extends View {
     protected TextField alphaCode;
     protected Button cancelButton;
     protected Button submitButton;
-
     // For showing error message
     protected MessageView statusLog;
-
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public ModifyArticleTypeView(IModel clerk)
@@ -59,8 +57,6 @@ public class ModifyArticleTypeView extends View {
         myModel.subscribe("articleMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }
-
-
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
@@ -77,7 +73,6 @@ public class ModifyArticleTypeView extends View {
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -167,7 +162,6 @@ public class ModifyArticleTypeView extends View {
 
         return vbox;
     }
-
     //--------------------------------------------------------------------------------------------
     /*processAction
      * On submit button click, method will set up properties object with values taken from
@@ -200,7 +194,6 @@ public class ModifyArticleTypeView extends View {
             displayMessage("Article Type was updated!");
         }
     }
-
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -209,7 +202,6 @@ public class ModifyArticleTypeView extends View {
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -218,7 +210,6 @@ public class ModifyArticleTypeView extends View {
         barcodePrefix.setText((String)at.getValue("barcodePrefix"));
         alphaCode.setText((String)at.getValue("alphaCode"));
     }
-
     /**
      * Update method
      */
@@ -235,7 +226,6 @@ public class ModifyArticleTypeView extends View {
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */

@@ -28,9 +28,7 @@ import impresario.IModel;
 //==============================================================
 public class AddColorReceipt extends View
 {
-
     // Model
-
     private	String todaysDateAndTimeString;
     private Text description;
     private Text barcodePrefix;
@@ -38,7 +36,6 @@ public class AddColorReceipt extends View
     private Text status;
     // GUI controls
     private Text todaysDateAndTime;
-
     private Button okButton;
     // constructor for this class
     //----------------------------------------------------------
@@ -65,8 +62,6 @@ public class AddColorReceipt extends View
         populateFields();
 
     }
-
-
     // Create the Node (HBox) for the title
     //-------------------------------------------------------------
     private Node createTitle()
@@ -82,7 +77,6 @@ public class AddColorReceipt extends View
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -162,9 +156,6 @@ public class AddColorReceipt extends View
 
         return vbox;
     }
-
-
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -177,19 +168,13 @@ public class AddColorReceipt extends View
         alphaCode.setText(ac);
         String stat = (String)newColorInfo.getState("status");
         status.setText(stat);
-
         todaysDateAndTime.setText(todaysDateAndTimeString);
-
     }
-
-
     /**
      * Required by interface, but has no role here
      */
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-
     }
-
 }

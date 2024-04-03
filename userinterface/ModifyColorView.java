@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 import java.util.Properties;
 import impresario.IModel;
-
+//---------------------------------------------------------------
 public class ModifyColorView extends View {
     // GUI components
     protected TextField description;
@@ -29,10 +29,8 @@ public class ModifyColorView extends View {
     protected TextField alphaCode;
     protected Button cancelButton;
     protected Button submitButton;
-
     // For showing error message
     protected MessageView statusLog;
-
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public ModifyColorView(IModel clerk)
@@ -58,8 +56,6 @@ public class ModifyColorView extends View {
         myModel.subscribe("colorMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }
-
-
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
@@ -76,7 +72,6 @@ public class ModifyColorView extends View {
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -166,7 +161,6 @@ public class ModifyColorView extends View {
 
         return vbox;
     }
-
     //--------------------------------------------------------------------------------------------
     /*processAction
      * On submit button click, method will set up properties object with values taken from
@@ -199,7 +193,6 @@ public class ModifyColorView extends View {
             displayMessage("Color was updated!");
         }
     }
-
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -208,7 +201,6 @@ public class ModifyColorView extends View {
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -217,7 +209,6 @@ public class ModifyColorView extends View {
         barcodePrefix.setText((String)c.getValue("barcodePrefix"));
         alphaCode.setText((String)c.getValue("alphaCode"));
     }
-
     /**
      * Update method
      */
@@ -234,7 +225,6 @@ public class ModifyColorView extends View {
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */

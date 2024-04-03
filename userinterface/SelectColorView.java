@@ -35,17 +35,13 @@ import java.util.Enumeration;
 import impresario.IModel;
 //import model.Color;
 import model.ColorCollection;
-
 //==============================================================================
 public class SelectColorView extends View
 {
     protected TableView<ColorTableModel> tableOfColors;
     protected Button cancelButton;
     protected Button submitButton;
-
     protected MessageView statusLog;
-
-
     //--------------------------------------------------------------------------
     public SelectColorView(IModel clerk)
     {
@@ -66,17 +62,14 @@ public class SelectColorView extends View
 
         populateFields();
     }
-
     //--------------------------------------------------------------------------
     protected void populateFields()
     {
         getEntryTableModelValues();
     }
-
     //--------------------------------------------------------------------------
     protected void getEntryTableModelValues()
     {
-
         ObservableList<ColorTableModel> tableData = FXCollections.observableArrayList();
         try
         {
@@ -103,7 +96,6 @@ public class SelectColorView extends View
             // Need to handle this exception
         }
     }
-
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
@@ -120,7 +112,6 @@ public class SelectColorView extends View
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     @SuppressWarnings("unchecked")
@@ -170,7 +161,6 @@ public class SelectColorView extends View
 
         tableOfColors.getColumns().addAll(colorIdColumn,
                 descriptionColumn, barcodePrefixColumn, alphaCodeColumn, statusColumn);
-
 
         tableOfColors.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -227,14 +217,10 @@ public class SelectColorView extends View
 
         return vbox;
     }
-
-
-
     //--------------------------------------------------------------------------
     public void updateState(String key, Object value)
     {
     }
-
     //--------------------------------------------------------------------------
     protected void processColorSelected()
     {
@@ -246,13 +232,9 @@ public class SelectColorView extends View
             Properties props = new Properties();
             props.setProperty("colorId", selectedColorId);
 
-
-
-
             myModel.stateChangeRequest("ConfirmColorChoice", props);
         }
     }
-
     //--------------------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
     {
@@ -260,8 +242,6 @@ public class SelectColorView extends View
 
         return statusLog;
     }
-
-
     /**
      * Display info message
      */
@@ -270,7 +250,6 @@ public class SelectColorView extends View
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */
@@ -279,7 +258,6 @@ public class SelectColorView extends View
     {
         statusLog.clearErrorMessage();
     }
-
     //--------------------------------------------------------------------------
     public void mouseClicked(MouseEvent click)
     {
@@ -290,4 +268,3 @@ public class SelectColorView extends View
     }
 }
 //End of Class-----------------------------------------------------------------------------------------------
-

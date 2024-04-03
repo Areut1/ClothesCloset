@@ -22,38 +22,28 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
-
 /** The class containing the Transaction Choice View  for the Clothes Closet application */
 //==============================================================
 public class TransactionChoiceView extends View
 {
-
     // other private data
     private final int labelWidth = 120;
     private final int labelHeight = 25;
-
     // GUI components
-
     private Button addArticleTypeButton;
     private Button updateArticleTypeButton;
     private Button deleteArticleTypeButton;
-
     private Button addColorButton;
     private Button updateColorButton;
     private Button deleteColorButton;
-
     private Button addInventoryButton;
     private Button updateInventoryButton;
     private Button deleteInventoryButton;
-
     private Button checkOutInventoryButton;
     private Button listInventoryButton;
     private Button listCheckedOutInventoryButton;
-
     private Button cancelButton;
-
     private MessageView statusLog;
-
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public TransactionChoiceView(IModel teller)
@@ -82,7 +72,6 @@ public class TransactionChoiceView extends View
 
         myModel.subscribe("TransactionError", this);
     }
-
     // Create the labels and fields
     //-------------------------------------------------------------
     private VBox createTitle()
@@ -137,8 +126,6 @@ public class TransactionChoiceView extends View
 
         return container;
     }
-
-
     // Create the navigation buttons
     //-------------------------------------------------------------
     private VBox createFormContents()
@@ -150,7 +137,6 @@ public class TransactionChoiceView extends View
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-
 
         // create the buttons, listen for events, add them to the container
         // Add Article Type Buttons
@@ -292,7 +278,6 @@ public class TransactionChoiceView extends View
 
         return container;
     }
-
     // Create the status log field
     //-------------------------------------------------------------
     private MessageView createStatusLog(String initialMessage)
@@ -302,14 +287,10 @@ public class TransactionChoiceView extends View
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
-
     }
-
-
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
@@ -319,7 +300,6 @@ public class TransactionChoiceView extends View
             displayErrorMessage((String)value);
         }
     }
-
     /**
      * Display error message
      */
@@ -328,7 +308,6 @@ public class TransactionChoiceView extends View
     {
         statusLog.displayErrorMessage(message);
     }
-
     /**
      * Clear error message
      */

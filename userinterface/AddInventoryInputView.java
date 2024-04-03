@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 import java.util.Properties;
 import impresario.IModel;
-
+//---------------------------------------------------------------
 public class AddInventoryInputView extends View {
     // GUI components
     protected TextField size;
@@ -33,14 +33,10 @@ public class AddInventoryInputView extends View {
     protected TextField donorLastName;
     protected TextField donorPhone;
     protected TextField donorEmail;
-
-
     protected Button cancelButton;
     protected Button submitButton;
-
     // For showing error message
     protected MessageView statusLog;
-
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public AddInventoryInputView(IModel clerk)
@@ -66,8 +62,6 @@ public class AddInventoryInputView extends View {
         myModel.subscribe("inventoryMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }
-
-
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
@@ -93,7 +87,6 @@ public class AddInventoryInputView extends View {
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -195,8 +188,6 @@ public class AddInventoryInputView extends View {
         donorEmail.setEditable(true);
         grid.add(donorEmail, 1, 7);
 
-
-
         //Setup separate hbox for submit and back buttons
         HBox submitCancel = new HBox(10);
         submitCancel.setAlignment(Pos.BOTTOM_CENTER);
@@ -233,7 +224,6 @@ public class AddInventoryInputView extends View {
 
         return vbox;
     }
-
     //--------------------------------------------------------------------------------------------
     /*processAction
      * On submit button click, method will set up properties object with values taken from
@@ -276,7 +266,6 @@ public class AddInventoryInputView extends View {
 
         }
     }
-
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -285,7 +274,6 @@ public class AddInventoryInputView extends View {
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -298,7 +286,6 @@ public class AddInventoryInputView extends View {
         donorPhone.setText("");
         donorEmail.setText("");
     }
-
     /**
      * Update method
      */
@@ -314,7 +301,6 @@ public class AddInventoryInputView extends View {
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */
@@ -323,7 +309,6 @@ public class AddInventoryInputView extends View {
     {
         statusLog.displayErrorMessage(message);
     }
-
     /**
      * Display info message
      */

@@ -23,14 +23,11 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
-
 /** The class containing the Add Article Type Receipt  for the Clothes Coset application */
 //==============================================================
 public class AddArticleTypeReceipt extends View
 {
-
     // Model
-
     private	String todaysDateAndTimeString;
     private Text description;
     private Text barcodePrefix;
@@ -38,7 +35,6 @@ public class AddArticleTypeReceipt extends View
     private Text status;
     // GUI controls
     private Text todaysDateAndTime;
-
     private Button okButton;
     // constructor for this class
     //----------------------------------------------------------
@@ -63,10 +59,7 @@ public class AddArticleTypeReceipt extends View
         getChildren().add(container);
 
         populateFields();
-
     }
-
-
     // Create the Node (HBox) for the title
     //-------------------------------------------------------------
     private Node createTitle()
@@ -82,7 +75,6 @@ public class AddArticleTypeReceipt extends View
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -135,7 +127,6 @@ public class AddArticleTypeReceipt extends View
         status = new Text("                       ");
         grid.add(status, 1, 4);
 
-
         okButton = new Button("OK");
         okButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -162,9 +153,6 @@ public class AddArticleTypeReceipt extends View
 
         return vbox;
     }
-
-
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -177,12 +165,8 @@ public class AddArticleTypeReceipt extends View
         alphaCode.setText(ac);
         String stat = (String)newArticleTypeInfo.getState("status");
         status.setText(stat);
-
         todaysDateAndTime.setText(todaysDateAndTimeString);
-
     }
-
-
     /**
      * Required by interface, but has no role here
      */

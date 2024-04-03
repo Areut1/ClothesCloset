@@ -23,21 +23,18 @@ import impresario.IModel;
 import model.InventoryCollection;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class SearchInventoryBarcodeView extends View{
 
     private Button subButton;
     private Button cancelButton;
     private TextField InventoryBarcode;
-
     //Show error message
     private MessageView statusLog;
-
     //---------------------------------------------
     /*CONSTRUCTOR
      * Takes model object from ViewFactory
      */
-
     public SearchInventoryBarcodeView(IModel clerk){
         super(clerk, "SearchInventoryBarcodeView");
 
@@ -58,8 +55,8 @@ public class SearchInventoryBarcodeView extends View{
 
         myModel.subscribe("InventoryBarcodeMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
-    }//END CONSTRUCTOR--------------------------------
-
+    }
+    //END CONSTRUCTOR--------------------------------
     //-------------------------------------------------
     /*createTitle
      * Create title field for the view
@@ -76,9 +73,8 @@ public class SearchInventoryBarcodeView extends View{
         container.getChildren().add(titleText);
 
         return container;
-
-    }//End createTitle-------------------------------------
-
+    }
+    //End createTitle-------------------------------------
     //---------------------------------------------------
     /*createFormContent
      * Method creates actual form for user input
@@ -142,9 +138,8 @@ public class SearchInventoryBarcodeView extends View{
         vbox.getChildren().add(subBack);
 
         return vbox;
-
-    }//End createFormContent----------------------------
-
+    }
+    //End createFormContent----------------------------
     //----------------------------------------------------
     /*processSubAction
      * On submit click method will create barcode and set up initial gender, article type,
@@ -182,9 +177,8 @@ public class SearchInventoryBarcodeView extends View{
                 myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
             }
         }
-
-    }//End processSubAction------------------------------
-
+    }
+    //End processSubAction------------------------------
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -193,14 +187,12 @@ public class SearchInventoryBarcodeView extends View{
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
         //Clears field after search is done
         InventoryBarcode.setText("");
     }
-
     /**
      * Update method
      */
@@ -216,7 +208,6 @@ public class SearchInventoryBarcodeView extends View{
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */
@@ -225,7 +216,6 @@ public class SearchInventoryBarcodeView extends View{
     {
         statusLog.displayErrorMessage(message);
     }
-
     /**
      * Display info message
      */
@@ -234,7 +224,6 @@ public class SearchInventoryBarcodeView extends View{
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */
@@ -243,6 +232,4 @@ public class SearchInventoryBarcodeView extends View{
     {
         statusLog.clearErrorMessage();
     }
-
-
 }//END CLASS===============================================
