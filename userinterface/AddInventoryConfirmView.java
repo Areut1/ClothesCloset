@@ -21,10 +21,7 @@ import model.ArticleType;
 import model.ArticleTypeCollection;
 import model.ColorCollection;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Vector;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class AddInventoryConfirmView extends View {
@@ -40,6 +37,7 @@ public class AddInventoryConfirmView extends View {
     protected ComboBox<String> genderComboBox;
     protected ComboBox<String> articleTypeComboBox;
     protected ComboBox<String> primaryColorComboBox;
+    protected Text barcodeText;
 
     // Properties object containing all the barcode mappings
     public Properties genderBarcodeMapping;
@@ -107,7 +105,7 @@ public class AddInventoryConfirmView extends View {
 
 
         // ----- Barcode ----------------------------------------------
-        Text barcodeText = new Text("Inserted barcode is: " + null);
+        barcodeText = new Text("...DEFAULT...this gets updated later..." );
         barcodeText.setWrappingWidth(350);
         barcodeText.setTextAlignment(TextAlignment.CENTER);
         barcodeText.setFill(Color.BLACK);
@@ -120,12 +118,12 @@ public class AddInventoryConfirmView extends View {
 
         ObservableList<String> data = FXCollections.observableArrayList("Active", "Inactive");
         genderComboBox = new ComboBox<>(data);
-        genderComboBox.getSelectionModel().select("Active");
         genderComboBox.setMinSize(100, 20);
 
         // Add a listener, so we can monitor the new barcode as the selection changes
         genderComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            System.out.println(newValue);
+            // Update barcode with new gender
+            updateBarcodeFromFields(articleTypeComboBox.getValue(), primaryColorComboBox.getValue(), newValue);
         });
 
         grid.add(genderComboBox, 1, 2);
@@ -135,13 +133,11 @@ public class AddInventoryConfirmView extends View {
         grid.add(articleTypeLabel, 0, 3);
 
         articleTypeComboBox = new ComboBox<>();
-        articleTypeComboBox.getSelectionModel().select("Active");
         articleTypeComboBox.setMinSize(100, 20);
 
         // Add a listener, so we can monitor the new barcode as the selection changes
         articleTypeComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            System.out.println("Article type changed! Updating barcode...");
-
+            // Update barcode with new article type
             updateBarcodeFromFields(newValue, primaryColorComboBox.getValue(), genderComboBox.getValue());
         });
 
@@ -152,12 +148,12 @@ public class AddInventoryConfirmView extends View {
         grid.add(primaryColorLabel, 0, 4);
 
         primaryColorComboBox = new ComboBox<>();
-        primaryColorComboBox.getSelectionModel().select("Active");
         primaryColorComboBox.setMinSize(100, 20);
 
         // Add a listener, so we can monitor the new barcode as the selection changes
         primaryColorComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            System.out.println(newValue);
+            // Update barcode with new primary color
+            updateBarcodeFromFields(articleTypeComboBox.getValue(), newValue, genderComboBox.getValue());
         });
 
         grid.add(primaryColorComboBox, 1, 4);
@@ -204,54 +200,36 @@ public class AddInventoryConfirmView extends View {
         return vbox;
     }
 
-
     private void updateBarcodeFromFields(String articleType, String primaryColor, String gender) {
-        /*
-        IDEA:
-        We can access the full table of the relevant tables using the getState() in `initBarcodeMappings`.
+        // Update the barcode text with new information.
 
-        Using those tables, we will populate these `genderBarcodeMapping`, ... to create the barcode mapping properties.
-        The mapping will ideally be of the form:
-        {
-            "0": "Male",
-            "1": "Female"
+        String articleTypeBarcode = getBarcodeFromMapping(articleTypeBarcodeMapping, articleType);
+        String primaryColorBarcode = getBarcodeFromMapping(primaryColorBarcodeMapping, primaryColor);
+        String genderBarcode = getBarcodeFromMapping(genderBarcodeMapping, gender);
+
+        String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
+
+        if (articleTypeBarcode.equals("-1") || primaryColorBarcode.equals("-1") || genderBarcode.equals("-1")) {
+            Properties barcode2 = (Properties) myModel.getState("Barcode");
+            String genderBarcode2 = barcode2.getProperty("gender");
+            String articleTypeBarcode2 = barcode2.getProperty("articleType");
+            String primaryColorBarcode2 = barcode2.getProperty("color1");
+
+            barcodeText.setText("The Inserted Barcode is: " + genderBarcode2 + articleTypeBarcode2 + primaryColorBarcode2);
+            return;
         }
-        In this form, the "barcode" is the key of the Properties object and the contents is the value. The VALUES (contents)
-        of this properties object will exactly correspond to the options inside the combo box. However, using the keys, we'll
-        build the barcode and use it to initialize the selected choice in the combo boxes.
 
-        Then, we will use those mappings to populate the combo boxes and create the barcode builder.
-
-
-
-        NOTE 4/2:
-
-        This runs with the new updated values every time a listener detects a change.
-
-         */
-        List<String> list = articleTypeComboBox.getItems();
-        int idx = getIndexOf(list, articleType);
-        System.out.println("article type idx is: " + idx);
-
-        list = primaryColorComboBox.getItems();
-        idx = getIndexOf(list, primaryColor);
-        System.out.println("primary color idx is: " + idx);
-
-
-        list = genderComboBox.getItems();
-        idx = getIndexOf(list, gender);
-        System.out.println("gender idx is: " + idx);
-
+        barcodeText.setText("The Updated Barcode is: " + barcode);
+        clearErrorMessage();
     }
 
-    public static int getIndexOf(List<String> propValues, String name) {
-        int pos = 0;
-        for(String propValue : propValues) {
-            if(name.equalsIgnoreCase(propValue))
-                return pos;
-            pos++;
+    public static String getBarcodeFromMapping(Properties props, String name) {
+        // Get the key (barcode) of propValues at name
+        for (Map.Entry<Object, Object> entry : props.entrySet()) {
+            if (entry.getValue().equals(name))
+                return (String) entry.getKey();
         }
-        return -1;
+        return "-1";
     }
 
     private void initBarcodeMappings() {
@@ -306,7 +284,8 @@ public class AddInventoryConfirmView extends View {
         String articleTypeBarcode = barcode.getProperty("articleType");
         String primaryColorBarcode = barcode.getProperty("color1");
 
-        System.out.println("this is : " + (String) primaryColorBarcodeMapping.get(primaryColorBarcode));
+        barcodeText.setText("The Inserted Barcode is: " + genderBarcode + articleTypeBarcode + primaryColorBarcode);
+
         try {
             String genderPick = (String) genderBarcodeMapping.get(genderBarcode);
             String articleTypePick = (String) articleTypeBarcodeMapping.get(articleTypeBarcode);
