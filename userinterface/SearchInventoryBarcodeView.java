@@ -164,7 +164,6 @@ public class SearchInventoryBarcodeView extends View{
         }
 
         String transaction = (String) myModel.getState("Transaction");
-        System.out.println(transaction);
 
         //Validate user input
         if ((barcodeEntered == null) || (barcodeEntered.length() != 8)){
