@@ -109,10 +109,6 @@ public class AddInventoryTransaction extends Transaction{
 
     public void processTransaction(Properties props)
     {
-        props.setProperty("barcode", barcode.getProperty("barcode"));
-        props.setProperty("gender", barcode.getProperty("gender"));
-        props.setProperty("color1", barcode.getProperty("color1"));
-
         newInventory = new Inventory(props);
         newInventory.update();
         createAndShowView("AddInventoryReceipt");
