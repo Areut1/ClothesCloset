@@ -22,7 +22,7 @@ public class ViewFactory {
 			case "ModifyArticleTypeView":
 				return new ModifyArticleTypeView(model);
 			case "DeleteColorView":
-				return new DeleteColorView(model);
+				return new ConfirmDeleteColorView(model);
 			case "DeleteArticleTypeView":
 				return new ConfirmDeleteArticleTypeView(model);
 			case "DeleteColorReceipt":

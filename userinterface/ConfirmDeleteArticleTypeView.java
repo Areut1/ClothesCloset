@@ -39,7 +39,6 @@ public class ConfirmDeleteArticleTypeView extends View{
 
         getChildren().add(container);
 
-//        populateFields();
     }
     //---------------------------------------------------------------
     private Node createTitle()

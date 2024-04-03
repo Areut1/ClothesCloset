@@ -7,8 +7,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,13 +16,13 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 //---------------------------------------------------------------
-public class DeleteColorView extends View{
+public class ConfirmDeleteColorView extends View{
 
     protected Button cancelButton;
     protected Button confirmButton;
     protected MessageView statusLog;
     //---------------------------------------------------------------
-    public DeleteColorView(IModel clerk)
+    public ConfirmDeleteColorView(IModel clerk)
     {
         super(clerk, "DeleteColorView");
 
@@ -41,7 +39,6 @@ public class DeleteColorView extends View{
 
         getChildren().add(container);
 
-//       populateFields();
     }
     //---------------------------------------------------------------
     private Node createTitle()
