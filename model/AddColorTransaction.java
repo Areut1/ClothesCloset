@@ -55,7 +55,7 @@ public class AddColorTransaction extends Transaction{
             View newView = ViewFactory.createView("AddColorReceipt", this);
             newScene = new Scene(newView);
             myViews.put("AddColorReceipt", newScene);
-
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
         }
         swapToView(newScene);
     }
