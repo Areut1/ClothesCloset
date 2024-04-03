@@ -251,7 +251,7 @@ public class TransactionChoiceView extends View
         checkOutInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("CheckOutInventory", null);
+                myModel.stateChangeRequest("CheckOut", null);
             }
         });
         grid.add(checkOutInventoryButton, 0, 3);
@@ -261,7 +261,7 @@ public class TransactionChoiceView extends View
         listInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ListInventory", null);
+                myModel.stateChangeRequest("ListAllAvailable", null);
             }
         });
         grid.add(listInventoryButton, 1, 3);
@@ -271,7 +271,7 @@ public class TransactionChoiceView extends View
         listCheckedOutInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ListCheckedOutInventory", null);
+                myModel.stateChangeRequest("ListAllCheckOut", null);
             }
         });
         grid.add(listCheckedOutInventoryButton, 2, 3);

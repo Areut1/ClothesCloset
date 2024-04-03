@@ -85,57 +85,37 @@ public class Clerk implements IView, IModel
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("LoginError"))
-        {
-            return loginErrorMessage;
-        }
-        else
-        if (key.equals("TransactionError"))
-        {
-            return transactionErrorMessage;
-        }
-        else
-            return "";
+        return switch (key) {
+            case "LoginError" -> loginErrorMessage;
+            case "TransactionError" -> transactionErrorMessage;
+            default -> "";
+        };
     }
 
     //----------------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
 
-        if (key.equals("Login"))
-        {
-            if (value != null)
-            {
-                loginErrorMessage = "";
+        switch (key) {
+            case "Login" -> {
+                if (value != null) {
+                    loginErrorMessage = "";
 
-                createAndShowTransactionChoiceView();
+                    createAndShowTransactionChoiceView();
 
+                }
             }
-        }
-        else
-        if (key.equals("CancelTransaction"))
-        {
-            createAndShowTransactionChoiceView();
-        }
-        else
-        if ((key.equals("AddColor")) || (key.equals("AddArticleType")) ||
-                (key.equals("ModifyColor")) || (key.equals("ModifyArticleType")) ||
-                (key.equals("DeleteColor")) || (key.equals("DeleteArticleType")) ||
-                (key.equals("AddInventory")) || (key.equals("ModifyInventory")) ||
-                (key.equals("DeleteInventory")))
-        {
-            String transType = key;
-
-
-            doTransaction(transType);
-
-        }
-        else
-        if (key.equals("Logout"))
-        {
-            myViews.remove("TransactionChoiceView");
-
-            createAndShowClerkView();
+            case "CancelTransaction" -> createAndShowTransactionChoiceView();
+            case "AddColor", "AddArticleType", "ModifyColor", "ModifyArticleType",
+                    "DeleteColor", "DeleteArticleType", "AddInventory", "ModifyInventory",
+                    "DeleteInventory", "CheckOut", "ListAllAvailable", "ListAllCheckOut" -> {
+                String transType = key;
+                doTransaction(transType);
+            }
+            case "Logout" -> {
+                myViews.remove("TransactionChoiceView");
+                createAndShowClerkView();
+            }
         }
 
         myRegistry.updateSubscribers(key, this);
