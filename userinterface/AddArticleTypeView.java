@@ -23,6 +23,9 @@ import javafx.stage.Stage;
 import java.util.Properties;
 import impresario.IModel;
 import model.ArticleType;
+import model.ArticleTypeCollection;
+import model.ColorCollection;
+
 //---------------------------------------------------------------
 public class AddArticleTypeView extends View {
     // GUI components
@@ -211,11 +214,23 @@ public class AddArticleTypeView extends View {
             insertProp.setProperty("alphaCode", alphaCodeString);
             insertProp.setProperty("status", statusString);
 
-            //Call Librarian method to create and save book
-            myModel.stateChangeRequest("AddArticleType", insertProp);
+            ArticleTypeCollection atCol = new ArticleTypeCollection();
+            try {
+                atCol.findArticleTypes(insertProp);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-            //Print confirmation
-            displayMessage("New Article Type was added!");
+            if (atCol.size() != 0) {
+                displayMessage("ArticleType already exists");
+            }
+            else{
+                //Call Librarian method to create and save book
+                myModel.stateChangeRequest("AddArticleType", insertProp);
+
+                //Print confirmation
+                displayMessage("New Article Type was added!");
+            }
         }
     }
     // Create the status log field

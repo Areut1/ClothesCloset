@@ -22,6 +22,9 @@ import javafx.stage.Stage;
 import java.util.Properties;
 import impresario.IModel;
 import model.ArticleType;
+import model.ColorCollection;
+import model.InventoryCollection;
+
 //---------------------------------------------------------------
 public class AddColorView extends View {
     // GUI components
@@ -192,7 +195,6 @@ public class AddColorView extends View {
             clearErrorMessage();
             displayErrorMessage("Please completly fill in all fields");
         } else {
-
             //Convert properties to string
             String descriptionString = description.getText();
             String barcodePrefixString = barcodePrefix.getText();
@@ -206,11 +208,23 @@ public class AddColorView extends View {
             insertProp.setProperty("alphaCode", alphaCodeString);
             insertProp.setProperty("status", statusString);
 
-            //Call Librarian method to create and save book
-            myModel.stateChangeRequest("AddColor", insertProp);
+            ColorCollection cCol = new ColorCollection();
+            try {
+                cCol.findColors(insertProp);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-            //Print confirmation
-            displayMessage("New Color was added!");
+            if (cCol.size() != 0) {
+                displayMessage("Color already exists");
+            }
+            else{
+                //Call Librarian method to create and save book
+                myModel.stateChangeRequest("AddColor", insertProp);
+
+                //Print confirmation
+                displayMessage("New Color was added!");
+            }
         }
     }
     // Create the status log field
