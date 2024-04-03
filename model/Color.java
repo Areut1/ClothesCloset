@@ -7,7 +7,6 @@ import java.util.Vector;
 
 import exception.InvalidPrimaryKeyException;
 import impresario.IView;
-
 //==============================================================
 public class Color extends EntityBase implements IView {
 	// Attributes \\
@@ -16,7 +15,6 @@ public class Color extends EntityBase implements IView {
 
 	protected Properties dependencies;
 	private String updateStatusMessage = "";
-
 	// Constructor for this class
 	//----------------------------------------------------------------
 	public Color(String colorId) throws InvalidPrimaryKeyException {
@@ -82,7 +80,6 @@ public class Color extends EntityBase implements IView {
 	public String getValue(String key){
 		return persistentState.getProperty(key);
 	}
-
 	//-----------------------------------------------------------------------------------
 	private void setDependencies()
 	{

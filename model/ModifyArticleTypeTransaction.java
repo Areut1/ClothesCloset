@@ -6,21 +6,18 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class ModifyArticleTypeTransaction extends Transaction{
     // GUI Components
-
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private ArticleType oldArticleType;
-
     private ArticleTypeCollection atCol;
-
-
+    //---------------------------------------------------------------
     protected ModifyArticleTypeTransaction() throws Exception {
         super();
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -29,7 +26,7 @@ public class ModifyArticleTypeTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
-
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("SearchArticleTypeView");
@@ -48,7 +45,6 @@ public class ModifyArticleTypeTransaction extends Transaction{
             return currentScene;
         }
     }
-
     //------------------------------------------------------
     protected void createAndShowView(String view)
     {
@@ -65,8 +61,7 @@ public class ModifyArticleTypeTransaction extends Transaction{
         }
         swapToView(newScene);
     }
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         return switch (key) {
@@ -77,7 +72,7 @@ public class ModifyArticleTypeTransaction extends Transaction{
             default -> null;
         };
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
@@ -96,44 +91,33 @@ public class ModifyArticleTypeTransaction extends Transaction{
 
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         oldArticleType.changeValue("description", props.getProperty("description"));
         oldArticleType.changeValue("barcodePrefix", props.getProperty("barcodePrefix"));
         oldArticleType.changeValue("alphaCode", props.getProperty("alphaCode"));
-
-
         oldArticleType.update();
         createAndShowView("ModifyArticleTypeReceipt");
     }
-
+    //---------------------------------------------------------------
     public void processSearch(Properties props) throws Exception {
-
         atCol = new ArticleTypeCollection();
         try {
             atCol.findArticleTypes(props);
         } catch (Exception e) {
             throw new Exception("Unable to search for ArticleTypes");
         }
-
         createAndShowView("SelectArticleTypeView");
-
     }
-
+    //---------------------------------------------------------------
     public void processConfirm(Properties props){
-
         String id = props.getProperty("articleTypeId");
-
         try {
             oldArticleType = new ArticleType(id);
         } catch (InvalidPrimaryKeyException e) {
             throw new RuntimeException(e);
         }
         createAndShowView("ModifyArticleTypeView");
-
-
     }
-
 }
-

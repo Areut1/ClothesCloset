@@ -4,17 +4,15 @@ import impresario.IView;
 // system imports
 import java.util.Properties;
 import java.util.Vector;
-
+//---------------------------------------------------------------
 public class InventoryCollection extends EntityBase implements IView {
-
     private static final String myTableName = "Inventory";
     private Vector<Inventory> inventoryList;
-
     public InventoryCollection() {
         super(myTableName);
         inventoryList = new Vector<Inventory>();
     }
-
+    //---------------------------------------------------------------
     public void findInventory(Properties props) throws Exception {
         String query = "SELECT * FROM " + myTableName + " WHERE ";
 
@@ -53,17 +51,15 @@ public class InventoryCollection extends EntityBase implements IView {
         }
 
     }
-
+    //---------------------------------------------------------------
     public int size(){
         return inventoryList.size();
     }
-
+    //---------------------------------------------------------------
     public Inventory get(int i){
         return inventoryList.get(i);
     }
-
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         if (key.equals("Inventory"))
@@ -73,17 +69,15 @@ public class InventoryCollection extends EntityBase implements IView {
             return this;
         return null;
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     @Override
-    protected void initializeSchema(String tableName) {
-
-    }
-
+    protected void initializeSchema(String tableName) { }
+    //---------------------------------------------------------------
     @Override
     public void updateState(String key, Object value) {
         stateChangeRequest(key, value);

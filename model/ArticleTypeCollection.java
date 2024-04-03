@@ -4,17 +4,17 @@ import impresario.IView;
 // system imports
 import java.util.Properties;
 import java.util.Vector;
-
+//---------------------------------------------------------------
 public class ArticleTypeCollection extends EntityBase implements IView {
 
     private static final String myTableName = "ArticleType";
     private Vector<ArticleType> articleTypeList;
-
+    //---------------------------------------------------------------
     public ArticleTypeCollection() {
         super(myTableName);
         articleTypeList = new Vector<ArticleType>();
     }
-
+    //---------------------------------------------------------------
     public void findArticleTypes(Properties props) throws Exception {
         String query = "SELECT * FROM " + myTableName + " WHERE ";
 
@@ -68,7 +68,7 @@ public class ArticleTypeCollection extends EntityBase implements IView {
         }
 
     }
-
+    //---------------------------------------------------------------
     public ArticleType get(int i){
         return articleTypeList.get(i);
     }
@@ -102,9 +102,7 @@ public class ArticleTypeCollection extends EntityBase implements IView {
         }
 
     }
-
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         if (key.equals("ArticleTypes"))
@@ -114,17 +112,15 @@ public class ArticleTypeCollection extends EntityBase implements IView {
             return this;
         return null;
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     @Override
-    protected void initializeSchema(String tableName) {
-
-    }
-
+    protected void initializeSchema(String tableName) { }
+    //---------------------------------------------------------------
     @Override
     public void updateState(String key, Object value) {
         stateChangeRequest(key, value);

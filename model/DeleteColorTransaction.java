@@ -6,21 +6,18 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class DeleteColorTransaction extends Transaction{
     // GUI Components
-
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private Color oldColor;
-
     private ColorCollection colCol;
-
-
+    //---------------------------------------------------------------
     protected DeleteColorTransaction() throws Exception {
         super();
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -29,6 +26,7 @@ public class DeleteColorTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("SearchColorView");
@@ -62,6 +60,7 @@ public class DeleteColorTransaction extends Transaction{
         }
         swapToView(newScene);
     }
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         return switch (key) {
@@ -72,6 +71,7 @@ public class DeleteColorTransaction extends Transaction{
             default -> null;
         };
     }
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
@@ -88,6 +88,7 @@ public class DeleteColorTransaction extends Transaction{
         }
         myRegistry.updateSubscribers(key, this);
     }
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         oldColor.changeValue("status", "Inactive");
@@ -95,6 +96,7 @@ public class DeleteColorTransaction extends Transaction{
         oldColor.update();
         createAndShowView("DeleteColorReceipt");
     }
+    //---------------------------------------------------------------
     public void processSearch(Properties props) throws Exception {
 
         colCol = new ColorCollection();
@@ -103,10 +105,9 @@ public class DeleteColorTransaction extends Transaction{
         } catch (Exception e) {
             throw new Exception("Unable to search for Color");
         }
-
         createAndShowView("SelectColorView");
-
     }
+    //---------------------------------------------------------------
     public void processConfirm(Properties props) {
 
         String id = props.getProperty("colorId");

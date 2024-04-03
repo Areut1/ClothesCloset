@@ -26,8 +26,6 @@ import userinterface.WindowPosition;
 
 import java.util.Hashtable;
 import java.util.Properties;
-
-
 /** The superclass for all Fast Trax Model Entities that are also
  *  Persistable */
 //==============================================================
@@ -39,17 +37,14 @@ public abstract class EntityBase extends Persistable
 	protected boolean dirty;		// true if the data has changed
 	protected Properties persistentState;	// the field names and values from the database
 	private String myTableName;				// the name of our database table
-
 	protected Hashtable<String, Scene> myViews;
 	protected Stage myStage;
-
 	protected Properties mySchema;
 
 	// forward declarations
 	public abstract Object getState(String key);
 	public abstract void stateChangeRequest(String key, Object value);
 	protected abstract void initializeSchema(String tableName);
-
 	// constructor for this class
 	//----------------------------------------------------------
 	protected EntityBase(String tablename)
@@ -74,7 +69,6 @@ public abstract class EntityBase extends Persistable
 		// indicate the data in persistentState matches the database contents
 		dirty = false;
     }
-
 	/** Register objects to receive state updates. */
 	//----------------------------------------------------------
 	public void subscribe(String key, IView subscriber)
@@ -83,7 +77,6 @@ public abstract class EntityBase extends Persistable
 		// forward to our registry
 		myRegistry.subscribe(key, subscriber);
 	}
-
 	/** Unregister previously registered objects. */
 	//----------------------------------------------------------
 	public void unSubscribe(String key, IView subscriber)
@@ -92,8 +85,6 @@ public abstract class EntityBase extends Persistable
 		// forward to our registry
 		myRegistry.unSubscribe(key, subscriber);
 	}
-
-
     //-----------------------------------------------------------------------------------
     // package level permission, only ObjectFactory should modify
     void incrementReferenceCount()
@@ -139,7 +130,7 @@ public abstract class EntityBase extends Persistable
 		WindowPosition.placeCenter(myStage);
 		
     }
-
+	//---------------------------------------------------------------
 	public abstract void updateState(String key, Object value);
 }
 

@@ -1,6 +1,5 @@
 // specify the package
 package model;
-
 /** The class containing the TransactionFactory for the ClothesCloset application */
 //==============================================================
 public class TransactionFactory
@@ -45,7 +44,6 @@ public class TransactionFactory
 //			case "ListAllCheckOut":
 //				retValue = new ListCheckOutTransaction();
 		}
-
 		return retValue;
 	}
 }

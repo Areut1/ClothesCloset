@@ -5,7 +5,7 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class AddArticleTypeTransaction extends Transaction{
     // GUI Components
 
@@ -13,11 +13,11 @@ public class AddArticleTypeTransaction extends Transaction{
     private String updateStatusMessage = "";
     private ArticleType newArticleType;
 
-
+    //---------------------------------------------------------------
     protected AddArticleTypeTransaction() throws Exception {
         super();
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -26,7 +26,7 @@ public class AddArticleTypeTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
-
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("AddArticleTypeView");
@@ -46,7 +46,6 @@ public class AddArticleTypeTransaction extends Transaction{
             return currentScene;
         }
     }
-
     //------------------------------------------------------
     protected void createAndShowReceiptView()
     {
@@ -62,8 +61,7 @@ public class AddArticleTypeTransaction extends Transaction{
         }
         swapToView(newScene);
     }
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         if (key.equals("TransactionError") == true)
@@ -82,7 +80,7 @@ public class AddArticleTypeTransaction extends Transaction{
         }
         return null;
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         if (key.equals("DoYourJob") == true)
@@ -97,7 +95,7 @@ public class AddArticleTypeTransaction extends Transaction{
 
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         newArticleType = new ArticleType(props);

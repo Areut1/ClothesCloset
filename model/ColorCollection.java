@@ -4,16 +4,16 @@ import impresario.IView;
 
 import java.util.Properties;
 import java.util.Vector;
-
+//---------------------------------------------------------------
 public class ColorCollection extends EntityBase implements IView {
     private static final String myTableName = "Color";
     Vector<Color> colorList;
-
+    //---------------------------------------------------------------
     public ColorCollection() {
         super(myTableName);
         colorList = new Vector<Color>();
     }
-
+    //---------------------------------------------------------------
     public void findColors(Properties props) throws Exception {
         String query = "SELECT * FROM " + myTableName + " WHERE ";
 
@@ -67,7 +67,7 @@ public class ColorCollection extends EntityBase implements IView {
         }
 
     }
-
+    //---------------------------------------------------------------
     public void findAllColors() throws Exception {
         String query = "SELECT * FROM " + myTableName + " ORDER BY barcodePrefix";
 
@@ -93,16 +93,15 @@ public class ColorCollection extends EntityBase implements IView {
         }
 
     }
-
+    //---------------------------------------------------------------
     public Color get(int i){
         return colorList.get(i);
     }
-
+    //---------------------------------------------------------------
     public int size(){
         return colorList.size();
     }
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         if (key.equals("Colors"))
@@ -112,16 +111,16 @@ public class ColorCollection extends EntityBase implements IView {
             return this;
         return null;
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void initializeSchema(String tableName) {
     }
-
+    //---------------------------------------------------------------
     @Override
     public void updateState(String key, Object value) {
         stateChangeRequest(key, value);

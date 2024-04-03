@@ -15,20 +15,16 @@ import userinterface.WindowPosition;
 import java.util.Hashtable;
 import java.util.Properties;
 import java.util.Vector;
-
 /** The class containing the Transaction for the ATM application */
 //==============================================================
 abstract public class Transaction implements IView, IModel
 {
-
 	// For Impresario
 	protected Properties dependencies;
 	protected ModelRegistry myRegistry;
-
 	protected Stage myStage;
 	protected Hashtable<String, Scene> myViews;
 	// GUI Components
-
 	/**
 	 * Constructor for this class.
 	 *
@@ -50,15 +46,11 @@ abstract public class Transaction implements IView, IModel
 					"Could not instantiate Registry", Event.ERROR);
 		}
 		setDependencies();
-
 	}
-
 	//----------------------------------------------------------
 	protected abstract void setDependencies();
-
 	//---------------------------------------------------------
 	protected abstract Scene createView();
-
 	/**
 	 * Template method
 	 *
@@ -66,28 +58,21 @@ abstract public class Transaction implements IView, IModel
 	//---------------------------------------------------------
 	protected void doYourJob()
 	{
-
 		try
 		{
-
 			Scene newScene = createView();
-
 			swapToView(newScene);
-
 		}
 		catch (Exception ex)
 		{
 			new Event(Event.getLeafLevelClassName(this), "Transaction", "Error", Event.ERROR);
 		}
 	}
-
 	// forward declarations
 	//-----------------------------------------------------------
 	public abstract Object getState(String key);
-
 	//-----------------------------------------------------------
 	public abstract void stateChangeRequest(String key, Object value);
-
 	/** Called via the IView relationship
 	 * Re-define in sub-class, if necessary
 	 */
@@ -105,7 +90,6 @@ abstract public class Transaction implements IView, IModel
 		// forward to our registry
 		myRegistry.subscribe(key, subscriber);
 	}
-
 	/** Unregister previously registered objects. */
 	//----------------------------------------------------------
 	public void unSubscribe(String key, IView subscriber)
@@ -114,12 +98,9 @@ abstract public class Transaction implements IView, IModel
 		// forward to our registry
 		myRegistry.unSubscribe(key, subscriber);
 	}
-
-
 	//-----------------------------------------------------------------------------
 	public void swapToView(Scene newScene)
 	{
-
 		if (newScene == null)
 		{
 			System.out.println("Transaction.swapToView(): Missing view for display");
@@ -127,16 +108,9 @@ abstract public class Transaction implements IView, IModel
 					"Missing view for display ", Event.ERROR);
 			return;
 		}
-
-
 		myStage.setScene(newScene);
 		myStage.sizeToScene();
-
-
 		//Place in center
 		WindowPosition.placeCenter(myStage);
-
 	}
-
 }
-

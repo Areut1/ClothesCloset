@@ -6,21 +6,18 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class ModifyColorTransaction extends Transaction{
     // GUI Components
-
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private Color oldColor;
-
     private ColorCollection colCol;
-
-
+    //---------------------------------------------------------------
     protected ModifyColorTransaction() throws Exception {
         super();
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -29,10 +26,10 @@ public class ModifyColorTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("SearchColorView");
-
         if (currentScene == null)
         {
             // create our initial view
@@ -63,6 +60,7 @@ public class ModifyColorTransaction extends Transaction{
         }
         swapToView(newScene);
     }
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         return switch (key) {
@@ -73,6 +71,7 @@ public class ModifyColorTransaction extends Transaction{
             default -> null;
         };
     }
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
@@ -89,32 +88,28 @@ public class ModifyColorTransaction extends Transaction{
         }
         myRegistry.updateSubscribers(key, this);
     }
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         oldColor.changeValue("description", props.getProperty("description"));
         oldColor.changeValue("barcodePrefix", props.getProperty("barcodePrefix"));
         oldColor.changeValue("alphaCode", props.getProperty("alphaCode"));
-
-
         oldColor.update();
         createAndShowView("ModifyColorReceipt");
     }
+    //---------------------------------------------------------------
     public void processSearch(Properties props) throws Exception {
-
         colCol = new ColorCollection();
         try {
             colCol.findColors(props);
         } catch (Exception e) {
             throw new Exception("Unable to search for Color");
         }
-
         createAndShowView("SelectColorView");
-
     }
+    //---------------------------------------------------------------
     public void processConfirm(Properties props) {
-
         String id = props.getProperty("colorId");
-
         try {
             oldColor = new Color(id);
         } catch (InvalidPrimaryKeyException e) {

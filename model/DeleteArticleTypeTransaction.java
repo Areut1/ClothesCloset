@@ -6,21 +6,18 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class DeleteArticleTypeTransaction extends Transaction{
     // GUI Components
-
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private ArticleType oldArticleType;
-
     private ArticleTypeCollection atCol;
-
-
+//---------------------------------------------------------------
     protected DeleteArticleTypeTransaction() throws Exception {
         super();
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -29,7 +26,7 @@ public class DeleteArticleTypeTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
-
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("SearchArticleTypeView");
@@ -48,7 +45,6 @@ public class DeleteArticleTypeTransaction extends Transaction{
             return currentScene;
         }
     }
-
     //------------------------------------------------------
     protected void createAndShowView(String view)
     {
@@ -64,8 +60,7 @@ public class DeleteArticleTypeTransaction extends Transaction{
         }
         swapToView(newScene);
     }
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         return switch (key) {
@@ -76,7 +71,7 @@ public class DeleteArticleTypeTransaction extends Transaction{
             default -> null;
         };
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
@@ -95,7 +90,7 @@ public class DeleteArticleTypeTransaction extends Transaction{
 
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         //set status to inactive
@@ -103,7 +98,7 @@ public class DeleteArticleTypeTransaction extends Transaction{
         oldArticleType.update();
         createAndShowView("DeleteArticleTypeReceipt");
     }
-
+    //---------------------------------------------------------------
     public void processSearch(Properties props) throws Exception {
 
         atCol = new ArticleTypeCollection();
@@ -112,11 +107,9 @@ public class DeleteArticleTypeTransaction extends Transaction{
         } catch (Exception e) {
             throw new Exception("Unable to search for ArticleTypes");
         }
-
         createAndShowView("SelectArticleTypeView");
-
     }
-
+    //---------------------------------------------------------------
     public void processConfirm(Properties props){
 
         String id = props.getProperty("articleTypeId");
@@ -127,8 +120,6 @@ public class DeleteArticleTypeTransaction extends Transaction{
             throw new RuntimeException(e);
         }
         createAndShowView("DeleteArticleTypeView");
-
-
     }
 
 

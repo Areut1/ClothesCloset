@@ -6,21 +6,19 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class DeleteInventoryTransaction extends Transaction{
     // GUI Components
-
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private Inventory oldInventory;
     private InventoryCollection iCol;
     private Properties barcode;
-
-
+//---------------------------------------------------------------
     protected DeleteInventoryTransaction() throws Exception {
         super();
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -29,7 +27,7 @@ public class DeleteInventoryTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
-
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("SearchInventoryView");
@@ -48,7 +46,6 @@ public class DeleteInventoryTransaction extends Transaction{
             return currentScene;
         }
     }
-
     //------------------------------------------------------
     protected void createAndShowView(String view)
     {
@@ -64,8 +61,7 @@ public class DeleteInventoryTransaction extends Transaction{
         }
         swapToView(newScene);
     }
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         return switch (key) {
@@ -78,7 +74,7 @@ public class DeleteInventoryTransaction extends Transaction{
             default -> null;
         };
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
@@ -90,7 +86,7 @@ public class DeleteInventoryTransaction extends Transaction{
 
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         //set status to inactive
@@ -98,7 +94,7 @@ public class DeleteInventoryTransaction extends Transaction{
         oldInventory.update();
         createAndShowView("DeleteInventoryReceipt");
     }
-
+    //---------------------------------------------------------------
     public void processBarcode(String barcodeString){
         char[] barcodeArr = barcodeString.toCharArray();
 
@@ -127,8 +123,6 @@ public class DeleteInventoryTransaction extends Transaction{
         else{
             throw new RuntimeException();
         }
-
     }
-
 }
 
