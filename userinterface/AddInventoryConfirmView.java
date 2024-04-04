@@ -44,6 +44,7 @@ public class AddInventoryConfirmView extends View {
     public Properties articleTypeBarcodeMapping;
     public Properties primaryColorBarcodeMapping;
 
+    String barcodeSubmit;
 
     public AddInventoryConfirmView(IModel clerk)
     {
@@ -80,11 +81,25 @@ public class AddInventoryConfirmView extends View {
         titleText.getStyleClass().add("title");
         container.getChildren().add(titleText);
 
-//        Text prompt = new Text("Is this the correct?");
-//        prompt.setWrappingWidth(350);
-//        prompt.setTextAlignment(TextAlignment.CENTER);
-//        prompt.setFill(Color.BLACK);
-//        container.getChildren(prompt);
+        // Add white space to follow design spec
+        container.getChildren().add(new Label(" "));
+
+        Text prompt = new Text("Update this information as needed.");
+        prompt.setWrappingWidth(350);
+        prompt.setTextAlignment(TextAlignment.CENTER);
+        prompt.setFill(Color.BLACK);
+        container.getChildren().add(prompt);
+
+        // Add white space to follow design spec
+        container.getChildren().add(new Label(" "));
+
+        // ----- Barcode ----------------------------------------------
+        barcodeText = new Text("...DEFAULT...this gets updated later..." );
+        barcodeText.setWrappingWidth(350);
+        barcodeText.setTextAlignment(TextAlignment.CENTER);
+        barcodeText.setFill(Color.BLACK);
+        //grid.add(barcodeText, 0, 1);
+        container.getChildren().add(barcodeText);
 
         return container;
     }
@@ -101,16 +116,6 @@ public class AddInventoryConfirmView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        // START MAIN FORM CONTENTS
-
-
-        // ----- Barcode ----------------------------------------------
-        barcodeText = new Text("...DEFAULT...this gets updated later..." );
-        barcodeText.setWrappingWidth(350);
-        barcodeText.setTextAlignment(TextAlignment.CENTER);
-        barcodeText.setFill(Color.BLACK);
-        grid.add(barcodeText, 0,1);
-
 
         // ----- Gender ----------------------------------------------
         Label genderLabel = new Label("Gender:");
@@ -125,7 +130,6 @@ public class AddInventoryConfirmView extends View {
             // Update barcode with new gender
             updateBarcodeFromFields(articleTypeComboBox.getValue(), primaryColorComboBox.getValue(), newValue);
         });
-
         grid.add(genderComboBox, 1, 2);
 
         // ----- Article Type ----------------------------------------
@@ -207,7 +211,10 @@ public class AddInventoryConfirmView extends View {
         String primaryColorBarcode = getBarcodeFromMapping(primaryColorBarcodeMapping, primaryColor);
         String genderBarcode = getBarcodeFromMapping(genderBarcodeMapping, gender);
 
-        String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
+        if (articleTypeBarcode.length() == 1)
+            articleTypeBarcode = "0" + articleTypeBarcode;
+        if (primaryColorBarcode.length() == 1)
+            primaryColorBarcode = "0" + primaryColorBarcode;
 
         if (articleTypeBarcode.equals("-1") || primaryColorBarcode.equals("-1") || genderBarcode.equals("-1")) {
             Properties barcode2 = (Properties) myModel.getState("Barcode");
@@ -219,7 +226,22 @@ public class AddInventoryConfirmView extends View {
             return;
         }
 
-        barcodeText.setText("The Updated Barcode is: " + barcode);
+        // Checking to set the ID for this barcode
+        Properties checkIdBarcodeInformation = new Properties();
+        checkIdBarcodeInformation.setProperty("gender", genderBarcode);
+        checkIdBarcodeInformation.setProperty("articleType", articleTypeBarcode);
+        checkIdBarcodeInformation.setProperty("color1", primaryColorBarcode);
+
+        // Retrieve the ID
+//        myModel.stateChangeRequest("barcodeIdChecking", checkIdBarcodeInformation);
+//        String id = (String) myModel.getState("barcodeId");
+//
+//        String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode + id;
+
+        String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
+
+        barcodeText.setText("The New Barcode is: " + barcode);
+        barcodeSubmit = barcode;
         clearErrorMessage();
     }
 
@@ -285,6 +307,7 @@ public class AddInventoryConfirmView extends View {
         String primaryColorBarcode = barcode.getProperty("color1");
 
         barcodeText.setText("The Inserted Barcode is: " + genderBarcode + articleTypeBarcode + primaryColorBarcode);
+        barcodeSubmit = genderBarcode + articleTypeBarcode + primaryColorBarcode;
 
         try {
             String genderPick = (String) genderBarcodeMapping.get(genderBarcode);
@@ -319,7 +342,7 @@ public class AddInventoryConfirmView extends View {
     }
 
     public void processConfirm() {
-        myModel.stateChangeRequest("SubmitBarcode", null);
+        myModel.stateChangeRequest("SubmitBarcode", barcodeSubmit);
     }
 
     public void updateState(String key, Object value) {
