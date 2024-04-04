@@ -123,7 +123,7 @@ public class ModifyInventoryTransaction extends Transaction{
 //        oldInventory.changeValue("dateDonated", props.getProperty("dateDonated"));
 //        oldInventory.changeValue("dateTaken", props.getProperty("dateTaken"));
         oldInventory.update();
-        createAndShowView("ModifyArticleTypeReceipt");
+        createAndShowView("ModifyInventoryReceipt");
     }
     //---------------------------------------------------------------
     public void processBarcode(String barcodeString){
@@ -149,7 +149,7 @@ public class ModifyInventoryTransaction extends Transaction{
 
         if (iCol.size() == 1){
             oldInventory = iCol.get(0);
-            createAndShowView("ModifyInventoryView");
+            createAndShowView("ModifyInventoryInputView");
         }
         else{
             throw new RuntimeException();
