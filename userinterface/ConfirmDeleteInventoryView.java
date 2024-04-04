@@ -23,7 +23,7 @@ public class ConfirmDeleteInventoryView extends View{
     //---------------------------------------------------------------
     public ConfirmDeleteInventoryView(IModel clerk)
     {
-        super(clerk, "DeleteArticleTypeView");
+        super(clerk, "DeleteInventoryView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -66,7 +66,7 @@ public class ConfirmDeleteInventoryView extends View{
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("Are you sure you would like to delete this Article Type?");
+        Text prompt = new Text("Are you sure you would like to delete this Inventory?");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -115,7 +115,7 @@ public class ConfirmDeleteInventoryView extends View{
     }
     //---------------------------------------------------------------
     public void processConfirm(){
-        myModel.stateChangeRequest("DeleteArticleType", null);
+        myModel.stateChangeRequest("DeleteInventory", null);
     }
     //---------------------------------------------------------------
     public void updateState(String key, Object value)
