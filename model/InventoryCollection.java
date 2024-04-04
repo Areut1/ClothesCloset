@@ -51,6 +51,47 @@ public class InventoryCollection extends EntityBase implements IView {
         }
 
     }
+
+    public void retrieveBarcode5(String barcode) throws Exception {
+        String query = "SELECT * FROM " + myTableName + " WHERE ";
+
+        String bar5 = barcode.substring(0,4);
+
+        //start generic query, add on for each requirement
+        if (barcode != null){
+            //add on to query
+            query += "(barcode LIKE \"" + bar5 + "___\")";
+        }
+        if (barcode == null){
+            System.out.println("Error: no fields");
+        }
+
+        query += " ORDER BY barcode";
+
+//        System.out.println(query);
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        if (allDataRetrieved != null)
+        {
+            inventoryList = new Vector<>();
+
+            for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
+            {
+                Properties nextInventoryData = (Properties)allDataRetrieved.elementAt(cnt);
+
+                Inventory in = new Inventory(nextInventoryData);
+
+                inventoryList.add(in);
+            }
+
+        }
+        else
+        {
+            throw new Exception("No Inventory found with specified fields");
+        }
+    }
+
     //---------------------------------------------------------------
     public int size(){
         return inventoryList.size();
