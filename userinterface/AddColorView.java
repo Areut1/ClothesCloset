@@ -208,9 +208,14 @@ public class AddColorView extends View {
             insertProp.setProperty("alphaCode", alphaCodeString);
             insertProp.setProperty("status", statusString);
 
+            Properties queryProps = new Properties();
+            queryProps.setProperty("description", descriptionString);
+            queryProps.setProperty("barcodePrefix", barcodePrefixString);
+            queryProps.setProperty("alphaCode", alphaCodeString);
+
             ColorCollection cCol = new ColorCollection();
             try {
-                cCol.findColors(insertProp);
+                cCol.testExistence(insertProp);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

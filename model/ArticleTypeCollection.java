@@ -110,7 +110,7 @@ public class ArticleTypeCollection extends EntityBase implements IView {
         //start generic query, add on for each requirement
         if (props.getProperty("description") != null){
             //add on to query
-            query += "(description LIKE \"%" + props.getProperty("description") + "%\")";
+            query += "(description = \"" + props.getProperty("description") + "\")";
         }
         if (props.getProperty("barcodePrefix") != null){
             //add on to query
@@ -125,7 +125,7 @@ public class ArticleTypeCollection extends EntityBase implements IView {
             if ((props.getProperty("description") != null) || (props.getProperty("barcodePrefix") != null)){
                 query += " OR ";
             }
-            query += "(alphaCode LIKE \"%" + props.getProperty("alphaCode") + "%\")";
+            query += "(alphaCode = \"" + props.getProperty("alphaCode") + "\")";
         }
         if ((props.getProperty("description") == null) && (props.getProperty("barcodePrefix") == null) && (props.getProperty("alphaCode") == null)){
             System.out.println("Error: no fields");
