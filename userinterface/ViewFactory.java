@@ -49,8 +49,8 @@ public class ViewFactory {
 				return new AddInventoryInputView(model);
 			case "AddInventoryReceipt":
 				return new AddInventoryReceipt(model);
-//			case "ModifyInventoryView":
-//				return new ModifyInventoryView(model);
+			case "ModifyInventoryInputView":
+				return new ModifyInventoryInputView(model);
 //			case "ModifyInventoryReceipt":
 //				return new ModifyInventoryReceipt(model);
 //			case "DeleteInventoryView":
