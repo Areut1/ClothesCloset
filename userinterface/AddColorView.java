@@ -191,7 +191,7 @@ public class AddColorView extends View {
      */
     public void processSubmitAction(Event evt){
         //validate user input
-        if (description == null || barcodePrefix == null || alphaCode == null){
+        if (description.getText() == null || barcodePrefix.getText() == null || alphaCode.getText() == null){
             clearErrorMessage();
             displayErrorMessage("Please completly fill in all fields");
         } else {
