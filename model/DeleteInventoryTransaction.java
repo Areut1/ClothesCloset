@@ -109,9 +109,12 @@ public class DeleteInventoryTransaction extends Transaction{
         barcode.setProperty("color1", color);
         barcode.setProperty("id", id);
 
+        Properties barcodeProp = new Properties();
+        barcodeProp.setProperty("barcode", barcodeString);
+
         iCol = new InventoryCollection();
         try {
-            iCol.findInventory(barcode);
+            iCol.findInventory(barcodeProp);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

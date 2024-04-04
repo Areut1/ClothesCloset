@@ -219,8 +219,9 @@ public class AddInventoryConfirmView extends View {
             String genderBarcode2 = barcode2.getProperty("gender");
             String articleTypeBarcode2 = barcode2.getProperty("articleType");
             String primaryColorBarcode2 = barcode2.getProperty("color1");
+            String idBarcode2 = barcode2.getProperty("id");
 
-            barcodeText.setText("The Inserted Barcode is: " + genderBarcode2 + articleTypeBarcode2 + primaryColorBarcode2);
+            barcodeText.setText("The Inserted Barcode is: " + genderBarcode2 + articleTypeBarcode2 + primaryColorBarcode2 + idBarcode2);
             return;
         }
 
@@ -234,7 +235,7 @@ public class AddInventoryConfirmView extends View {
         // Retrieve the ID
         String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
         myModel.stateChangeRequest("GetID", barcode);
-        String barcodeWithID = (String) myModel.getState("ID");
+        String barcodeWithID = barcode + (String) myModel.getState("ID");
 
         barcodeText.setText("The New Barcode is: " + barcodeWithID);
         barcodeSubmit = barcodeWithID;
@@ -301,12 +302,13 @@ public class AddInventoryConfirmView extends View {
         String genderBarcode = barcode.getProperty("gender");
         String articleTypeBarcode = barcode.getProperty("articleType");
         String primaryColorBarcode = barcode.getProperty("color1");
+        String idBarcode = barcode.getProperty("id");
 
         articleTypeBarcode = Integer.toString(Integer.parseInt(articleTypeBarcode));
         primaryColorBarcode = Integer.toString(Integer.parseInt(primaryColorBarcode));
 
-        barcodeText.setText("The Inserted Barcode is: " + genderBarcode + articleTypeBarcode + primaryColorBarcode);
-        barcodeSubmit = genderBarcode + articleTypeBarcode + primaryColorBarcode;
+        barcodeText.setText("The Inserted Barcode is: " + genderBarcode + articleTypeBarcode + primaryColorBarcode + idBarcode);
+        barcodeSubmit = genderBarcode + articleTypeBarcode + primaryColorBarcode + idBarcode;
 
         try {
             String genderPick = (String) genderBarcodeMapping.get(genderBarcode);

@@ -149,11 +149,13 @@ public class SearchInventoryBarcodeView extends View{
         String barcodeEntered = InventoryBarcode.getText();
         Properties props = new Properties();
         props.setProperty("barcode", barcodeEntered);
+        System.out.println(props.getProperty("barcode"));
 
         InventoryCollection iCol = new InventoryCollection();
         try {
             iCol.findInventory(props);
         } catch (Exception e) {
+            displayErrorMessage("No Inventory found with that barcode!");
             throw new RuntimeException(e);
         }
 
@@ -166,7 +168,7 @@ public class SearchInventoryBarcodeView extends View{
         }
         else {
             if (iCol.size() != 0 && transaction.equals("AddInventory")) {
-                displayMessage("Barcode already exists");
+                displayErrorMessage("Barcode already exists");
             }
             else if (iCol.size() == 0 && (transaction.equals("ModifyInventory") || transaction.equals("DeleteInventory"))){
                 displayErrorMessage("Barcode does not exist");

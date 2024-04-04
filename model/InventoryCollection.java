@@ -25,9 +25,7 @@ public class InventoryCollection extends EntityBase implements IView {
             System.out.println("Error: no fields");
         }
 
-        query += " ORDER BY barcode";
-
-//        System.out.println(query);
+        System.out.println(query);
 
         Vector allDataRetrieved = getSelectQueryResult(query);
 

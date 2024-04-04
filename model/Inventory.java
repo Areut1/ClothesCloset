@@ -108,7 +108,8 @@ public class Inventory extends EntityBase implements IView {
     }
     //---------------------------------------------------------------
     public String toString() {
-        return "Gender: " + persistentState.getProperty("gender") +
+        return "Barcode: " + persistentState.getProperty("barcode") +
+                "\nGender: " + persistentState.getProperty("gender") +
                 "\nSize: " + persistentState.getProperty("size") +
                 "\nArticle Type Id: " + persistentState.getProperty("articleType") +
                 "\nColor 1 Id: " + persistentState.getProperty("color1") +
@@ -165,17 +166,17 @@ public class Inventory extends EntityBase implements IView {
     //---------------------------------------------------------------
     private void updateStateInDatabase() {
         try {
-            if (persistentState.getProperty("barcode") != null) {
+            if (persistentState.getProperty("inventoryId") != null) {
                 Properties whereClause = new Properties();
-                whereClause.setProperty("barcode",
-                        persistentState.getProperty("barcode"));
+                whereClause.setProperty("inventoryId",
+                        persistentState.getProperty("inventoryId"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Inventory data for inventory barcode : " + persistentState.getProperty("barcode") + " updated successfully in database!";
+                updateStatusMessage = "Inventory data for inventoryId : " + persistentState.getProperty("inventoryId") + " updated successfully in database!";
             } else {
-                Integer inventoryBarcodeVal =
+                Integer inventoryIdVal =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("barcode", "" + inventoryBarcodeVal);
-                updateStatusMessage = "Inventory data for new inventory : " +  persistentState.getProperty("barcode")
+                persistentState.setProperty("inventoryId", "" + inventoryIdVal);
+                updateStatusMessage = "Inventory data for new inventory : " +  persistentState.getProperty("inventoryId")
                         + "installed successfully in database!";
             }
         }  catch (SQLException ex) {

@@ -146,7 +146,29 @@ public class AddInventoryTransaction extends Transaction{
 
     public void processTransaction(Properties props)
     {
-        newInventory = new Inventory(props);
+        Properties finalProps = new Properties();
+
+
+        //TODO: if any of these are null, set to null???
+        String barcodeString = barcode.getProperty("gender") + barcode.getProperty("articleType") + barcode.getProperty("color1") + barcode.getProperty("id");
+        finalProps.setProperty("barcode", barcodeString);
+        finalProps.setProperty("gender", barcode.getProperty("gender"));
+        finalProps.setProperty("articleType", barcode.getProperty("articleType"));
+        finalProps.setProperty("color1", barcode.getProperty("color1"));
+        finalProps.setProperty("color2", props.getProperty("color2"));
+        finalProps.setProperty("size", props.getProperty("size"));
+        finalProps.setProperty("brand", props.getProperty("brand"));
+        finalProps.setProperty("notes", props.getProperty("notes"));
+        finalProps.setProperty("status", "Donated");
+        finalProps.setProperty("donorLastName", props.getProperty("donorLastName"));
+        finalProps.setProperty("donorFirstName", props.getProperty("donorFirstName"));
+        finalProps.setProperty("donorPhone", props.getProperty("donorPhone"));
+        finalProps.setProperty("donorEmail", props.getProperty("donorEmail"));
+//        finalProps.setProperty("donationDate", )
+
+        newInventory = new Inventory(finalProps);
+        System.out.println(newInventory);
+
         newInventory.update();
         createAndShowView("AddInventoryReceipt");
     }
