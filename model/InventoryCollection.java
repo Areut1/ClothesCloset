@@ -110,6 +110,10 @@ public class InventoryCollection extends EntityBase implements IView {
             return this;
         return null;
     }
+
+    public void clearCollection(){
+        inventoryList.clear();
+    }
     //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
