@@ -303,6 +303,9 @@ public class AddInventoryConfirmView extends View {
         String articleTypeBarcode = barcode.getProperty("articleType");
         String primaryColorBarcode = barcode.getProperty("color1");
 
+        articleTypeBarcode = Integer.toString(Integer.parseInt(articleTypeBarcode));
+        primaryColorBarcode = Integer.toString(Integer.parseInt(primaryColorBarcode));
+
         barcodeText.setText("The Inserted Barcode is: " + genderBarcode + articleTypeBarcode + primaryColorBarcode);
         barcodeSubmit = genderBarcode + articleTypeBarcode + primaryColorBarcode;
 
