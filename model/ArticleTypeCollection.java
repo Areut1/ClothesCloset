@@ -102,6 +102,60 @@ public class ArticleTypeCollection extends EntityBase implements IView {
         }
 
     }
+
+    public void testExistence(Properties props) throws Exception {
+
+        String query = "SELECT * FROM " + myTableName + " WHERE ";
+
+        //start generic query, add on for each requirement
+        if (props.getProperty("description") != null){
+            //add on to query
+            query += "(description LIKE \"%" + props.getProperty("description") + "%\")";
+        }
+        if (props.getProperty("barcodePrefix") != null){
+            //add on to query
+            if (props.getProperty("description") != null){
+                query += " OR ";
+            }
+            query += "(barcodePrefix = \"" + props.getProperty("barcodePrefix") + "\")";
+
+        }
+        if (props.getProperty("alphaCode") != null){
+            //add on to query
+            if ((props.getProperty("description") != null) || (props.getProperty("barcodePrefix") != null)){
+                query += " OR ";
+            }
+            query += "(alphaCode LIKE \"%" + props.getProperty("alphaCode") + "%\")";
+        }
+        if ((props.getProperty("description") == null) && (props.getProperty("barcodePrefix") == null) && (props.getProperty("alphaCode") == null)){
+            System.out.println("Error: no fields");
+        }
+
+        query += " ORDER BY barcodePrefix";
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        if (allDataRetrieved != null)
+        {
+            articleTypeList = new Vector<>();
+
+            for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
+            {
+                Properties nextArticleTypeData = (Properties)allDataRetrieved.elementAt(cnt);
+
+                ArticleType at = new ArticleType(nextArticleTypeData);
+
+                articleTypeList.add(at);
+            }
+
+        }
+        else
+        {
+            throw new Exception("No ArticleType found with specified fields");
+        }
+
+    }
+
     //---------------------------------------------------------------
     @Override
     public Object getState(String key) {

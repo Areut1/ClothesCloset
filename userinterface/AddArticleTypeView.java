@@ -214,9 +214,15 @@ public class AddArticleTypeView extends View {
             insertProp.setProperty("alphaCode", alphaCodeString);
             insertProp.setProperty("status", statusString);
 
+            Properties queryProps = new Properties();
+            queryProps.setProperty("description", descriptionString);
+            queryProps.setProperty("barcodePrefix", barcodePrefixString);
+            queryProps.setProperty("alphaCode", alphaCodeString);
+
+
             ArticleTypeCollection atCol = new ArticleTypeCollection();
             try {
-                atCol.findArticleTypes(insertProp);
+                atCol.testExistence(queryProps);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
