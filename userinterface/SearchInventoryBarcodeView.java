@@ -149,7 +149,6 @@ public class SearchInventoryBarcodeView extends View{
         String barcodeEntered = InventoryBarcode.getText();
         Properties props = new Properties();
         props.setProperty("barcode", barcodeEntered);
-        System.out.println(props.getProperty("barcode"));
 
         InventoryCollection iCol = new InventoryCollection();
         try {

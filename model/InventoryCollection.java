@@ -25,7 +25,7 @@ public class InventoryCollection extends EntityBase implements IView {
             System.out.println("Error: no fields");
         }
 
-        System.out.println(query);
+//        System.out.println(query);
 
         Vector allDataRetrieved = getSelectQueryResult(query);
 
