@@ -6,26 +6,22 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class ModifyInventoryTransaction extends Transaction{
     // GUI Components
-
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private Inventory oldInventory;
-
     private InventoryCollection iCol;
-
     private Properties barcode;
     private ColorCollection cCol;
     private ArticleTypeCollection atCol;
-
-
+    //---------------------------------------------------------------
     protected ModifyInventoryTransaction() throws Exception {
         super();
         createCollections();
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -34,7 +30,7 @@ public class ModifyInventoryTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
-
+    //---------------------------------------------------------------
     private void createCollections() throws Exception {
         atCol = new ArticleTypeCollection();
         cCol = new ColorCollection();
@@ -44,14 +40,11 @@ public class ModifyInventoryTransaction extends Transaction{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
-
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("SearchInventoryBarcodeView");
-
         if (currentScene == null)
         {
             // create our initial view
@@ -66,7 +59,6 @@ public class ModifyInventoryTransaction extends Transaction{
             return currentScene;
         }
     }
-
     //------------------------------------------------------
     protected void createAndShowView(String view)
     {
@@ -82,8 +74,7 @@ public class ModifyInventoryTransaction extends Transaction{
         }
         swapToView(newScene);
     }
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         return switch (key) {
@@ -98,19 +89,19 @@ public class ModifyInventoryTransaction extends Transaction{
             default -> null;
         };
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
             case "DoYourJob" -> doYourJob();
             case "ModifyInventory" -> processTransaction((Properties) value);
             case "SubmitBarcode" -> processBarcode((String) value);
-//            case "StartOver" -> createAndShowView("SearchArticleTypeView");
+    //case "StartOver" -> createAndShowView("SearchArticleTypeView");
         }
 
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         oldInventory.changeValue("barcode", props.getProperty("barcode"));
@@ -131,12 +122,10 @@ public class ModifyInventoryTransaction extends Transaction{
 //        oldInventory.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
 //        oldInventory.changeValue("dateDonated", props.getProperty("dateDonated"));
 //        oldInventory.changeValue("dateTaken", props.getProperty("dateTaken"));
-
-
         oldInventory.update();
-        createAndShowView("ModifyArticleTypeReceipt");
+        createAndShowView("ModifyInventoryReceipt");
     }
-
+    //---------------------------------------------------------------
     public void processBarcode(String barcodeString){
         char[] barcodeArr = barcodeString.toCharArray();
 
@@ -160,14 +149,12 @@ public class ModifyInventoryTransaction extends Transaction{
 
         if (iCol.size() == 1){
             oldInventory = iCol.get(0);
-            createAndShowView("ModifyInventoryView");
+            createAndShowView("ModifyInventoryInputView");
         }
         else{
             throw new RuntimeException();
         }
-
     }
-
 }
 
 

@@ -5,19 +5,18 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class AddColorTransaction extends Transaction{
     // GUI Components
 
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private Color newColor;
-
-
+    //---------------------------------------------------------------
     protected AddColorTransaction() throws Exception {
         super();
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -26,7 +25,7 @@ public class AddColorTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
-
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("AddColorView");
@@ -45,7 +44,6 @@ public class AddColorTransaction extends Transaction{
             return currentScene;
         }
     }
-
     //------------------------------------------------------
     protected void createAndShowReceiptView()
     {
@@ -57,12 +55,11 @@ public class AddColorTransaction extends Transaction{
             View newView = ViewFactory.createView("AddColorReceipt", this);
             newScene = new Scene(newView);
             myViews.put("AddColorReceipt", newScene);
-
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
         }
         swapToView(newScene);
     }
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         if (key.equals("TransactionError") == true)
@@ -81,7 +78,7 @@ public class AddColorTransaction extends Transaction{
         }
         return null;
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         if (key.equals("DoYourJob") == true)
@@ -96,7 +93,7 @@ public class AddColorTransaction extends Transaction{
 
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         newColor = new Color(props);

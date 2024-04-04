@@ -22,7 +22,7 @@ public class ViewFactory {
 			case "ModifyArticleTypeView":
 				return new ModifyArticleTypeView(model);
 			case "DeleteColorView":
-				return new DeleteColorView(model);
+				return new ConfirmDeleteColorView(model);
 			case "DeleteArticleTypeView":
 				return new ConfirmDeleteArticleTypeView(model);
 			case "DeleteColorReceipt":
@@ -49,14 +49,14 @@ public class ViewFactory {
 				return new AddInventoryInputView(model);
 			case "AddInventoryReceipt":
 				return new AddInventoryReceipt(model);
-//			case "ModifyInventoryView":
-//				return new ModifyInventoryView(model);
+			case "ModifyInventoryInputView":
+				return new ModifyInventoryInputView(model);
 //			case "ModifyInventoryReceipt":
 //				return new ModifyInventoryReceipt(model);
-//			case "DeleteInventoryView":
-//				return new DeleteInventoryView(model);
-//			case "DeleteInventoryReceipt":
-//				return new DeleteInventoryReceipt(model);
+			case "DeleteInventoryView":
+				return new ConfirmDeleteInventoryView(model);
+			case "DeleteInventoryReceipt":
+				return new DeleteInventoryReceipt(model);
 
 			default: return null;
 		}

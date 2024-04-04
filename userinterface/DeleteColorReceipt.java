@@ -23,24 +23,18 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
-
 /** The class containing the Delete Article Type Receipt  for the Clothes Closet application */
 //==============================================================
 public class DeleteColorReceipt extends View
 {
-
     // Model
-
     private	String todaysDateAndTimeString;
-
     // GUI controls
     private Text todaysDateAndTime;
     private Text description;
     private Text barcodePrefix;
     private Text alphaCode;
     private Text status;
-
-
     private Button okButton;
     // constructor for this class
     //----------------------------------------------------------
@@ -65,10 +59,7 @@ public class DeleteColorReceipt extends View
         getChildren().add(container);
 
         populateFields();
-
     }
-
-
     // Create the Node (HBox) for the title
     //-------------------------------------------------------------
     private Node createTitle()
@@ -77,15 +68,13 @@ public class DeleteColorReceipt extends View
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" Deleted Color Receipt ");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.getStyleClass().add("title");
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
         container.getChildren().add(titleText);
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -164,9 +153,6 @@ public class DeleteColorReceipt extends View
 
         return vbox;
     }
-
-
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -183,15 +169,11 @@ public class DeleteColorReceipt extends View
         todaysDateAndTime.setText(todaysDateAndTimeString);
 
     }
-
-
     /**
      * Required by interface, but has no role here
      */
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-
     }
-
 }

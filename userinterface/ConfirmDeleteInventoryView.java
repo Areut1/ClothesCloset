@@ -6,25 +6,24 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
 //---------------------------------------------------------------
-public class ConfirmDeleteArticleTypeView extends View{
+public class ConfirmDeleteInventoryView extends View{
 
     protected Button cancelButton;
     protected Button confirmButton;
     protected MessageView statusLog;
     //---------------------------------------------------------------
-    public ConfirmDeleteArticleTypeView(IModel clerk)
+    public ConfirmDeleteInventoryView(IModel clerk)
     {
-        super(clerk, "DeleteArticleTypeView");
+        super(clerk, "DeleteInventoryView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -67,7 +66,7 @@ public class ConfirmDeleteArticleTypeView extends View{
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("Are you sure you would like to delete this Article Type?");
+        Text prompt = new Text("Are you sure you would like to delete this Inventory?");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -116,7 +115,7 @@ public class ConfirmDeleteArticleTypeView extends View{
     }
     //---------------------------------------------------------------
     public void processConfirm(){
-        myModel.stateChangeRequest("DeleteArticleType", null);
+        myModel.stateChangeRequest("DeleteInventory", null);
     }
     //---------------------------------------------------------------
     public void updateState(String key, Object value)

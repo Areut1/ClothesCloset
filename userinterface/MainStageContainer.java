@@ -14,9 +14,7 @@ package userinterface;
 
 // system imports
 import javafx.stage.Stage;
-
 // project imports
-
 /** 
  * The main stage for the Brockport GUI applications. 
  * All scenes are inside this one stage only. 

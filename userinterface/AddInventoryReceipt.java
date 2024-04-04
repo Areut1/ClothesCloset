@@ -22,14 +22,11 @@ import javafx.scene.text.TextAlignment;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 /** The class containing the Add Article Type Receipt  for the Clothes Coset application */
 //==============================================================
 public class AddInventoryReceipt extends View
 {
-
     // Model
-
     private	String todaysDateAndTimeString;
     private Text todaysDateAndTime;
     private Text barcode;
@@ -46,10 +43,8 @@ public class AddInventoryReceipt extends View
     private Text donorPhone;
     private Text donorEmail;
     private Text dateDonated;
-
     // GUI controls
     private Button okButton;
-
     // constructor for this class
     //----------------------------------------------------------
     public AddInventoryReceipt(IModel trans)
@@ -75,8 +70,6 @@ public class AddInventoryReceipt extends View
         populateFields();
 
     }
-
-
     // Create the Node (HBox) for the title
     //-------------------------------------------------------------
     private Node createTitle()
@@ -92,7 +85,6 @@ public class AddInventoryReceipt extends View
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -251,7 +243,6 @@ public class AddInventoryReceipt extends View
 
         return vbox;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -285,19 +276,13 @@ public class AddInventoryReceipt extends View
         donorEmail.setText(donorEmailSt);
         String dateDonatedSt = (String)newInventoryInfo.getState("dateDonated");
         dateDonated.setText(dateDonatedSt);
-
         todaysDateAndTime.setText(todaysDateAndTimeString);
-
     }
-
-
     /**
      * Required by interface, but has no role here
      */
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-
     }
-
 }

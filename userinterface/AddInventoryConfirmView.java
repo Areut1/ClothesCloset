@@ -23,7 +23,7 @@ import model.ColorCollection;
 
 import java.util.*;
 import java.util.stream.IntStream;
-
+//---------------------------------------------------------------
 public class AddInventoryConfirmView extends View {
 
     protected Button cancelButton;
@@ -32,13 +32,11 @@ public class AddInventoryConfirmView extends View {
     protected MessageView statusLog;
     private ArticleTypeCollection atCol;
     private ColorCollection cCol;
-
     // GUI Components
     protected ComboBox<String> genderComboBox;
     protected ComboBox<String> articleTypeComboBox;
     protected ComboBox<String> primaryColorComboBox;
     protected Text barcodeText;
-
     // Properties object containing all the barcode mappings
     public Properties genderBarcodeMapping;
     public Properties articleTypeBarcodeMapping;
@@ -103,7 +101,6 @@ public class AddInventoryConfirmView extends View {
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -161,7 +158,6 @@ public class AddInventoryConfirmView extends View {
         });
 
         grid.add(primaryColorComboBox, 1, 4);
-
         // -----------------------------------------------------------
         // END MAIN FORM CONTENTS
 
@@ -203,7 +199,7 @@ public class AddInventoryConfirmView extends View {
 
         return vbox;
     }
-
+    //---------------------------------------------------------------
     private void updateBarcodeFromFields(String articleType, String primaryColor, String gender) {
         // Update the barcode text with new information.
 
@@ -244,7 +240,7 @@ public class AddInventoryConfirmView extends View {
         barcodeSubmit = barcode;
         clearErrorMessage();
     }
-
+    //---------------------------------------------------------------
     public static String getBarcodeFromMapping(Properties props, String name) {
         // Get the key (barcode) of propValues at name
         for (Map.Entry<Object, Object> entry : props.entrySet()) {
@@ -253,7 +249,7 @@ public class AddInventoryConfirmView extends View {
         }
         return "-1";
     }
-
+    //---------------------------------------------------------------
     private void initBarcodeMappings() {
         // Get the tables
         atCol = (ArticleTypeCollection) myModel.getState("ArticleTypeList");
@@ -340,22 +336,18 @@ public class AddInventoryConfirmView extends View {
             }
         }
     }
-
+    //---------------------------------------------------------------
     public void processConfirm() {
         myModel.stateChangeRequest("SubmitBarcode", barcodeSubmit);
     }
-
-    public void updateState(String key, Object value) {
-
-    }
-
+    //---------------------------------------------------------------
+    public void updateState(String key, Object value) { }
+    //---------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
     {
         statusLog = new MessageView(initialMessage);
         return statusLog;
     }
-
-
     /**
      * Display info message
      */
@@ -364,11 +356,10 @@ public class AddInventoryConfirmView extends View {
     {
         statusLog.displayMessage(message);
     }
-
+    //---------------------------------------------------------------
     public void displayErrorMessage(String message) {
         statusLog.displayErrorMessage(message);
     }
-
     /**
      * Clear error message
      */

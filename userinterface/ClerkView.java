@@ -25,20 +25,15 @@ import javafx.scene.image.ImageView;
 
 // project imports
 import impresario.IModel;
-
 /** The class containing the Teller View  for the ATM application */
 //==============================================================
 public class ClerkView extends View
 {
-
     // GUI stuff
-
     private Button enterButton;
     private Button quitButton;
-
     // For showing error message
     private MessageView statusLog;
-
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public ClerkView( IModel librarian)
@@ -78,7 +73,6 @@ public class ClerkView extends View
         // STEP 0: Be sure you tell your model what keys you are interested in
         myModel.subscribe("LoginError", this);
     }
-
     // Create the label (Text) for the title of the screen
     //-------------------------------------------------------------
     private Node createTitle()
@@ -92,7 +86,7 @@ public class ClerkView extends View
 
         return titleText;
     }
-
+    //---------------------------------------------------------------
     private ImageView createImage(Image image)
     {
         ImageView iv = new ImageView();
@@ -138,9 +132,6 @@ public class ClerkView extends View
 
         return grid;
     }
-
-
-
     // Create the status log field
     //-------------------------------------------------------------
     private MessageView createStatusLog(String initialMessage)
@@ -150,9 +141,7 @@ public class ClerkView extends View
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
-
     // This method processes events generated from our GUI components.
     // Make the ActionListeners delegate to this method
     //-------------------------------------------------------------
@@ -165,7 +154,6 @@ public class ClerkView extends View
         processUserIDAndPassword("1", "123");
 
     }
-
     /**
      * Process userid and pwd supplied when Submit button is hit.
      * Action is to pass this info on to the teller object
@@ -180,7 +168,6 @@ public class ClerkView extends View
 
         myModel.stateChangeRequest("Login", props);
     }
-
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
@@ -191,9 +178,7 @@ public class ClerkView extends View
             // display the passed text
             displayErrorMessage((String)value);
         }
-
     }
-
     /**
      * Display error message
      */
@@ -211,6 +196,5 @@ public class ClerkView extends View
     {
         statusLog.clearErrorMessage();
     }
-
 }
 

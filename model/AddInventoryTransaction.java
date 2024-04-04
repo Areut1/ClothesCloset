@@ -5,7 +5,7 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
-
+//---------------------------------------------------------------
 public class AddInventoryTransaction extends Transaction{
     // GUI Components
 
@@ -18,13 +18,12 @@ public class AddInventoryTransaction extends Transaction{
     private Properties barcode;
 
     private int transCount = 0;
-
-
+    //---------------------------------------------------------------
     protected AddInventoryTransaction() throws Exception {
         super();
         createCollections();
     }
-
+    //---------------------------------------------------------------
     private void createCollections() throws Exception {
         atCol = new ArticleTypeCollection();
         cCol = new ColorCollection();
@@ -34,10 +33,8 @@ public class AddInventoryTransaction extends Transaction{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
-
+    //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
         dependencies = new Properties();
@@ -46,7 +43,7 @@ public class AddInventoryTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
-
+    //---------------------------------------------------------------
     @Override
     protected Scene createView() {
         Scene currentScene = myViews.get("SearchInventoryBarcodeView");
@@ -65,7 +62,7 @@ public class AddInventoryTransaction extends Transaction{
             return currentScene;
         }
     }
-
+    //---------------------------------------------------------------
     protected void createAndShowView(String view)
     {
         Scene newScene = myViews.get(view);
@@ -80,8 +77,7 @@ public class AddInventoryTransaction extends Transaction{
         }
         swapToView(newScene);
     }
-
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         return switch (key) {
@@ -95,7 +91,7 @@ public class AddInventoryTransaction extends Transaction{
             default -> null;
         };
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
@@ -106,14 +102,14 @@ public class AddInventoryTransaction extends Transaction{
 
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
         newInventory = new Inventory(props);
         newInventory.update();
         createAndShowView("AddInventoryReceipt");
     }
-
+    //---------------------------------------------------------------
     public void processBarcode(String barcodeString){
         char[] barcodeArr = barcodeString.toCharArray();
 

@@ -1,4 +1,7 @@
+// specify the package
 package userinterface;
+
+// system imports
 
 import impresario.IModel;
 import javafx.event.ActionEvent;
@@ -7,24 +10,25 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-/** The class containing the Add Article Type Receipt  for the Clothes Coset application */
+
+/** The class containing the Delete Article Type Receipt  for the Clothes Closet application */
 //==============================================================
-public class ModifyInventoryReceipt extends View
+public class DeleteInventoryReceipt extends View
 {
     // Model
     private	String todaysDateAndTimeString;
+    // GUI controls
+    private Text todaysDateAndTime;
     private Text gender;
     private Text size;
     private Text articleType;
@@ -32,24 +36,19 @@ public class ModifyInventoryReceipt extends View
     private Text color2;
     private Text brand;
     private Text notes;
-    private Text status;
     private Text donorLastName;
     private Text donorFirstName;
     private Text donorPhone;
     private Text donorEmail;
-    private Text receiverNetId;
-    private Text receiverLastName;
-    private Text receiverFirstName;
     private Text dateDonated;
     private Text dateTaken;
-    // GUI controls
-    private Text todaysDateAndTime;
+    private Text status;
     private Button okButton;
     // constructor for this class
     //----------------------------------------------------------
-    public ModifyInventoryReceipt(IModel trans)
+    public DeleteInventoryReceipt(IModel trans)
     {
-        super(trans, "ModifyInventoryReceipt");
+        super(trans, "DeleteInventoryReceipt");
 
         Calendar todaysCalendar = Calendar.getInstance();	// creation date and time
         Date todaysDateAndTime = todaysCalendar.getTime();
@@ -60,7 +59,7 @@ public class ModifyInventoryReceipt extends View
         // create a container for showing the contents
         VBox container = new VBox(10);
         container.setPadding(new Insets(15, 5, 5, 5));
-
+        container.getStyleClass().add("Vbox");
         // create our GUI components, add them to this panel
         container.getChildren().add(createTitle());
         container.getChildren().add(createFormContent());
@@ -68,7 +67,6 @@ public class ModifyInventoryReceipt extends View
         getChildren().add(container);
 
         populateFields();
-
     }
     // Create the Node (HBox) for the title
     //-------------------------------------------------------------
@@ -77,7 +75,7 @@ public class ModifyInventoryReceipt extends View
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" Update Inventory Receipt ");
+        Text titleText = new Text(" Deleted Inventory Receipt ");
         titleText.getStyleClass().add("title");
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -132,44 +130,36 @@ public class ModifyInventoryReceipt extends View
         Text color1Label = new Text("Color 1 : ");
         color1Label.setWrappingWidth(150);
         color1Label.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(color1Label, 0, 4);
+        grid.add(color1Label, 0, 5);
 
         color1 = new Text("                       ");
-        grid.add(color1, 1, 4);
+        grid.add(color1, 1, 5);
 
         Text color2Label = new Text("Color 2 : ");
         color2Label.setWrappingWidth(150);
         color2Label.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(color2Label, 0, 5);
+        grid.add(color2Label, 0, 6);
 
         color2 = new Text("                       ");
-        grid.add(color2, 1, 5);
+        grid.add(color2, 1, 6);
 
         Text brandLabel = new Text("Brand : ");
         brandLabel.setWrappingWidth(150);
         brandLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(brandLabel, 0, 6);
+        grid.add(brandLabel, 0, 7);
 
         brand = new Text("                       ");
-        grid.add(brand, 1, 6);
+        grid.add(brand, 1, 7);
 
         Text notesLabel = new Text("Notes : ");
         notesLabel.setWrappingWidth(150);
         notesLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(notesLabel, 0, 7);
+        grid.add(notesLabel, 0, 8);
 
         notes = new Text("                       ");
-        grid.add(notes, 1, 7);
+        grid.add(notes, 1, 8);
 
-        Text statusLabel = new Text("Status : ");
-        statusLabel.setWrappingWidth(150);
-        statusLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(statusLabel, 0, 8);
-
-        status = new Text("                       ");
-        grid.add(status, 1, 8);
-
-        Text donorLastNameLabel = new Text("Donor Lastname : ");
+        Text donorLastNameLabel = new Text("Donor LastName : ");
         donorLastNameLabel.setWrappingWidth(150);
         donorLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(donorLastNameLabel, 0, 9);
@@ -177,7 +167,7 @@ public class ModifyInventoryReceipt extends View
         donorLastName = new Text("                       ");
         grid.add(donorLastName, 1, 9);
 
-        Text donorFirstNameLabel = new Text("Donor Firstname : ");
+        Text donorFirstNameLabel = new Text("Donor FirstName : ");
         donorFirstNameLabel.setWrappingWidth(150);
         donorFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(donorFirstNameLabel, 0, 10);
@@ -201,46 +191,24 @@ public class ModifyInventoryReceipt extends View
         donorEmail = new Text("                       ");
         grid.add(donorEmail, 1, 12);
 
-        Text receiverNetIdLabel = new Text("Receiver NetId : ");
-        receiverNetIdLabel.setWrappingWidth(150);
-        receiverNetIdLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(receiverNetIdLabel, 0, 13);
-
-        receiverNetId = new Text("                       ");
-        grid.add(receiverNetId, 1, 13);
-
-        Text receiverLastNameLabel = new Text("Receiver Lastname : ");
-        receiverLastNameLabel.setWrappingWidth(150);
-        receiverLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(receiverLastNameLabel, 0, 14);
-
-        receiverLastName = new Text("                       ");
-        grid.add(receiverLastName, 1, 14);
-
-        Text receiverFirstNameLabel = new Text("Receiver Firstname : ");
-        receiverFirstNameLabel.setWrappingWidth(150);
-        receiverFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(receiverFirstNameLabel, 0, 15);
-
-        receiverFirstName = new Text("                       ");
-        grid.add(receiverFirstName, 1, 15);
-
         Text dateDonatedLabel = new Text("Date Donated : ");
         dateDonatedLabel.setWrappingWidth(150);
         dateDonatedLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(dateDonatedLabel, 0, 16);
+        grid.add(dateDonatedLabel, 0, 13);
 
         dateDonated = new Text("                       ");
-        grid.add(dateDonated, 1, 16);
+        grid.add(dateDonated, 1, 13);
 
         Text dateTakenLabel = new Text("Date Taken : ");
         dateTakenLabel.setWrappingWidth(150);
         dateTakenLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(dateTakenLabel, 0, 17);
+        grid.add(dateTakenLabel, 0, 14);
 
         dateTaken = new Text("                       ");
-        grid.add(dateTaken, 1, 17);
+        grid.add(dateTaken, 1, 14);
 
+        status = new Text("                       ");
+        grid.add(status, 1, 15);
 
         okButton = new Button("OK");
         okButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -268,15 +236,6 @@ public class ModifyInventoryReceipt extends View
 
         return vbox;
     }
-    //---------------------------------------------------------------
-    private Text createText(String text) {
-        Text t = new Text(text);
-
-        t.setWrappingWidth(150);
-        t.setTextAlignment(TextAlignment.RIGHT);
-
-        return t;
-    }
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -296,8 +255,6 @@ public class ModifyInventoryReceipt extends View
         brand.setText(brandSt);
         String notesSt = (String)newInventoryInfo.getState("notes");
         notes.setText(notesSt);
-        String statusSt = (String)newInventoryInfo.getState("status");
-        status.setText(statusSt);
         String donorLastNameSt = (String)newInventoryInfo.getState("donorLastName");
         donorLastName.setText(donorLastNameSt);
         String donorFirstNameSt = (String)newInventoryInfo.getState("donorFirstName");
@@ -306,19 +263,14 @@ public class ModifyInventoryReceipt extends View
         donorPhone.setText(donorPhoneSt);
         String donorEmailSt = (String)newInventoryInfo.getState("donorEmail");
         donorEmail.setText(donorEmailSt);
-        String receiverNetIdSt = (String)newInventoryInfo.getState("receiverNetId");
-        receiverNetId.setText(receiverNetIdSt);
-        String receiverLastNameSt = (String)newInventoryInfo.getState("receiverLastName");
-        receiverLastName.setText(receiverLastNameSt);
-        String receiverFirstNameSt = (String)newInventoryInfo.getState("receiverFirstName");
-        receiverFirstName.setText(receiverFirstNameSt);
         String dateDonatedSt = (String)newInventoryInfo.getState("dateDonated");
         dateDonated.setText(dateDonatedSt);
         String dateTakenSt = (String)newInventoryInfo.getState("dateTaken");
         dateTaken.setText(dateTakenSt);
+        String stat = (String)newInventoryInfo.getState("status");
+        status.setText(stat);
 
         todaysDateAndTime.setText(todaysDateAndTimeString);
-
     }
     /**
      * Required by interface, but has no role here

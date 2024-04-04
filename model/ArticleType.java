@@ -100,22 +100,19 @@ public class ArticleType extends EntityBase implements IView
             }
         }
     }
-
+    //---------------------------------------------------------------
     public void changeValue(String key, String value){
         persistentState.setProperty(key, value);
         System.out.println("The Article Type's " + key + " has been changed to " +
         persistentState.getProperty(key) + "!");
     }
-
     //========================================================================
     /*getValue
      * Method takes key string and returns corresponding value
      */
-
     public String getValue(String key){
         return persistentState.getProperty(key);
     }
-
     //--------------------------------------------------------------------------------------------
     private void setDependencies()
     {
@@ -123,7 +120,6 @@ public class ArticleType extends EntityBase implements IView
 
         myRegistry.setDependencies(dependencies);
     }
-
     //----------------------------------------------------------
     public Object getState(String key)
     {
@@ -132,7 +128,6 @@ public class ArticleType extends EntityBase implements IView
 
         return persistentState.getProperty(key);
     }
-
     //----------------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
@@ -145,9 +140,6 @@ public class ArticleType extends EntityBase implements IView
     {
         stateChangeRequest(key, value);
     }
-
-
-
     //-----------------------------------------------------------------------------------
     public static int compare(ArticleType a, ArticleType b)
     {
@@ -156,13 +148,11 @@ public class ArticleType extends EntityBase implements IView
 
         return aNum.compareTo(bNum);
     }
-
     //-----------------------------------------------------------------------------------
     public void update()
     {
         updateStateInDatabase();
     }
-
     //-----------------------------------------------------------------------------------
     private void updateStateInDatabase()
     {
@@ -193,20 +183,18 @@ public class ArticleType extends EntityBase implements IView
         }
         //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
-
+    //---------------------------------------------------------------
     public String toString()
     {
         return "Description: " + persistentState.getProperty("description") + "\n Barcode Prefix: " +
                 persistentState.getProperty("barcodePrefix") + "\n Alpha Code: " +
                 persistentState.getProperty("alphaCode");
     }
-
+    //---------------------------------------------------------------
     public void display()
     {
         System.out.println(toString());
     }
-
-
     /**
      * This method is needed solely to enable the Account information to be displayable in a table
      *
@@ -224,7 +212,6 @@ public class ArticleType extends EntityBase implements IView
 
         return v;
     }
-
     //-----------------------------------------------------------------------------------
     protected void initializeSchema(String tableName)
     {

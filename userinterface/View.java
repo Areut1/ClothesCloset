@@ -19,7 +19,6 @@ import impresario.IControl;
 import impresario.IModel;
 import impresario.IView;
 import javafx.scene.Group;
-
 //==============================================================
 public abstract class View extends Group
 	implements IView, IControl
@@ -27,11 +26,8 @@ public abstract class View extends Group
 	// private data
 	protected IModel myModel;
 	protected ControlRegistry myRegistry;
-	
-	
 	// GUI components
-	
-		
+
 	// Class constructor
 	//----------------------------------------------------------
 	public View(IModel model, String classname)
@@ -40,29 +36,21 @@ public abstract class View extends Group
 		
 		myRegistry = new ControlRegistry(classname);
 	}
-	
-	
 	//----------------------------------------------------------
 	public void setRegistry(ControlRegistry registry)
 	{
 		myRegistry = registry;
 	}
-	
 	// Allow models to register for state updates
 	//----------------------------------------------------------
 	public void subscribe(String key,  IModel subscriber)
 	{
 		myRegistry.subscribe(key, subscriber);
 	}
-		
-		
 	// Allow models to unregister for state updates
 	//----------------------------------------------------------
 	public void unSubscribe(String key, IModel subscriber)
 	{
 		myRegistry.unSubscribe(key, subscriber);
 	}
-	
-   	
 }
-

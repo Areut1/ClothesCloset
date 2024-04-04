@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
-
+//---------------------------------------------------------------
 public class Inventory extends EntityBase implements IView {
     // Attributes \\
         // Private \\
@@ -17,6 +17,7 @@ public class Inventory extends EntityBase implements IView {
     private String updateStatusMessage = "";
 
     // Constructors \\
+    //---------------------------------------------------------------
     public Inventory(String barcode) throws InvalidPrimaryKeyException {
         super(myTableName);
 
@@ -50,7 +51,7 @@ public class Inventory extends EntityBase implements IView {
             throw new InvalidPrimaryKeyException("No inventory matching barcode : " + barcode + " found.");
         }
     }
-
+    //---------------------------------------------------------------
     public Inventory(Properties props) {
         super(myTableName);
         setDependencies();
@@ -65,25 +66,25 @@ public class Inventory extends EntityBase implements IView {
             }
         }
     }
-
     // Methods \\
         // Public \\
+    //---------------------------------------------------------------
     public void changeValue(String key, String value) {
         persistentState.setProperty(key, value);
         System.out.println("The Inventory's " + key + " has been changed to " +
                 persistentState.getProperty(key) + "!");
     }
-
+    //---------------------------------------------------------------
     public String getValue(String key) {
         return persistentState.getProperty(key);
     }
-
+    //---------------------------------------------------------------
     private void setDependencies()  {
         dependencies = new Properties();
 
         myRegistry.setDependencies(dependencies);
     }
-
+    //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         if (key.equals("UpdateStatusMessage")) {
@@ -91,21 +92,21 @@ public class Inventory extends EntityBase implements IView {
         }
         return persistentState.getProperty(key);
     }
-
+    //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         myRegistry.updateSubscribers(key, this);
     }
-
+    //---------------------------------------------------------------
     @Override
     public void updateState(String key, Object value) {
         stateChangeRequest(key, value);
     }
-
+    //---------------------------------------------------------------
     public void update() {
         updateStateInDatabase();
     }
-
+    //---------------------------------------------------------------
     public String toString() {
         return "Gender: " + persistentState.getProperty("gender") +
                 "\nSize: " + persistentState.getProperty("size") +
@@ -124,11 +125,11 @@ public class Inventory extends EntityBase implements IView {
                 "\nDate donated: " + persistentState.getProperty("dateDonated") +
                 "\nDate taken: " + persistentState.getProperty("dateTaken");
     }
-
+    //---------------------------------------------------------------
     public void display()  {
         System.out.println(toString());
     }
-
+    //---------------------------------------------------------------
     public Vector<String> getEntryListView() {
         Vector<String> v = new Vector<String>();
 
@@ -150,19 +151,18 @@ public class Inventory extends EntityBase implements IView {
         v.addElement(persistentState.getProperty("receiverFirstName"));
         v.addElement(persistentState.getProperty("dateDonated"));
         v.addElement(persistentState.getProperty("dateTaken"));
-
         return v;
     }
-
-        // Protected \\
+    // Protected \\
+    //----------------------------------------------------------------
     @Override
     protected void initializeSchema(String tableName) {
         if (mySchema == null) {
             mySchema = getSchemaInfo(tableName);
         }
     }
-
-        // Private \\
+    // Private \\
+    //---------------------------------------------------------------
     private void updateStateInDatabase() {
         try {
             if (persistentState.getProperty("barcode") != null) {

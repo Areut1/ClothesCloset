@@ -25,22 +25,18 @@ import java.util.Vector;
 
 // project imports
 import impresario.IModel;
-
+//---------------------------------------------------------------
 public class SearchColorView extends View{
-
     private Button subButton;
     private Button cancelButton;
     private TextField searchDescription;
     private TextField searchAlphaCode;
-
     //Show error message
     private MessageView statusLog;
-
     //---------------------------------------------
     /*CONSTRUCTOR
      * Takes model object from ViewFactory
      */
-
     public SearchColorView(IModel clerk){
         super(clerk, "SearchColorView");
 
@@ -62,7 +58,6 @@ public class SearchColorView extends View{
         myModel.subscribe("searchColorMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }//END CONSTRUCTOR--------------------------------
-
     //-------------------------------------------------
     /*createTitle
      * Create title field for the view
@@ -72,16 +67,15 @@ public class SearchColorView extends View{
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" SEARCH COLOR ");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.getStyleClass().add("title");
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
         container.getChildren().add(titleText);
 
         return container;
 
-    }//End createTitle-------------------------------------
-
+    }
+    //End createTitle-------------------------------------
     //---------------------------------------------------
     /*createFormContent
      * Method creates actual form for user input
@@ -156,8 +150,8 @@ public class SearchColorView extends View{
 
         return vbox;
 
-    }//End createFormContent----------------------------
-
+    }
+    //End createFormContent----------------------------
     //----------------------------------------------------
     /*processSubAction
      * On submit click method will set up ColorCollection
@@ -206,9 +200,7 @@ public class SearchColorView extends View{
 
             myModel.stateChangeRequest("SearchTableColor", props);
         }
-
     }//End processSubAction------------------------------
-
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -217,7 +209,6 @@ public class SearchColorView extends View{
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -226,7 +217,6 @@ public class SearchColorView extends View{
         searchDescription.setText("");
         searchAlphaCode.setText("");
     }
-
     /**
      * Update method
      */
@@ -242,7 +232,6 @@ public class SearchColorView extends View{
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */
@@ -269,6 +258,4 @@ public class SearchColorView extends View{
     {
         statusLog.clearErrorMessage();
     }
-
-
 }//END CLASS===============================================

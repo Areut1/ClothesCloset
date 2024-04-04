@@ -22,7 +22,10 @@ import javafx.stage.Stage;
 import java.util.Properties;
 import impresario.IModel;
 import model.ArticleType;
+import model.ColorCollection;
+import model.InventoryCollection;
 
+//---------------------------------------------------------------
 public class AddColorView extends View {
     // GUI components
     protected TextField description;
@@ -36,7 +39,6 @@ public class AddColorView extends View {
 
     // For showing error message
     protected MessageView statusLog;
-
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public AddColorView(IModel clerk)
@@ -62,8 +64,6 @@ public class AddColorView extends View {
         myModel.subscribe("colorMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }
-
-
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
@@ -79,7 +79,6 @@ public class AddColorView extends View {
 
         return container;
     }
-
     // Create the main form content
     //-------------------------------------------------------------
     private VBox createFormContent()
@@ -183,7 +182,6 @@ public class AddColorView extends View {
 
         return vbox;
     }
-
     //--------------------------------------------------------------------------------------------
     /*processAction
      * On submit button click, method will set up properties object with values taken from
@@ -193,11 +191,10 @@ public class AddColorView extends View {
      */
     public void processSubmitAction(Event evt){
         //validate user input
-        if (description == null || barcodePrefix == null || alphaCode == null){
+        if (description.getText() == null || barcodePrefix.getText() == null || alphaCode.getText() == null){
             clearErrorMessage();
             displayErrorMessage("Please completly fill in all fields");
         } else {
-
             //Convert properties to string
             String descriptionString = description.getText();
             String barcodePrefixString = barcodePrefix.getText();
@@ -211,14 +208,30 @@ public class AddColorView extends View {
             insertProp.setProperty("alphaCode", alphaCodeString);
             insertProp.setProperty("status", statusString);
 
-            //Call Librarian method to create and save book
-            myModel.stateChangeRequest("AddColor", insertProp);
+            Properties queryProps = new Properties();
+            queryProps.setProperty("description", descriptionString);
+            queryProps.setProperty("barcodePrefix", barcodePrefixString);
+            queryProps.setProperty("alphaCode", alphaCodeString);
 
-            //Print confirmation
-            displayMessage("New Color was added!");
+            ColorCollection cCol = new ColorCollection();
+            try {
+                cCol.testExistence(insertProp);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            if (cCol.size() != 0) {
+                displayErrorMessage("Error: Color already exists");
+            }
+            else{
+                //Call Librarian method to create and save book
+                myModel.stateChangeRequest("AddColor", insertProp);
+
+                //Print confirmation
+                displayMessage("New Color was added!");
+            }
         }
     }
-
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -227,7 +240,6 @@ public class AddColorView extends View {
 
         return statusLog;
     }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -235,7 +247,6 @@ public class AddColorView extends View {
         barcodePrefix.setText((String)myModel.getState("BarcodePrefix"));
         alphaCode.setText((String)myModel.getState("AlphaCode"));
     }
-
     /**
      * Update method
      */
@@ -252,7 +263,6 @@ public class AddColorView extends View {
             displayMessage(val);
         }
     }
-
     /**
      * Display error message
      */
@@ -261,7 +271,6 @@ public class AddColorView extends View {
     {
         statusLog.displayErrorMessage(message);
     }
-
     /**
      * Display info message
      */
@@ -270,7 +279,6 @@ public class AddColorView extends View {
     {
         statusLog.displayMessage(message);
     }
-
     /**
      * Clear error message
      */

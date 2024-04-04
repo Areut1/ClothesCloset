@@ -19,9 +19,6 @@ import userinterface.MainStageContainer;
 import userinterface.View;
 import userinterface.ViewFactory;
 import userinterface.WindowPosition;
-
-
-
 /** The class containing the Clerk for the Clothes Closet application */
 //==============================================================
 public class Clerk implements IView, IModel
@@ -36,8 +33,6 @@ public class Clerk implements IView, IModel
 
     private String loginErrorMessage = "";
     private String transactionErrorMessage = "";
-
-
     // constructor for this class
     //----------------------------------------------------------
     public Clerk()
@@ -59,7 +54,6 @@ public class Clerk implements IView, IModel
         // Set up the initial view
         createAndShowClerkView();
     }
-
     //-----------------------------------------------------------------------------------
     private void setDependencies()
     {
@@ -73,7 +67,6 @@ public class Clerk implements IView, IModel
 
         myRegistry.setDependencies(dependencies);
     }
-
     /**
      * Method called from client to get the value of a particular field
      * held by the objects encapsulated by this object.
@@ -91,7 +84,6 @@ public class Clerk implements IView, IModel
             default -> "";
         };
     }
-
     //----------------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
@@ -146,8 +138,6 @@ public class Clerk implements IView, IModel
                     Event.ERROR);
         }
     }
-
-
     //----------------------------------------------------------
     private void createAndShowTransactionChoiceView()
     {
@@ -160,14 +150,10 @@ public class Clerk implements IView, IModel
             currentScene = new Scene(newView);
             myViews.put("TransactionChoiceView", currentScene);
         }
-
-
         // make the view visible by installing it into the frame
         currentScene.getStylesheets().add("userinterface/stylesheet.css");
         swapToView(currentScene);
-
     }
-
     //-----------------------------------------------------------------
     private void createAndShowClerkView()
     {
@@ -180,14 +166,10 @@ public class Clerk implements IView, IModel
             currentScene = new Scene(newView);
             myViews.put("ClerkView", currentScene);
         }
-
-
         // make the view visible by installing it into the frame
         currentScene.getStylesheets().add("userinterface/stylesheet.css");
         swapToView(currentScene);
-
     }
-
     /** Register objects to receive state updates. */
     //----------------------------------------------------------
     public void subscribe(String key, IView subscriber)
@@ -201,13 +183,9 @@ public class Clerk implements IView, IModel
     {
         myRegistry.unSubscribe(key, subscriber);
     }
-
-
-
     //-----------------------------------------------------------------------------
     public void swapToView(Scene newScene)
     {
-
         if (newScene == null)
         {
             System.out.println("Clerk.swapToView(): Missing view for display");
@@ -215,14 +193,9 @@ public class Clerk implements IView, IModel
                     "Missing view for display ", Event.ERROR);
             return;
         }
-
         myStage.setScene(newScene);
         myStage.sizeToScene();
-
-
         //Place in center
         WindowPosition.placeCenter(myStage);
-
     }
-
 }
