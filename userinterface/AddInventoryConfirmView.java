@@ -228,6 +228,7 @@ public class AddInventoryConfirmView extends View {
         checkIdBarcodeInformation.setProperty("articleType", articleTypeBarcode);
         checkIdBarcodeInformation.setProperty("color1", primaryColorBarcode);
 
+
         // Retrieve the ID
 //        myModel.stateChangeRequest("barcodeIdChecking", checkIdBarcodeInformation);
 //        String id = (String) myModel.getState("barcodeId");
