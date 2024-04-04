@@ -103,18 +103,6 @@ public class DeleteInventoryReceipt extends View
         todaysDateAndTime = new Text("                       ");
         grid.add(todaysDateAndTime, 1, 0);
 
-        private Text ;
-        private Text ;
-        private Text ;
-        private Text ;
-        private Text ;
-        private Text ;
-        private Text ;
-        private Text ;
-        private Text dateDonated;
-        private Text dateTaken;
-        private Text status;
-
         Text genderLabel = new Text("Gender : ");
         genderLabel.setWrappingWidth(150);
         genderLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -252,14 +240,36 @@ public class DeleteInventoryReceipt extends View
     public void populateFields()
     {
         IModel newInventoryInfo = (IModel)myModel.getState("Inventory");
-        String desc = (String)newInventoryInfo.getState("description");
-        description.setText(desc);
-        String bcPrefix = (String)newInventoryInfo.getState("barcodePrefix");
-        barcodePrefix.setText(bcPrefix);
-        String ac = (String)newInventoryInfo.getState("alphaCode");
-        alphaCode.setText(ac);
+
+        String genderSt = (String)newInventoryInfo.getState("gender");
+        gender.setText(genderSt);
+        String sizeSt = (String)newInventoryInfo.getState("size");
+        size.setText(sizeSt);
+        String articleTypeSt = (String)newInventoryInfo.getState("articleType");
+        articleType.setText(articleTypeSt);
+        String color1St = (String)newInventoryInfo.getState("color1");
+        color1.setText(color1St);
+        String color2St = (String)newInventoryInfo.getState("color2");
+        color2.setText(color2St);
+        String brandSt = (String)newInventoryInfo.getState("brand");
+        brand.setText(brandSt);
+        String notesSt = (String)newInventoryInfo.getState("notes");
+        notes.setText(notesSt);
+        String donorLastNameSt = (String)newInventoryInfo.getState("donorLastName");
+        donorLastName.setText(donorLastNameSt);
+        String donorFirstNameSt = (String)newInventoryInfo.getState("donorFirstName");
+        donorFirstName.setText(donorFirstNameSt);
+        String donorPhoneSt = (String)newInventoryInfo.getState("donorPhone");
+        donorPhone.setText(donorPhoneSt);
+        String donorEmailSt = (String)newInventoryInfo.getState("donorEmail");
+        donorEmail.setText(donorEmailSt);
+        String dateDonatedSt = (String)newInventoryInfo.getState("dateDonated");
+        dateDonated.setText(dateDonatedSt);
+        String dateTakenSt = (String)newInventoryInfo.getState("dateTaken");
+        dateTaken.setText(dateTakenSt);
         String stat = (String)newInventoryInfo.getState("status");
         status.setText(stat);
+
         todaysDateAndTime.setText(todaysDateAndTimeString);
     }
     /**

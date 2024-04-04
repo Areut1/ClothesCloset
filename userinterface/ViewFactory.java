@@ -55,8 +55,8 @@ public class ViewFactory {
 //				return new ModifyInventoryReceipt(model);
 //			case "DeleteInventoryView":
 //				return new DeleteInventoryView(model);
-//			case "DeleteInventoryReceipt":
-//				return new DeleteInventoryReceipt(model);
+			case "DeleteInventoryReceipt":
+				return new DeleteInventoryReceipt(model);
 
 			default: return null;
 		}
