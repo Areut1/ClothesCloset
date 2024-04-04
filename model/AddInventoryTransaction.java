@@ -117,22 +117,31 @@ public class AddInventoryTransaction extends Transaction{
             throw new RuntimeException(e);
         }
 
-        Inventory inv = iCol.get(iCol.size() - 1);
-        String id = inv.getValue("barcode").substring(5);
+        if (iCol.size() > 0){
+            Inventory inv = iCol.get(iCol.size() - 1);
+            String id = inv.getValue("barcode").substring(5);
 
-        Integer newID = parseInt(id);
-        newID++;
+            Integer newID = parseInt(id);
+            newID++;
 
-        String finalID = "" + newID;
+            String finalID = "" + newID;
 
-        if (finalID.length() == 2){
-            finalID = "0" + finalID;
+            if (finalID.length() == 2){
+                finalID = "0" + finalID;
+            }
+            if (finalID.length() == 1){
+                finalID = "00" + finalID;
+            }
+
+            ID = finalID;
         }
-        if (finalID.length() == 1){
-            finalID = "00" + finalID;
+        else if (iCol.size() == 0){
+            ID = "001";
+        }
+        else{
+            throw new RuntimeException();
         }
 
-        ID = finalID;
     }
 
     public void processTransaction(Properties props)
