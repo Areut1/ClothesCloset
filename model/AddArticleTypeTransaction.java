@@ -57,7 +57,7 @@ public class AddArticleTypeTransaction extends Transaction{
             View newView = ViewFactory.createView("AddArticleTypeReceipt", this);
             newScene = new Scene(newView);
             myViews.put("AddArticleTypeReceipt", newScene);
-
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
         }
         swapToView(newScene);
     }
