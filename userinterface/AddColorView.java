@@ -221,7 +221,7 @@ public class AddColorView extends View {
             }
 
             if (cCol.size() != 0) {
-                displayErrorMessage("Color already exists");
+                displayErrorMessage("Error: Color already exists");
             }
             else{
                 //Call Librarian method to create and save book

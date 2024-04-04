@@ -228,7 +228,7 @@ public class AddArticleTypeView extends View {
             }
 
             if (atCol.size() != 0) {
-                displayErrorMessage("ArticleType already exists");
+                displayErrorMessage("Error: ArticleType already exists");
             }
             else{
                 //Call Librarian method to create and save book
