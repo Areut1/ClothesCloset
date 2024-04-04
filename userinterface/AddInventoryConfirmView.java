@@ -17,12 +17,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import model.ArticleType;
-import model.ArticleTypeCollection;
-import model.ColorCollection;
+import model.*;
 
 import java.util.*;
 import java.util.stream.IntStream;
+
+import static java.lang.Integer.parseInt;
+
 //---------------------------------------------------------------
 public class AddInventoryConfirmView extends View {
 
@@ -32,6 +33,7 @@ public class AddInventoryConfirmView extends View {
     protected MessageView statusLog;
     private ArticleTypeCollection atCol;
     private ColorCollection cCol;
+    private InventoryCollection iCol;
     // GUI Components
     protected ComboBox<String> genderComboBox;
     protected ComboBox<String> articleTypeComboBox;
@@ -230,15 +232,12 @@ public class AddInventoryConfirmView extends View {
 
 
         // Retrieve the ID
-//        myModel.stateChangeRequest("barcodeIdChecking", checkIdBarcodeInformation);
-//        String id = (String) myModel.getState("barcodeId");
-//
-//        String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode + id;
-
         String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
+        myModel.stateChangeRequest("GetID", barcode);
+        String barcodeWithID = (String) myModel.getState("ID");
 
-        barcodeText.setText("The New Barcode is: " + barcode);
-        barcodeSubmit = barcode;
+        barcodeText.setText("The New Barcode is: " + barcodeWithID);
+        barcodeSubmit = barcodeWithID;
         clearErrorMessage();
     }
     //---------------------------------------------------------------

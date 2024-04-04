@@ -5,6 +5,9 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
+
+import static java.lang.Integer.parseInt;
+
 //---------------------------------------------------------------
 public class AddInventoryTransaction extends Transaction{
     // GUI Components
@@ -16,6 +19,7 @@ public class AddInventoryTransaction extends Transaction{
     private ArticleTypeCollection atCol;
     private ColorCollection cCol;
     private Properties barcode;
+    private String ID;
 
     private int transCount = 0;
     //---------------------------------------------------------------
@@ -88,6 +92,7 @@ public class AddInventoryTransaction extends Transaction{
             case "Inventory" -> newInventory;
             case "Barcode" -> barcode;
             case "Transaction" -> "AddInventory";
+            case "ID" -> ID;
             default -> null;
         };
     }
@@ -98,11 +103,38 @@ public class AddInventoryTransaction extends Transaction{
             case "DoYourJob" -> doYourJob();
             case "AddInventory" -> processTransaction((Properties) value);
             case "SubmitBarcode" -> processBarcode((String) value);
+            case "GetID" -> getID((String)value);
         }
 
         myRegistry.updateSubscribers(key, this);
     }
     //---------------------------------------------------------------
+    public void getID(String barcode5){
+        InventoryCollection iCol = new InventoryCollection();
+        try {
+            iCol.retrieveBarcode5(barcode5);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        Inventory inv = iCol.get(iCol.size() - 1);
+        String id = inv.getValue("barcode").substring(5);
+
+        Integer newID = parseInt(id);
+        newID++;
+
+        String finalID = "" + newID;
+
+        if (finalID.length() == 2){
+            finalID = "0" + finalID;
+        }
+        if (finalID.length() == 1){
+            finalID = "00" + finalID;
+        }
+
+        ID = finalID;
+    }
+
     public void processTransaction(Properties props)
     {
         newInventory = new Inventory(props);

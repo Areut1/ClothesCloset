@@ -55,12 +55,10 @@ public class InventoryCollection extends EntityBase implements IView {
     public void retrieveBarcode5(String barcode) throws Exception {
         String query = "SELECT * FROM " + myTableName + " WHERE ";
 
-        String bar5 = barcode.substring(0,4);
-
         //start generic query, add on for each requirement
         if (barcode != null){
             //add on to query
-            query += "(barcode LIKE \"" + bar5 + "___\")";
+            query += "(barcode LIKE \"" + barcode + "___\")";
         }
         if (barcode == null){
             System.out.println("Error: no fields");
