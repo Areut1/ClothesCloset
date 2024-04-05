@@ -30,14 +30,14 @@ public class DeleteInventoryTransaction extends Transaction{
     //---------------------------------------------------------------
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("SearchInventoryView");
+        Scene currentScene = myViews.get("SearchInventoryBarcodeView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("SearchInventoryView", this);
+            View newView = ViewFactory.createView("SearchInventoryBarcodeView", this);
             currentScene = new Scene(newView);
-            myViews.put("SearchInventoryView", currentScene);
+            myViews.put("SearchInventoryBarcodeView", currentScene);
             currentScene.getStylesheets().add("userinterface/stylesheet.css");
             return currentScene;
         }
