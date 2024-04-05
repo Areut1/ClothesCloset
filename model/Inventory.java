@@ -183,4 +183,25 @@ public class Inventory extends EntityBase implements IView {
             updateStatusMessage = "Error in installing inventory data in database!";
         }
     }
+
+    public void insert(){
+        insertStateInDatabase();
+    }
+
+    private void insertStateInDatabase(){
+        try {
+            if (persistentState.getProperty("barcode") != null){
+//                Properties whereClause = new Properties();
+//                whereClause.setProperty("barcode", persistentState.getProperty("barcode"));
+                insertPersistentState(mySchema, persistentState);
+                updateStatusMessage = "Inventory data for barcode : " + persistentState.getProperty("barcode") + " inserted successfully in database!";
+            }
+            else {
+
+            }
+        }
+        catch (SQLException ex){
+            updateStatusMessage = "Error in installing inventory data in database!";
+        }
+    }
 }

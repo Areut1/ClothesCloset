@@ -169,7 +169,8 @@ public class AddInventoryTransaction extends Transaction{
         newInventory = new Inventory(finalProps);
         System.out.println(newInventory);
 
-        newInventory.update();
+        //NEW
+        newInventory.insert();
         createAndShowView("AddInventoryReceipt");
     }
     //---------------------------------------------------------------
