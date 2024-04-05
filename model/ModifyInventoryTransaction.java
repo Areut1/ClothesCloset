@@ -6,6 +6,9 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 import java.util.Properties;
+
+import static java.lang.Integer.parseInt;
+
 //---------------------------------------------------------------
 public class ModifyInventoryTransaction extends Transaction{
     // GUI Components
@@ -16,6 +19,8 @@ public class ModifyInventoryTransaction extends Transaction{
     private Properties barcode;
     private ColorCollection cCol;
     private ArticleTypeCollection atCol;
+    private String ID;
+    private String barcodeString;
     //---------------------------------------------------------------
     protected ModifyInventoryTransaction() throws Exception {
         super();
@@ -101,18 +106,68 @@ public class ModifyInventoryTransaction extends Transaction{
 
         myRegistry.updateSubscribers(key, this);
     }
+
+    public void getID(String barcode5){
+        InventoryCollection iCol = new InventoryCollection();
+        try {
+            iCol.retrieveBarcode5(barcode5);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (iCol.size() > 0){
+            Inventory inv = iCol.get(iCol.size() - 1);
+            String id = inv.getValue("barcode").substring(5);
+
+            Integer newID = parseInt(id);
+            newID++;
+
+            String finalID = "" + newID;
+
+            if (finalID.length() == 2){
+                finalID = "0" + finalID;
+            }
+            if (finalID.length() == 1){
+                finalID = "00" + finalID;
+            }
+
+            ID = finalID;
+        }
+        else if (iCol.size() == 0){
+            ID = "001";
+        }
+        else{
+            throw new RuntimeException();
+        }
+
+    }
     //---------------------------------------------------------------
     public void processTransaction(Properties props)
     {
-        oldInventory.changeValue("barcode", props.getProperty("barcode"));
-        oldInventory.changeValue("gender", props.getProperty("gender"));
+        if (!barcode.getProperty("gender").equals(props.getProperty("gender")) ||
+                !barcode.getProperty("articleType").equals(props.getProperty("articleType")) ||
+                !barcode.getProperty("color1").equals(props.getProperty("color1"))){
+            String barcode5String = props.getProperty("gender") + props.getProperty("articleType") + props.getProperty("color1");
+            getID(barcode5String);
+            barcode.setProperty("id", ID);
+        }
+
+        barcode.setProperty("gender", props.getProperty("gender"));
+        barcode.setProperty("articleType", props.getProperty("articleType"));
+        barcode.setProperty("color1", props.getProperty("color1"));
+
+        barcodeString = barcode.getProperty("gender") + barcode.getProperty("articleType") + barcode.getProperty("color1") + barcode.getProperty("id");
+
+
+        oldInventory.changeValue("barcode", barcodeString);
+        oldInventory.changeValue("gender", barcode.getProperty("gender"));
         oldInventory.changeValue("size", props.getProperty("size"));
-        oldInventory.changeValue("articleType", props.getProperty("articleType"));
-        oldInventory.changeValue("color1", props.getProperty("color1"));
+        oldInventory.changeValue("articleType", barcode.getProperty("articleType"));
+        oldInventory.changeValue("color1", barcode.getProperty("color1"));
         oldInventory.changeValue("color2", props.getProperty("color2"));
         oldInventory.changeValue("brand", props.getProperty("brand"));
         oldInventory.changeValue("notes", props.getProperty("notes"));
-        oldInventory.changeValue("status", props.getProperty("status"));
+//        oldInventory.changeValue("status", props.getProperty("status"));
         oldInventory.changeValue("donorLastName", props.getProperty("donorLastName"));
         oldInventory.changeValue("donorFirstName", props.getProperty("donorFirstName"));
         oldInventory.changeValue("donorPhone", props.getProperty("donorPhone"));
@@ -120,9 +175,12 @@ public class ModifyInventoryTransaction extends Transaction{
 //        oldInventory.changeValue("receiverNetId", props.getProperty("receiverNetId"));
 //        oldInventory.changeValue("receiverLastName", props.getProperty("receiverLastName"));
 //        oldInventory.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
-//        oldInventory.changeValue("dateDonated", props.getProperty("dateDonated"));
+        oldInventory.changeValue("dateDonated", props.getProperty("dateDonated"));
 //        oldInventory.changeValue("dateTaken", props.getProperty("dateTaken"));
         oldInventory.update();
+
+        System.out.println(oldInventory);
+
         createAndShowView("ModifyInventoryReceipt");
     }
     //---------------------------------------------------------------

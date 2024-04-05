@@ -227,15 +227,6 @@ public class ModifyInventoryInputView extends View {
         dateDonated.setEditable(true);
         grid.add(dateDonated, 1, 12);
 
-        Text dateTakenLabel = new Text(" Date Taken : ");
-        dateTakenLabel.setFont(myFont);
-        dateTakenLabel.setWrappingWidth(150);
-        dateTakenLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(dateTakenLabel, 0, 13);
-
-        dateTaken = new TextField();
-        dateTaken.setEditable(true);
-        grid.add(dateTaken, 1, 13);
 
         //Setup separate hbox for submit and back buttons
         HBox submitCancel = new HBox(10);
@@ -287,7 +278,7 @@ public class ModifyInventoryInputView extends View {
             color1.getText() == null || color2.getText() == null || brand.getText() == null ||
             notes.getText() == null || donorLastName.getText() == null || donorFirstName.getText() == null ||
             donorPhone.getText() == null || donorEmail.getText() == null ||
-            dateDonated.getText() == null || dateTaken.getText() == null) {
+            dateDonated.getText() == null ) {
             clearErrorMessage();
             displayErrorMessage("Please completly fill in all fields");
         } else {
@@ -304,7 +295,6 @@ public class ModifyInventoryInputView extends View {
             String donorPhoneString = donorPhone.getText();
             String donorEmailString = donorEmail.getText();
             String dateDonatedString = dateDonated.getText();
-            String dateTakenString = dateTaken.getText();
 
             //Create properties and keys
             Properties insertProp = new Properties();
@@ -320,13 +310,14 @@ public class ModifyInventoryInputView extends View {
             insertProp.setProperty("donorPhone", donorPhoneString);
             insertProp.setProperty("donorEmail", donorEmailString);
             insertProp.setProperty("dateDonated", dateDonatedString);
-            insertProp.setProperty("dateTaken", dateTakenString);
+
+//            System.out.println(insertProp);
 
             //Call Librarian method to create and save book
             myModel.stateChangeRequest("ModifyInventory", insertProp);
 
             //Print confirmation
-            displayMessage("Color was updated!");
+            displayMessage("Inventory was updated!");
         }
     }
 
@@ -343,9 +334,9 @@ public class ModifyInventoryInputView extends View {
         Inventory i = (Inventory)myModel.getState("Inventory");
         gender.setText((String)i.getValue("gender"));
         size.setText((String)i.getValue("size"));
-        articleType.setText((String)i.getValue("articleType"));
-        color1.setText((String)i.getValue("color1"));
-        color2.setText((String)i.getValue("color2"));
+        articleType.setText("0" + (String)i.getValue("articleType"));
+        color1.setText("0" + (String)i.getValue("color1"));
+        color2.setText("0" + (String)i.getValue("color2"));
         brand.setText((String)i.getValue("brand"));
         notes.setText((String)i.getValue("notes"));
         donorLastName.setText((String)i.getValue("donorLastName"));
@@ -353,7 +344,6 @@ public class ModifyInventoryInputView extends View {
         donorPhone.setText((String)i.getValue("donorPhone"));
         donorEmail.setText((String)i.getValue("donorEmail"));
         dateDonated.setText((String)i.getValue("dateDonated"));
-        dateTaken.setText((String)i.getValue("dateTaken"));
     }
 
     /**
