@@ -166,19 +166,20 @@ public class Inventory extends EntityBase implements IView {
     //---------------------------------------------------------------
     private void updateStateInDatabase() {
         try {
-            if (persistentState.getProperty("inventoryId") != null) {
+            if (persistentState.getProperty("barcode") != null) {
                 Properties whereClause = new Properties();
-                whereClause.setProperty("inventoryId",
-                        persistentState.getProperty("inventoryId"));
+                whereClause.setProperty("barcode",
+                        persistentState.getProperty("barcode"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Inventory data for inventoryId : " + persistentState.getProperty("inventoryId") + " updated successfully in database!";
-            } else {
-                Integer inventoryIdVal =
-                        insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("inventoryId", "" + inventoryIdVal);
-                updateStatusMessage = "Inventory data for new inventory : " +  persistentState.getProperty("inventoryId")
-                        + "installed successfully in database!";
+                updateStatusMessage = "Inventory data for barcode : " + persistentState.getProperty("barcode") + " updated successfully in database!";
             }
+//            else {
+//                Integer inventoryIdVal =
+//                        insertAutoIncrementalPersistentState(mySchema, persistentState);
+//                persistentState.setProperty("inventoryId", "" + inventoryIdVal);
+//                updateStatusMessage = "Inventory data for new inventory : " +  persistentState.getProperty("inventoryId")
+//                        + "installed successfully in database!";
+//            }
         }  catch (SQLException ex) {
             updateStatusMessage = "Error in installing inventory data in database!";
         }
