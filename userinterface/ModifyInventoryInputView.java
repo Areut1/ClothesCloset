@@ -34,6 +34,9 @@ public class ModifyInventoryInputView extends View {
     private TextField donorFirstName;
     private TextField donorPhone;
     private TextField donorEmail;
+    private TextField receiverNetId;
+    private TextField receiverLastName;
+    private TextField receiverFirstName;
     private TextField dateDonated;
     private TextField dateTaken;
     protected Button cancelButton;
@@ -217,15 +220,55 @@ public class ModifyInventoryInputView extends View {
         donorEmail.setEditable(true);
         grid.add(donorEmail, 1, 11);
 
+        Text receiverNetIdLabel = new Text(" Receiver NetId : ");
+        receiverNetIdLabel.setFont(myFont);
+        receiverNetIdLabel.setWrappingWidth(150);
+        receiverNetIdLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(receiverNetIdLabel, 0, 12);
+
+        receiverNetId = new TextField();
+        receiverNetId.setEditable(true);
+        grid.add(receiverNetId, 1, 12);
+
+        Text receiverLastNameLabel = new Text(" Receiver LastName : ");
+        receiverLastNameLabel.setFont(myFont);
+        receiverLastNameLabel.setWrappingWidth(150);
+        receiverLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(receiverLastNameLabel, 0, 13);
+
+        receiverLastName = new TextField();
+        receiverLastName.setEditable(true);
+        grid.add(receiverLastName, 1, 13);
+
+        Text receiverFirstNameLabel = new Text(" Receiver FirstName : ");
+        receiverFirstNameLabel.setFont(myFont);
+        receiverFirstNameLabel.setWrappingWidth(150);
+        receiverFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(receiverFirstNameLabel, 0, 14);
+
+        receiverFirstName = new TextField();
+        receiverFirstName.setEditable(true);
+        grid.add(receiverFirstName, 1, 14);
+
         Text dateDonatedLabel = new Text(" Date Donated : ");
         dateDonatedLabel.setFont(myFont);
         dateDonatedLabel.setWrappingWidth(150);
         dateDonatedLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(dateDonatedLabel, 0, 12);
+        grid.add(dateDonatedLabel, 0, 15);
 
         dateDonated = new TextField();
         dateDonated.setEditable(true);
-        grid.add(dateDonated, 1, 12);
+        grid.add(dateDonated, 1, 15);
+
+        Text dateTakenLabel = new Text(" Date Taken : ");
+        dateTakenLabel.setFont(myFont);
+        dateTakenLabel.setWrappingWidth(150);
+        dateTakenLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(dateTakenLabel, 0, 16);
+
+        dateTaken = new TextField();
+        dateTaken.setEditable(true);
+        grid.add(dateTaken, 1, 16);
 
 
         //Setup separate hbox for submit and back buttons
@@ -276,9 +319,8 @@ public class ModifyInventoryInputView extends View {
         //validate user input
         if (gender.getText() == null || size.getText() == null || articleType.getText() == null ||
             color1.getText() == null || color2.getText() == null || brand.getText() == null ||
-            notes.getText() == null || donorLastName.getText() == null || donorFirstName.getText() == null ||
-            donorPhone.getText() == null || donorEmail.getText() == null ||
-            dateDonated.getText() == null ) {
+            donorLastName.getText() == null || donorFirstName.getText() == null ||
+            donorPhone.getText() == null || donorEmail.getText() == null) {
             clearErrorMessage();
             displayErrorMessage("Please completly fill in all fields");
         } else {
@@ -294,7 +336,11 @@ public class ModifyInventoryInputView extends View {
             String donorFirstNameString = donorFirstName.getText();
             String donorPhoneString = donorPhone.getText();
             String donorEmailString = donorEmail.getText();
+            String receiverNetIdString = receiverNetId.getText();
+            String receiverLastNameString = receiverLastName.getText();
+            String receiverFirstNameString = receiverFirstName.getText();
             String dateDonatedString = dateDonated.getText();
+            String dateTakenString = dateTaken.getText();
 
             //Create properties and keys
             Properties insertProp = new Properties();
@@ -309,7 +355,11 @@ public class ModifyInventoryInputView extends View {
             insertProp.setProperty("donorFirstName", donorFirstNameString);
             insertProp.setProperty("donorPhone", donorPhoneString);
             insertProp.setProperty("donorEmail", donorEmailString);
+            insertProp.setProperty("receiverNetId", receiverNetIdString);
+            insertProp.setProperty("receiverLastName", receiverLastNameString);
+            insertProp.setProperty("receiverFirstName", receiverFirstNameString);
             insertProp.setProperty("dateDonated", dateDonatedString);
+            insertProp.setProperty("dateTaken", dateTakenString);
 
 //            System.out.println(insertProp);
 
@@ -343,7 +393,11 @@ public class ModifyInventoryInputView extends View {
         donorFirstName.setText((String)i.getValue("donorFirstName"));
         donorPhone.setText((String)i.getValue("donorPhone"));
         donorEmail.setText((String)i.getValue("donorEmail"));
+        receiverNetId.setText((String)i.getValue("receiverNetId"));
+        receiverLastName.setText((String)i.getValue("receiverLastName"));
+        receiverFirstName.setText((String)i.getValue("receiverFirstName"));
         dateDonated.setText((String)i.getValue("dateDonated"));
+        dateTaken.setText((String)i.getValue("dateTaken"));
     }
 
     /**

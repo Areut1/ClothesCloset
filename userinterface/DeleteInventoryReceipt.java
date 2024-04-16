@@ -40,6 +40,9 @@ public class DeleteInventoryReceipt extends View
     private Text donorFirstName;
     private Text donorPhone;
     private Text donorEmail;
+    private Text receiverNetId;
+    private Text receiverLastName;
+    private Text receiverFirstName;
     private Text dateDonated;
     private Text dateTaken;
     private Text status;
@@ -191,24 +194,53 @@ public class DeleteInventoryReceipt extends View
         donorEmail = new Text("                       ");
         grid.add(donorEmail, 1, 12);
 
+        Text receiverNetIdLabel = new Text("Receiver NetId : ");
+        receiverNetIdLabel.setWrappingWidth(150);
+        receiverNetIdLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(receiverNetIdLabel, 0, 13);
+
+        receiverNetId = new Text("                       ");
+        grid.add(receiverNetId, 1, 13);
+
+        Text receiverLastNameLabel = new Text("Receiver LastName : ");
+        receiverLastNameLabel.setWrappingWidth(150);
+        receiverLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(receiverLastNameLabel, 0, 14);
+
+        receiverLastName = new Text("                       ");
+        grid.add(receiverLastName, 1, 14);
+
+        Text receiverFirstNameLabel = new Text("Receiver FirstName : ");
+        receiverFirstNameLabel.setWrappingWidth(150);
+        receiverFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(receiverFirstNameLabel, 0, 15);
+
+        receiverFirstName = new Text("                       ");
+        grid.add(receiverFirstName, 1, 15);
+
         Text dateDonatedLabel = new Text("Date Donated : ");
         dateDonatedLabel.setWrappingWidth(150);
         dateDonatedLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(dateDonatedLabel, 0, 13);
+        grid.add(dateDonatedLabel, 0, 16);
 
         dateDonated = new Text("                       ");
-        grid.add(dateDonated, 1, 13);
+        grid.add(dateDonated, 1, 16);
 
         Text dateTakenLabel = new Text("Date Taken : ");
         dateTakenLabel.setWrappingWidth(150);
         dateTakenLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(dateTakenLabel, 0, 14);
+        grid.add(dateTakenLabel, 0, 17);
 
         dateTaken = new Text("                       ");
-        grid.add(dateTaken, 1, 14);
+        grid.add(dateTaken, 1, 17);
+
+        Text statusLabel = new Text("Status : ");
+        statusLabel.setWrappingWidth(150);
+        statusLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(statusLabel, 0, 18);
 
         status = new Text("                       ");
-        grid.add(status, 1, 15);
+        grid.add(status, 1, 18);
 
         okButton = new Button("OK");
         okButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -263,6 +295,12 @@ public class DeleteInventoryReceipt extends View
         donorPhone.setText(donorPhoneSt);
         String donorEmailSt = (String)newInventoryInfo.getState("donorEmail");
         donorEmail.setText(donorEmailSt);
+        String receiverNetIdSt = (String)newInventoryInfo.getState("receiverNetId");
+        receiverNetId.setText(receiverNetIdSt);
+        String receiverLastNameSt = (String)newInventoryInfo.getState("receiverLastName");
+        receiverLastName.setText(receiverLastNameSt);
+        String receiverFirstNameSt = (String)newInventoryInfo.getState("receiverFirstName");
+        receiverFirstName.setText(receiverFirstNameSt);
         String dateDonatedSt = (String)newInventoryInfo.getState("dateDonated");
         dateDonated.setText(dateDonatedSt);
         String dateTakenSt = (String)newInventoryInfo.getState("dateTaken");
