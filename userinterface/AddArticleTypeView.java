@@ -199,7 +199,16 @@ public class AddArticleTypeView extends View {
         if (description.getText() == null || barcodePrefix.getText() == null || alphaCode.getText() == null){
             clearErrorMessage();
             displayErrorMessage("Please completely fill in all fields");
-        } else {
+        }
+        else if (Integer.valueOf(barcodePrefix.getText()) < 1){
+            clearErrorMessage();
+            displayErrorMessage("Please enter a valid barcode prefix");
+        }
+        else if (alphaCode.getText().isBlank() || alphaCode.getText().isEmpty()){
+            clearErrorMessage();
+            displayErrorMessage("Please enter a valid alpha code");
+        }
+        else {
 
             // Convert properties to string
             String descriptionString = description.getText();
