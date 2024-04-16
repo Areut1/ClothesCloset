@@ -21,6 +21,7 @@ public class ModifyInventoryTransaction extends Transaction{
     private ArticleTypeCollection atCol;
     private String ID;
     private String barcodeString;
+    private String originalBarcode;
     //---------------------------------------------------------------
     protected ModifyInventoryTransaction() throws Exception {
         super();
@@ -91,6 +92,7 @@ public class ModifyInventoryTransaction extends Transaction{
             case "InventoryCollection" -> iCol;
             case "Barcode" -> barcode;
             case "Transaction" -> "ModifyInventory";
+            case "ID" -> ID;
             default -> null;
         };
     }
@@ -101,6 +103,7 @@ public class ModifyInventoryTransaction extends Transaction{
             case "DoYourJob" -> doYourJob();
             case "ModifyInventory" -> processTransaction((Properties) value);
             case "SubmitBarcode" -> processBarcode((String) value);
+            case "GetID" -> getID((String)value);
     //case "StartOver" -> createAndShowView("SearchArticleTypeView");
         }
 
@@ -140,30 +143,21 @@ public class ModifyInventoryTransaction extends Transaction{
             throw new RuntimeException();
         }
 
+        System.out.println(ID);
+
     }
     //---------------------------------------------------------------
-    public void processTransaction(Properties props)
-    {
-        if (!barcode.getProperty("gender").equals(props.getProperty("gender")) ||
-                !barcode.getProperty("articleType").equals(props.getProperty("articleType")) ||
-                !barcode.getProperty("color1").equals(props.getProperty("color1"))){
-            String barcode5String = props.getProperty("gender") + props.getProperty("articleType") + props.getProperty("color1");
-            getID(barcode5String);
-            barcode.setProperty("id", ID);
-        }
+    public void processTransaction(Properties props) {
 
-        barcode.setProperty("gender", props.getProperty("gender"));
-        barcode.setProperty("articleType", props.getProperty("articleType"));
-        barcode.setProperty("color1", props.getProperty("color1"));
+        originalBarcode = props.getProperty("originalBarcode");
+        oldInventory.oldBarcode = originalBarcode;
 
-        barcodeString = barcode.getProperty("gender") + barcode.getProperty("articleType") + barcode.getProperty("color1") + barcode.getProperty("id");
-
-
-        oldInventory.changeValue("barcode", barcodeString);
-        oldInventory.changeValue("gender", barcode.getProperty("gender"));
+        oldInventory.changeValue("barcode", props.getProperty("barcode"));
+        oldInventory.changeValue("gender", props.getProperty("gender"));
         oldInventory.changeValue("size", props.getProperty("size"));
-        oldInventory.changeValue("articleType", barcode.getProperty("articleType"));
-        oldInventory.changeValue("color1", barcode.getProperty("color1"));
+        oldInventory.changeValue("articleType", props.getProperty("articleType"));
+        oldInventory.changeValue("color1", props.getProperty("color1"));
+
         oldInventory.changeValue("color2", props.getProperty("color2"));
         oldInventory.changeValue("brand", props.getProperty("brand"));
         oldInventory.changeValue("notes", props.getProperty("notes"));
@@ -172,11 +166,12 @@ public class ModifyInventoryTransaction extends Transaction{
         oldInventory.changeValue("donorFirstName", props.getProperty("donorFirstName"));
         oldInventory.changeValue("donorPhone", props.getProperty("donorPhone"));
         oldInventory.changeValue("donorEmail", props.getProperty("donorEmail"));
-//        oldInventory.changeValue("receiverNetId", props.getProperty("receiverNetId"));
-//        oldInventory.changeValue("receiverLastName", props.getProperty("receiverLastName"));
-//        oldInventory.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
+        oldInventory.changeValue("receiverNetId", props.getProperty("receiverNetId"));
+        oldInventory.changeValue("receiverLastName", props.getProperty("receiverLastName"));
+        oldInventory.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
         oldInventory.changeValue("dateDonated", props.getProperty("dateDonated"));
-//        oldInventory.changeValue("dateTaken", props.getProperty("dateTaken"));
+        oldInventory.changeValue("dateTaken", props.getProperty("dateTaken"));
+
         oldInventory.update();
 
         System.out.println(oldInventory);
@@ -197,6 +192,7 @@ public class ModifyInventoryTransaction extends Transaction{
         barcode.setProperty("articleType", articleType);
         barcode.setProperty("color1", color);
         barcode.setProperty("id", id);
+        ID = id;
 
         Properties barcodeProp = new Properties();
         barcodeProp.setProperty("barcode", barcodeString);

@@ -15,6 +15,7 @@ public class Inventory extends EntityBase implements IView {
 
     protected Properties dependencies;
     private String updateStatusMessage = "";
+    public String oldBarcode;
 
     // Constructors \\
     //---------------------------------------------------------------
@@ -167,21 +168,34 @@ public class Inventory extends EntityBase implements IView {
     private void updateStateInDatabase() {
         try {
             if (persistentState.getProperty("barcode") != null) {
-                Properties whereClause = new Properties();
-                whereClause.setProperty("barcode",
-                        persistentState.getProperty("barcode"));
-                updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Inventory data for barcode : " + persistentState.getProperty("barcode") + " updated successfully in database!";
+                if (!persistentState.getProperty("barcode").equals(oldBarcode)){
+//                    System.out.println(oldBarcode);
+//                    System.out.println(persistentState.getProperty("barcode"));
+
+                    Properties whereClause = new Properties();
+                    whereClause.setProperty("barcode", oldBarcode);
+                    updatePersistentState(mySchema, persistentState, whereClause);
+                    updateStatusMessage = "Inventory data for barcode : " + oldBarcode + " updated successfully in database!";
+
+                }
+                else{
+//                    System.out.println(persistentState.getProperty("barcode"));
+                    Properties whereClause = new Properties();
+                    whereClause.setProperty("barcode",
+                            persistentState.getProperty("barcode"));
+                    updatePersistentState(mySchema, persistentState, whereClause);
+                    updateStatusMessage = "Inventory data for barcode : " + persistentState.getProperty("barcode") + " updated successfully in database!";
+                }
+//                System.out.println("Inventory updated");
             }
-//            else {
-//                Integer inventoryIdVal =
-//                        insertAutoIncrementalPersistentState(mySchema, persistentState);
-//                persistentState.setProperty("inventoryId", "" + inventoryIdVal);
-//                updateStatusMessage = "Inventory data for new inventory : " +  persistentState.getProperty("inventoryId")
-//                        + "installed successfully in database!";
-//            }
+            else{
+                throw new InvalidPrimaryKeyException("Barcode does not exist");
+            }
+
         }  catch (SQLException ex) {
             updateStatusMessage = "Error in installing inventory data in database!";
+        } catch (InvalidPrimaryKeyException e) {
+            updateStatusMessage = "Error in barcode existence";
         }
     }
 
@@ -197,12 +211,14 @@ public class Inventory extends EntityBase implements IView {
                 insertPersistentState(mySchema, persistentState);
                 updateStatusMessage = "Inventory data for barcode : " + persistentState.getProperty("barcode") + " inserted successfully in database!";
             }
-            else {
-
+            else{
+                throw new InvalidPrimaryKeyException("Barcode does not exist");
             }
         }
         catch (SQLException ex){
             updateStatusMessage = "Error in installing inventory data in database!";
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
         }
     }
 }

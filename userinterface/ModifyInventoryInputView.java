@@ -41,6 +41,7 @@ public class ModifyInventoryInputView extends View {
     private TextField dateTaken;
     protected Button cancelButton;
     protected Button submitButton;
+    protected Inventory i = (Inventory)myModel.getState("Inventory");
 
     // For showing error message
     protected MessageView statusLog;
@@ -320,7 +321,9 @@ public class ModifyInventoryInputView extends View {
         if (gender.getText() == null || size.getText() == null || articleType.getText() == null ||
             color1.getText() == null || color2.getText() == null || brand.getText() == null ||
             donorLastName.getText() == null || donorFirstName.getText() == null ||
-            donorPhone.getText() == null || donorEmail.getText() == null) {
+            donorPhone.getText() == null || donorEmail.getText() == null || receiverNetId.getText() == null ||
+            receiverFirstName.getText() == null || receiverLastName.getText() == null || dateDonated.getText() == null ||
+            dateTaken.getText() == null) {
             clearErrorMessage();
             displayErrorMessage("Please completly fill in all fields");
         } else {
@@ -344,6 +347,36 @@ public class ModifyInventoryInputView extends View {
 
             //Create properties and keys
             Properties insertProp = new Properties();
+
+
+            String articleTypeBarcode = (String)i.getValue("articleType");
+            String primaryColorBarcode = (String)i.getValue("color1");
+            String genderBarcode = (String)i.getValue("gender");
+
+            if (articleTypeBarcode.length() == 1)
+                articleTypeBarcode = "0" + articleTypeBarcode;
+            if (primaryColorBarcode.length() == 1)
+                primaryColorBarcode = "0" + primaryColorBarcode;
+
+            String barcodeString5 = genderBarcode + articleTypeBarcode + primaryColorBarcode;
+
+            String Orig = barcodeString5 + myModel.getState("ID");
+//            System.out.println(Orig);
+
+            String barcodeString52 = genderString + articleTypeString + color1String;
+//            System.out.println(barcodeString52);
+            String barcodeString2;
+            if (!barcodeString52.equals(barcodeString5)){
+                myModel.stateChangeRequest("GetID", barcodeString52);
+                barcodeString2 = barcodeString52 + myModel.getState("ID");
+//                System.out.println(barcodeString2);
+            }
+            else{
+                barcodeString2 = Orig;
+            }
+
+            insertProp.setProperty("originalBarcode", Orig);
+            insertProp.setProperty("barcode", barcodeString2);
             insertProp.setProperty("gender", genderString);
             insertProp.setProperty("size", sizeString);
             insertProp.setProperty("articleType", articleTypeString);
@@ -381,7 +414,6 @@ public class ModifyInventoryInputView extends View {
 
     //-------------------------------------------------------------
     public void populateFields() {
-        Inventory i = (Inventory)myModel.getState("Inventory");
         gender.setText((String)i.getValue("gender"));
         size.setText((String)i.getValue("size"));
         articleType.setText("0" + (String)i.getValue("articleType"));
