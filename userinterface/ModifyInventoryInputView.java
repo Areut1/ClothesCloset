@@ -319,7 +319,7 @@ public class ModifyInventoryInputView extends View {
         //validate user input
         if (gender.getText() == null || size.getText() == null || articleType.getText() == null ||
             color1.getText() == null || color2.getText() == null || brand.getText() == null ||
-            notes.getText() == null || donorLastName.getText() == null || donorFirstName.getText() == null ||
+            donorLastName.getText() == null || donorFirstName.getText() == null ||
             donorPhone.getText() == null || donorEmail.getText() == null) {
             clearErrorMessage();
             displayErrorMessage("Please completly fill in all fields");
