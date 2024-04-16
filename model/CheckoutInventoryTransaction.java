@@ -8,6 +8,26 @@ import userinterface.ViewFactory;
 import java.util.Properties;
 //---------------------------------------------------------------
 public class CheckoutInventoryTransaction extends Transaction{
+
+    /*
+
+    MUST READ NOTE:
+
+    Current status of this transaction is that it is identical to MODIFY COLOR TRANSACTION
+    but made for inventory.
+
+    NEXT STEPS INCLUDE:
+
+    Actually making this a checkout inventory transaction, since it will do nothing really of that
+    sort in its current form.
+
+
+
+     */
+
+
+
+
     // GUI Components
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
