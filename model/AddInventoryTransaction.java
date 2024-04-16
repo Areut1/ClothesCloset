@@ -164,7 +164,7 @@ public class AddInventoryTransaction extends Transaction{
         finalProps.setProperty("donorFirstName", props.getProperty("donorFirstName"));
         finalProps.setProperty("donorPhone", props.getProperty("donorPhone"));
         finalProps.setProperty("donorEmail", props.getProperty("donorEmail"));
-//        finalProps.setProperty("donationDate", )
+        finalProps.setProperty("dateDonated", props.getProperty("dateDonated"));
 
         newInventory = new Inventory(finalProps);
         System.out.println(newInventory);

@@ -20,6 +20,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import impresario.IModel;
 //---------------------------------------------------------------
@@ -250,6 +252,9 @@ public class AddInventoryInputView extends View {
             String donorPhoneString = donorPhone.getText();
             String donorEmailString = donorEmail.getText();
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            String receivedDate = LocalDate.now().format(formatter);
+
             //Create properties and keys
             Properties insertProp = new Properties();
             insertProp.setProperty("size", sizeString);
@@ -260,6 +265,7 @@ public class AddInventoryInputView extends View {
             insertProp.setProperty("donorLastName", donorLastNameString);
             insertProp.setProperty("donorPhone", donorPhoneString);
             insertProp.setProperty("donorEmail", donorEmailString);
+            insertProp.setProperty("dateDonated", receivedDate);
 
             //Call Librarian method to create and save book
             myModel.stateChangeRequest("AddInventory", insertProp);

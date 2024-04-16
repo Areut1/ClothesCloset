@@ -57,13 +57,13 @@ public class SQLInsertStatement extends SQLStatement
 		String theValuesString = "";
 
 		// Now, traverse the Properties object. In this case, this loop
-		// must go at least one or we will get an error back from the db
-		Enumeration theValuesColumns = insertValues.propertyNames();
+		// must go at least one, or we will get an error back from the db
+		Enumeration<?> theValuesColumns = insertValues.propertyNames();
 
-		while (theValuesColumns.hasMoreElements() == true)
+		while (theValuesColumns.hasMoreElements())
 		{
 		
-			if ((theValuesString.equals("") == true) && (theColumnNamesList.equals("") == true))
+			if ((theValuesString.isEmpty()) && (theColumnNamesList.isEmpty()))
 			{
 		  		theValuesString += " VALUES ( ";
 				theColumnNamesList += " ( ";
@@ -87,20 +87,26 @@ public class SQLInsertStatement extends SQLStatement
 			//		System.out.println("InsertType = " + insertType);
 			//System.out.println("Schema is : " + schema);
 
-			if (insertType.equals("numeric") == true)
-			{
-				theValuesString += theColumnValue;
-				//	System.out.println("Value string updated: " + theValuesString);
+			if (theColumnValue.isEmpty()) {
+				theValuesString += "NULL";
 			}
-			else
-			{
-				theValuesString += "'" + theColumnValue + "'";
-				// System.out.println("2 - Value string updated: " + theValuesString);
+			else {
+				if (insertType.equals("numeric"))
+				{
+					theValuesString += theColumnValue;
+					//	System.out.println("Value string updated: " + theValuesString);
+				}
+				else
+				{
+					theValuesString += "'" + theColumnValue + "'";
+					// System.out.println("2 - Value string updated: " + theValuesString);
+				}
 			}
+
 
 		} // end while
 
-		if ((theValuesString.equals("") == false) && (theColumnNamesList.equals("") == false))
+		if ((!theValuesString.isEmpty()) && (!theColumnNamesList.isEmpty()))
 		// this must be the case for an insert statement
 		{
 			theValuesString += " ) ";
