@@ -253,29 +253,62 @@ public class AddInventoryReceipt extends View
         String genderSt = (String)newInventoryInfo.getState("gender");
         gender.setText(genderSt);
         String sizeSt = (String)newInventoryInfo.getState("size");
-        size.setText(sizeSt);
+        if (sizeSt.isEmpty())
+            size.setText("NULL");
+        else
+            size.setText(sizeSt);
+
         String articleTypeSt = (String)newInventoryInfo.getState("articleType");
         articleType.setText(articleTypeSt);
         String color1St = (String)newInventoryInfo.getState("color1");
         color1.setText(color1St);
         String color2St = (String)newInventoryInfo.getState("color2");
-        color2.setText(color2St);
+        if (color2St.isEmpty())
+            color2.setText("NULL");
+        else
+            color2.setText(color2St);
+
         String brandSt = (String)newInventoryInfo.getState("brand");
-        brand.setText(brandSt);
+        if (brandSt.isEmpty())
+            brand.setText("NULL");
+        else
+            brand.setText(brandSt);
+
         String notesSt = (String)newInventoryInfo.getState("notes");
-        notes.setText(notesSt);
+        if (notesSt.isEmpty())
+            notes.setText("NULL");
+        else
+            notes.setText(notesSt);
+
         String statusSt = (String)newInventoryInfo.getState("status");
         status.setText(statusSt);
         String donorLastNameSt = (String)newInventoryInfo.getState("donorLastName");
-        donorLastName.setText(donorLastNameSt);
+        if (donorLastNameSt.isEmpty())
+            donorLastName.setText("NULL");
+        else
+            donorLastName.setText(donorLastNameSt);
+
         String donorFirstNameSt = (String)newInventoryInfo.getState("donorFirstName");
-        donorFirstName.setText(donorFirstNameSt);
+        if (donorFirstNameSt.isEmpty())
+            donorFirstName.setText("NULL");
+        else
+            donorFirstName.setText(donorFirstNameSt);
+
         String donorPhoneSt = (String)newInventoryInfo.getState("donorPhone");
-        donorPhone.setText(donorPhoneSt);
+        if (donorPhoneSt.isEmpty())
+            donorPhone.setText("NULL");
+        else
+            donorPhone.setText(donorPhoneSt);
+
         String donorEmailSt = (String)newInventoryInfo.getState("donorEmail");
-        donorEmail.setText(donorEmailSt);
+        if (donorEmailSt.isEmpty())
+            donorEmail.setText("NULL");
+        else
+            donorEmail.setText(donorEmailSt);
+
         String dateDonatedSt = (String)newInventoryInfo.getState("dateDonated");
         dateDonated.setText(dateDonatedSt);
+
         todaysDateAndTime.setText(todaysDateAndTimeString);
     }
     /**
