@@ -5,40 +5,24 @@ import javafx.scene.Scene;
 import userinterface.View;
 import userinterface.ViewFactory;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+
 //---------------------------------------------------------------
 public class CheckoutInventoryTransaction extends Transaction{
-
-    /*
-
-    MUST READ NOTE:
-
-    Current status of this transaction is that it is identical to MODIFY COLOR TRANSACTION
-    but made for inventory.
-
-    NEXT STEPS INCLUDE:
-
-    Actually making this a checkout inventory transaction, since it will do nothing really of that
-    sort in its current form.
-
-
-
-     */
-
-
-
 
     // GUI Components
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
 
-    private Inventory oldInventory;
-    private InventoryCollection collectionInventory;
+    private Inventory inv;
 
     //---------------------------------------------------------------
     protected CheckoutInventoryTransaction() throws Exception {
         super();
     }
+
     //---------------------------------------------------------------
     @Override
     protected void setDependencies() {
@@ -48,6 +32,7 @@ public class CheckoutInventoryTransaction extends Transaction{
 
         myRegistry.setDependencies(dependencies);
     }
+
     //---------------------------------------------------------------
     @Override
     protected Scene createView() {
@@ -62,6 +47,7 @@ public class CheckoutInventoryTransaction extends Transaction{
         }
         return currentScene;
     }
+
     //------------------------------------------------------
     protected void createAndShowView(String view)
     {
@@ -77,106 +63,70 @@ public class CheckoutInventoryTransaction extends Transaction{
         }
         swapToView(newScene);
     }
+
     //---------------------------------------------------------------
     @Override
     public Object getState(String key) {
         return switch (key) {
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
-            case "Inventory" -> oldInventory;
-            case "InventoryCollection" -> collectionInventory;
+            case "Inventory" -> inv;
             default -> null;
         };
     }
+
     //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
             case "DoYourJob" -> doYourJob();
-            case "ModifyInventory" -> processTransaction((Properties) value);
-            case "SearchTableInventory" -> {
+            case "CheckoutInventory" -> {
                 try {
-                    processSearch((Properties) value);
-                } catch (Exception e) {
+                    processTransaction((Properties) value);
+                } catch (InvalidPrimaryKeyException e) {
                     throw new RuntimeException(e);
                 }
             }
-            case "ConfirmCheckoutInventoryChoice" -> processConfirm((Properties) value);
+//            case "ConfirmCheckoutInventoryChoice" -> processConfirm((Properties) value);
         }
         myRegistry.updateSubscribers(key, this);
     }
-    //---------------------------------------------------------------
-    public void processTransaction(Properties props) {
-        oldInventory.changeValue("barcode", props.getProperty("barcode"));
-        oldInventory.changeValue("gender", props.getProperty("gender"));
-        oldInventory.changeValue("size", props.getProperty("size"));
-        oldInventory.changeValue("articleType", props.getProperty("articleType"));
-        oldInventory.changeValue("color1", props.getProperty("color1"));
-        oldInventory.changeValue("color2", props.getProperty("color2"));
-        oldInventory.changeValue("brand", props.getProperty("brand"));
-        oldInventory.changeValue("notes", props.getProperty("notes"));
-        oldInventory.changeValue("status", props.getProperty("status"));
-        oldInventory.changeValue("donorLastName", props.getProperty("donorLastName"));
-        oldInventory.changeValue("donorFirstName", props.getProperty("donorFirstName"));
-        oldInventory.changeValue("donorPhone", props.getProperty("donorPhone"));
-        oldInventory.changeValue("donorEmail", props.getProperty("donorEmail"));
-        oldInventory.changeValue("receiverNetId", props.getProperty("receiverNetId"));
-        oldInventory.changeValue("receiverLastName", props.getProperty("receiverLastName"));
-        oldInventory.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
-        oldInventory.changeValue("dateDonated", props.getProperty("dateDonated"));
-        oldInventory.changeValue("dateTaken", props.getProperty("dateTaken"));
-        oldInventory.update();
 
+    //---------------------------------------------------------------
+    public void processTransaction(Properties props) throws InvalidPrimaryKeyException {
+
+        String barcode = props.getProperty("barcode");
+        try {
+            inv = new Inventory(barcode);
+        }
+        catch (InvalidPrimaryKeyException e) {
+            System.out.println("CheckoutInventoryTransaction.java: ERROR: (~line 113) Bad barcode!");
+            return;
+        }
+
+        // Get today's Date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String dateTaken = LocalDate.now().format(formatter);
+
+        // This is what makes the Checkout real so to speak
+        inv.changeValue("status", "Received");
+        inv.changeValue("dateTaken", dateTaken);
+
+        // Filling in other information
+        inv.changeValue("receiverNetId", props.getProperty("receiverNetId"));
+        inv.changeValue("receiverLastName", props.getProperty("receiverLastName"));
+        inv.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
+
+        // Push to database
+        inv.update();
+
+        // Fix when appropriate View is created
         System.out.println("\nERROR\nadjust swap to view name in CheckoutInventoryTransaction!!!");
         System.exit(9000);
         // FIX THIS TO MOVE TO RECEIPT SCREEN
         // createAndShowView("<CHANGE FOR WHATEVER THE VIEW CHECKOUT RECEIPT SCREEN NAME IS>");
     }
+
     //---------------------------------------------------------------
-    public void processSearch(Properties props) throws Exception {
-        collectionInventory = new InventoryCollection();
-        try {
-            collectionInventory.findInventory(props);
-        } catch (Exception e) {
-            throw new Exception("Unable to search for Inventory");
-        }
-        System.out.println("\nERROR\nadjust swap to view name in CheckoutInventoryTransaction!!!");
-        System.exit(9000);
-        createAndShowView("SelectColorView");
-    }
-    //---------------------------------------------------------------
-    public void processConfirm(Properties props) {
-        String id = props.getProperty("colorId");
-        try {
-            oldInventory = new Inventory(id);
-        } catch (InvalidPrimaryKeyException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("\nERROR\nadjust swap to view name in CheckoutInventoryTransaction!!!");
-        System.exit(9000);
-        // FIX THIS TO MOVE TO RECEIPT SCREEN
-        // createAndShowView("<CHANGE FOR WHATEVER THE VIEW CHECKOUT RECEIPT SCREEN NAME IS>");
-        createAndShowView("ModifyColorView");
-    }
 
-
-
-
-
-    /*
-    Delete process:
-
-        User selects delete transaction
-        transaction class is made
-        search view is created - text fields to search for color to delete
-        button is clicked to change state
-        process search transaction to get color collection
-        create selection view with collection displayed
-        user selects record and hits button
-        state change request to show confirm view
-        confirm button is pressed to process full transaction, deleting color
-        receipt view is shown
-        button on receipt view takes screen back to transaction choice view
-
-     */
 }
