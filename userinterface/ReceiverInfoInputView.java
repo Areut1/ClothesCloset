@@ -22,7 +22,7 @@ import javafx.scene.text.TextAlignment;
 import java.util.Properties;
 
 //---------------------------------------------------------------
-public class CustomerInfoInputView extends View {
+public class ReceiverInfoInputView extends View {
     // GUI components
     protected TextField receiverNetId;
     protected TextField receiverLastName;
@@ -33,7 +33,7 @@ public class CustomerInfoInputView extends View {
     protected MessageView statusLog;
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public CustomerInfoInputView(IModel clerk)
+    public ReceiverInfoInputView(IModel clerk)
     {
         super(clerk, "CustomerInfoInputView");
 

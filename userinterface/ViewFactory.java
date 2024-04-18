@@ -57,8 +57,6 @@ public class ViewFactory {
 				return new ConfirmDeleteInventoryView(model);
 			case "DeleteInventoryReceipt":
 				return new DeleteInventoryReceipt(model);
-			case "CustomerInfoInput":
-				return new CustomerInfoInputView(model);
 			case "ReceiverInfoInputView":
 				return new ReceiverInfoInputView(model);
 			default: return null;

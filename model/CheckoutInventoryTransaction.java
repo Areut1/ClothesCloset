@@ -165,7 +165,6 @@ public class CheckoutInventoryTransaction extends Transaction{
             throw new RuntimeException();
         }
     }
-}
 
     //---------------------------------------------------------------
 
