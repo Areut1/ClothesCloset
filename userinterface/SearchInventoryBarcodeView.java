@@ -174,8 +174,20 @@ public class SearchInventoryBarcodeView extends View{
                 displayErrorMessage("Barcode does not exist");
             }
             else {
-                populateFields();
-                myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+                if (transaction.equals("CheckOut")){
+                    //run through collection (which has 1 item) and check for status=="Donated"
+                    if (iCol.get(0).getValue("status").equals("Donated")){
+                        populateFields();
+                        myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+                    }
+                    else{
+                        displayErrorMessage("Barcode not available to take");
+                    }
+                }
+                else{
+                    populateFields();
+                    myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+                }
             }
         }
     }
