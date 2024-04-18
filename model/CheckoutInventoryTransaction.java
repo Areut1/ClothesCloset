@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 //---------------------------------------------------------------
-public class CheckOutInventoryTransaction extends Transaction{
+public class CheckoutInventoryTransaction extends Transaction{
 
     // GUI Components
     private String transactionErrorMessage = "";
@@ -22,7 +22,7 @@ public class CheckOutInventoryTransaction extends Transaction{
     private Inventory oldInventory;
 
     //---------------------------------------------------------------
-    protected CheckOutInventoryTransaction() throws Exception {
+    protected CheckoutInventoryTransaction() throws Exception {
         super();
     }
 
