@@ -178,7 +178,8 @@ public class ModifyArticleTypeView extends View {
             clearErrorMessage();
             displayErrorMessage("Please enter a valid description");
         }
-        else if (Integer.valueOf(barcodePrefix.getText()) < 1){
+        else if (barcodePrefix.getText().isEmpty() || barcodePrefix.getText().isBlank()
+                || Integer.valueOf(barcodePrefix.getText()) < 1){
             clearErrorMessage();
             displayErrorMessage("Please enter a valid barcode prefix");
         }
