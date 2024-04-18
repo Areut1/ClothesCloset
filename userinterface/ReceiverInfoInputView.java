@@ -35,7 +35,7 @@ public class ReceiverInfoInputView extends View {
     //----------------------------------------------------------
     public ReceiverInfoInputView(IModel clerk)
     {
-        super(clerk, "CustomerInfoInputView");
+        super(clerk, "ReceiverInfoInputView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
