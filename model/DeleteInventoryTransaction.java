@@ -90,6 +90,7 @@ public class DeleteInventoryTransaction extends Transaction{
     public void processTransaction(Properties props)
     {
         //set status to inactive
+
         oldInventory.changeValue("status", "Removed");
         oldInventory.update();
         createAndShowView("DeleteInventoryReceipt");
@@ -121,6 +122,7 @@ public class DeleteInventoryTransaction extends Transaction{
 
         if (iCol.size() == 1){
             oldInventory = iCol.get(0);
+            oldInventory.oldBarcode = barcodeString;
             createAndShowView("DeleteInventoryView");
         }
         else{
