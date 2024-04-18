@@ -169,7 +169,8 @@ public class SearchInventoryBarcodeView extends View{
             if (iCol.size() != 0 && transaction.equals("AddInventory")) {
                 displayErrorMessage("Barcode already exists");
             }
-            else if (iCol.size() == 0 && (transaction.equals("ModifyInventory") || transaction.equals("DeleteInventory"))){
+            else if (iCol.size() == 0 && (transaction.equals("ModifyInventory") ||
+                    transaction.equals("DeleteInventory") || transaction.equals("CheckOut"))){
                 displayErrorMessage("Barcode does not exist");
             }
             else {

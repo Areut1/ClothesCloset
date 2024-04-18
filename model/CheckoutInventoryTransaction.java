@@ -71,6 +71,7 @@ public class CheckoutInventoryTransaction extends Transaction{
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "Inventory" -> inv;
+            case "Transaction" -> "CheckOut";
             default -> null;
         };
     }
