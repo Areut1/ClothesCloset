@@ -22,6 +22,8 @@ public class CheckOutInventoryTransaction extends Transaction{
     private Inventory oldInventory;
 
 
+    //help me fix this
+
     //---------------------------------------------------------------
     protected CheckOutInventoryTransaction() throws Exception {
         super();
