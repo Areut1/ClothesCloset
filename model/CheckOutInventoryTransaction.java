@@ -1,0 +1,133 @@
+package model;
+
+import exception.InvalidPrimaryKeyException;
+import javafx.scene.Scene;
+import userinterface.View;
+import userinterface.ViewFactory;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Properties;
+
+//---------------------------------------------------------------
+public class CheckoutInventoryTransaction extends Transaction{
+
+    // GUI Components
+    private String transactionErrorMessage = "";
+    private String updateStatusMessage = "";
+
+    private Inventory inv;
+
+    //---------------------------------------------------------------
+    protected CheckoutInventoryTransaction() throws Exception {
+        super();
+    }
+
+    //---------------------------------------------------------------
+    @Override
+    protected void setDependencies() {
+        dependencies = new Properties();
+        dependencies.setProperty("CancelModify", "CancelTransaction");
+        dependencies.setProperty("OK", "CancelTransaction");
+
+        myRegistry.setDependencies(dependencies);
+    }
+
+    //---------------------------------------------------------------
+    @Override
+    protected Scene createView() {
+        Scene currentScene = myViews.get("CheckoutInventoryView");
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("CheckoutInventoryView", this);
+            currentScene = new Scene(newView);
+            myViews.put("CheckoutInventoryView", currentScene);
+            currentScene.getStylesheets().add("userinterface/stylesheet.css");
+        }
+        return currentScene;
+    }
+
+    //------------------------------------------------------
+    protected void createAndShowView(String view)
+    {
+        Scene newScene = myViews.get(view);
+
+        if (newScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView(view, this);
+            newScene = new Scene(newView);
+            myViews.put(view, newScene);
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
+        }
+        swapToView(newScene);
+    }
+
+    //---------------------------------------------------------------
+    @Override
+    public Object getState(String key) {
+        return switch (key) {
+            case "TransactionError" -> transactionErrorMessage;
+            case "UpdateStatusMessage" -> updateStatusMessage;
+            case "Inventory" -> inv;
+            case "Transaction" -> "CheckOut";
+            default -> null;
+        };
+    }
+
+    //---------------------------------------------------------------
+    @Override
+    public void stateChangeRequest(String key, Object value) {
+        switch (key) {
+            case "DoYourJob" -> doYourJob();
+            case "CheckoutInventory" -> {
+                try {
+                    processTransaction((Properties) value);
+                } catch (InvalidPrimaryKeyException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+//            case "ConfirmCheckoutInventoryChoice" -> processConfirm((Properties) value);
+        }
+        myRegistry.updateSubscribers(key, this);
+    }
+
+    //---------------------------------------------------------------
+    public void processTransaction(Properties props) throws InvalidPrimaryKeyException {
+
+        String barcode = props.getProperty("barcode");
+        try {
+            inv = new Inventory(barcode);
+        }
+        catch (InvalidPrimaryKeyException e) {
+            System.out.println("CheckoutInventoryTransaction.java: ERROR: (~line 113) Bad barcode!");
+            return;
+        }
+
+        // Get today's Date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String dateTaken = LocalDate.now().format(formatter);
+
+        // This is what makes the Checkout real so to speak
+        inv.changeValue("status", "Received");
+        inv.changeValue("dateTaken", dateTaken);
+
+        // Filling in other information
+        inv.changeValue("receiverNetId", props.getProperty("receiverNetId"));
+        inv.changeValue("receiverLastName", props.getProperty("receiverLastName"));
+        inv.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
+
+        // Push to database
+        inv.update();
+
+        // Fix when appropriate View is created
+        System.out.println("\nERROR\nadjust swap to view name in CheckoutInventoryTransaction!!!");
+        System.exit(9000);
+        // FIX THIS TO MOVE TO RECEIPT SCREEN
+        // createAndShowView("<CHANGE FOR WHATEVER THE VIEW CHECKOUT RECEIPT SCREEN NAME IS>");
+    }
+
+    //---------------------------------------------------------------
+
+}
