@@ -200,6 +200,10 @@ public class AddArticleTypeView extends View {
             clearErrorMessage();
             displayErrorMessage("Please completely fill in all fields");
         }
+        else if (description.getText().isBlank() || description.getText().isEmpty()){
+            clearErrorMessage();
+            displayErrorMessage("Please enter a valid description");
+        }
         else if (Integer.valueOf(barcodePrefix.getText()) < 1){
             clearErrorMessage();
             displayErrorMessage("Please enter a valid barcode prefix");
