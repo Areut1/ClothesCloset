@@ -59,8 +59,8 @@ public class ViewFactory {
 				return new DeleteInventoryReceipt(model);
 			case "CustomerInfoInput":
 				return new CustomerInfoInputView(model);
-//			case "ViewName":
-//				return new Filename(model);
+			case "ReceiverInfoInputView":
+				return new ReceiverInfoInputView(model);
 			default: return null;
 		}
 	}

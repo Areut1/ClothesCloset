@@ -15,8 +15,11 @@ public class CheckoutInventoryTransaction extends Transaction{
     // GUI Components
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
-
+    private Properties barcode;
+    private String ID;
+    private InventoryCollection iCol;
     private Inventory inv;
+    private Inventory oldInventory;
 
     //---------------------------------------------------------------
     protected CheckoutInventoryTransaction() throws Exception {
@@ -81,6 +84,7 @@ public class CheckoutInventoryTransaction extends Transaction{
     public void stateChangeRequest(String key, Object value) {
         switch (key) {
             case "DoYourJob" -> doYourJob();
+            case "SubmitBarcode" -> processBarcode((String) value);
             case "CheckoutInventory" -> {
                 try {
                     processTransaction((Properties) value);
@@ -127,6 +131,41 @@ public class CheckoutInventoryTransaction extends Transaction{
         // FIX THIS TO MOVE TO RECEIPT SCREEN
         // createAndShowView("<CHANGE FOR WHATEVER THE VIEW CHECKOUT RECEIPT SCREEN NAME IS>");
     }
+
+    public void processBarcode(String barcodeString){
+        char[] barcodeArr = barcodeString.toCharArray();
+
+        String gender = "" + barcodeArr[0];
+        String articleType = "" + barcodeArr[1] + barcodeArr[2];
+        String color = "" + barcodeArr[3] + barcodeArr[4];
+        String id = "" + barcodeArr[5] + barcodeArr[6] + barcodeArr[7];
+
+        barcode = new Properties();
+        barcode.setProperty("gender", gender);
+        barcode.setProperty("articleType", articleType);
+        barcode.setProperty("color1", color);
+        barcode.setProperty("id", id);
+        ID = id;
+
+        Properties barcodeProp = new Properties();
+        barcodeProp.setProperty("barcode", barcodeString);
+
+        iCol = new InventoryCollection();
+        try {
+            iCol.findInventory(barcodeProp);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (iCol.size() == 1){
+            oldInventory = iCol.get(0);
+            createAndShowView("ReceiverInfoInputView");
+        }
+        else{
+            throw new RuntimeException();
+        }
+    }
+}
 
     //---------------------------------------------------------------
 
