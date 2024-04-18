@@ -108,7 +108,7 @@ public class CheckOutInventoryTransaction extends Transaction{
             inv = new Inventory(barcode);
         }
         catch (InvalidPrimaryKeyException e) {
-            System.out.println("CheckoutInventoryTransaction.java: ERROR: (~line 113) Bad barcode!");
+            System.out.println("CheckOutInventoryTransaction.java: ERROR: (~line 113) Bad barcode!");
             return;
         }
 
