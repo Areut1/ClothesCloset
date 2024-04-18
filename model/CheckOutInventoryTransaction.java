@@ -78,6 +78,7 @@ public class CheckOutInventoryTransaction extends Transaction{
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "Inventory" -> inv;
             case "Transaction" -> "CheckOut";
+            case "Barcode" -> barcode;
             default -> null;
         };
     }
@@ -162,6 +163,7 @@ public class CheckOutInventoryTransaction extends Transaction{
 
         if (iCol.size() == 1){
             oldInventory = iCol.get(0);
+            oldInventory.oldBarcode = barcodeString;
             createAndShowView("ReceiverInfoInputView");
         }
         else{

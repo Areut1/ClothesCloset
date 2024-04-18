@@ -182,14 +182,19 @@ public class ReceiverInfoInputView extends View {
             String receiverLastNameString = receiverLastName.getText();
             String receiverFirstNameString = receiverFirstName.getText();
 
+            Properties barcodeProps = (Properties) myModel.getState("Barcode");
+            String barcodeString = barcodeProps.getProperty("gender") + barcodeProps.getProperty("articleType") +
+                                    barcodeProps.getProperty("color1") + barcodeProps.getProperty("id");
+
             //Create properties and keys
             Properties insertProp = new Properties();
+            insertProp.setProperty("barcode", barcodeString);
             insertProp.setProperty("receiverNetId", receiverNetIdString);
             insertProp.setProperty("receiverLastName", receiverLastNameString);
             insertProp.setProperty("receiverFirstName", receiverFirstNameString);
 
             //Call Librarian method to create and save book
-            myModel.stateChangeRequest("CustomerInfoInput", insertProp);
+            myModel.stateChangeRequest("CheckOutInventory", insertProp);
 
         }
     }
