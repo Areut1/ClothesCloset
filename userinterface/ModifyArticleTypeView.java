@@ -173,7 +173,21 @@ public class ModifyArticleTypeView extends View {
         if (description == null || barcodePrefix == null || alphaCode == null){
             clearErrorMessage();
             displayErrorMessage("Please completly fill in all fields");
-        } else {
+        }
+        else if (description.getText().isBlank() || description.getText().isEmpty()){
+            clearErrorMessage();
+            displayErrorMessage("Please enter a valid description");
+        }
+        else if (barcodePrefix.getText().isEmpty() || barcodePrefix.getText().isBlank()
+                || Integer.valueOf(barcodePrefix.getText()) < 1){
+            clearErrorMessage();
+            displayErrorMessage("Please enter a valid barcode prefix");
+        }
+        else if (alphaCode.getText().isBlank() || alphaCode.getText().isEmpty()){
+            clearErrorMessage();
+            displayErrorMessage("Please enter a valid alpha code");
+        }
+        else {
 
             //Convert properties to string
             String descriptionString = description.getText();
