@@ -82,7 +82,7 @@ public class InventoryReceipt extends View
         Text titleText = new Text("");
 
         switch (transaction){
-            case "AddInventory": titleText.setText("Inventory Receipt");
+//            case "AddInventory": titleText.setText("Inventory Receipt");
             case "DeleteInventory": titleText.setText("Delete Inventory Receipt");
             case "ModifyInventory": titleText.setText("Modify Inventory Receipt");
             case "CheckOut": titleText.setText("Check Out Inventory Receipt");
@@ -280,14 +280,6 @@ public class InventoryReceipt extends View
         return vbox;
     }
     //---------------------------------------------------------------
-    private Text createText(String text) {
-        Text t = new Text(text);
-
-        t.setWrappingWidth(150);
-        t.setTextAlignment(TextAlignment.RIGHT);
-
-        return t;
-    }
     //-------------------------------------------------------------
     public void populateFields()
     {

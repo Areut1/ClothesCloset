@@ -18,7 +18,6 @@ public class CheckOutInventoryTransaction extends Transaction{
     private Properties barcode;
     private String ID;
     private InventoryCollection iCol;
-    private Inventory inv;
     private Inventory oldInventory;
 
 
@@ -76,7 +75,7 @@ public class CheckOutInventoryTransaction extends Transaction{
         return switch (key) {
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
-            case "Inventory" -> inv;
+            case "Inventory" -> oldInventory;
             case "Transaction" -> "CheckOut";
             case "Barcode" -> barcode;
             default -> null;
@@ -89,7 +88,7 @@ public class CheckOutInventoryTransaction extends Transaction{
         switch (key) {
             case "DoYourJob" -> doYourJob();
             case "SubmitBarcode" -> processBarcode((String) value);
-            case "CheckoutInventory" -> {
+            case "CheckOutInventory" -> {
                 try {
                     processTransaction((Properties) value);
                 } catch (InvalidPrimaryKeyException e) {
@@ -103,37 +102,24 @@ public class CheckOutInventoryTransaction extends Transaction{
 
     //---------------------------------------------------------------
     public void processTransaction(Properties props) throws InvalidPrimaryKeyException {
-
-        String barcode = props.getProperty("barcode");
-        try {
-            inv = new Inventory(barcode);
-        }
-        catch (InvalidPrimaryKeyException e) {
-            System.out.println("CheckOutInventoryTransaction.java: ERROR: (~line 113) Bad barcode!");
-            return;
-        }
-
         // Get today's Date
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dateTaken = LocalDate.now().format(formatter);
 
         // This is what makes the Checkout real so to speak
-        inv.changeValue("status", "Received");
-        inv.changeValue("dateTaken", dateTaken);
+        oldInventory.changeValue("status", "Received");
+        oldInventory.changeValue("dateTaken", dateTaken);
 
         // Filling in other information
-        inv.changeValue("receiverNetId", props.getProperty("receiverNetId"));
-        inv.changeValue("receiverLastName", props.getProperty("receiverLastName"));
-        inv.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
+        oldInventory.changeValue("receiverNetId", props.getProperty("receiverNetId"));
+        oldInventory.changeValue("receiverLastName", props.getProperty("receiverLastName"));
+        oldInventory.changeValue("receiverFirstName", props.getProperty("receiverFirstName"));
 
         // Push to database
-        inv.update();
+        oldInventory.update();
 
-        // Fix when appropriate View is created
-        System.out.println("\nERROR\nadjust swap to view name in CheckoutInventoryTransaction!!!");
-        System.exit(9000);
-        // FIX THIS TO MOVE TO RECEIPT SCREEN
-        // createAndShowView("<CHANGE FOR WHATEVER THE VIEW CHECKOUT RECEIPT SCREEN NAME IS>");
+        // Show receipt view
+        createAndShowView("InventoryReceipt");
     }
 
     public void processBarcode(String barcodeString){

@@ -176,7 +176,7 @@ public class ModifyInventoryTransaction extends Transaction{
 
         System.out.println(oldInventory);
 
-        createAndShowView("ModifyInventoryReceipt");
+        createAndShowView("InventoryReceipt");
     }
     //---------------------------------------------------------------
     public void processBarcode(String barcodeString){

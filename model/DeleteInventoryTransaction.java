@@ -93,7 +93,7 @@ public class DeleteInventoryTransaction extends Transaction{
 
         oldInventory.changeValue("status", "Removed");
         oldInventory.update();
-        createAndShowView("DeleteInventoryReceipt");
+        createAndShowView("InventoryReceipt");
     }
     //---------------------------------------------------------------
     public void processBarcode(String barcodeString){

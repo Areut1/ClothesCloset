@@ -169,8 +169,8 @@ public class Inventory extends EntityBase implements IView {
         try {
             if (persistentState.getProperty("barcode") != null) {
                 if (!persistentState.getProperty("barcode").equals(oldBarcode)){
-//                    System.out.println(oldBarcode);
-//                    System.out.println(persistentState.getProperty("barcode"));
+                    System.out.println(oldBarcode);
+                    System.out.println(persistentState.getProperty("barcode"));
 
                     Properties whereClause = new Properties();
                     whereClause.setProperty("barcode", oldBarcode);
