@@ -350,7 +350,10 @@ public class ModifyInventoryInputView extends View {
 
             String barcodeString52 = genderString + articleTypeString + color1String;
             String barcodeString2;
-            if (!barcodeString52.equals(i.oldBarcode)){
+
+            String barcodeOld5 = i.oldBarcode.substring(0,6);
+
+            if (!barcodeString52.equals(barcodeOld5)){
                 myModel.stateChangeRequest("GetID", barcodeString52);
                 barcodeString2 = barcodeString52 + myModel.getState("ID");
             }
