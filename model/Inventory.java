@@ -72,8 +72,7 @@ public class Inventory extends EntityBase implements IView {
     //---------------------------------------------------------------
     public void changeValue(String key, String value) {
         persistentState.setProperty(key, value);
-        System.out.println("The Inventory's " + key + " has been changed to " +
-                persistentState.getProperty(key) + "!");
+//        System.out.println("The Inventory's " + key + " has been changed to " + persistentState.getProperty(key) + "!");
     }
     //---------------------------------------------------------------
     public String getValue(String key) {
@@ -169,8 +168,8 @@ public class Inventory extends EntityBase implements IView {
         try {
             if (persistentState.getProperty("barcode") != null) {
                 if (!persistentState.getProperty("barcode").equals(oldBarcode)){
-                    System.out.println(oldBarcode);
-                    System.out.println(persistentState.getProperty("barcode"));
+//                    System.out.println(oldBarcode);
+//                    System.out.println(persistentState.getProperty("barcode"));
 
                     Properties whereClause = new Properties();
                     whereClause.setProperty("barcode", oldBarcode);

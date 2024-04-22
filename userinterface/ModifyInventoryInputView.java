@@ -348,34 +348,16 @@ public class ModifyInventoryInputView extends View {
             //Create properties and keys
             Properties insertProp = new Properties();
 
-
-            String articleTypeBarcode = (String)i.getValue("articleType");
-            String primaryColorBarcode = (String)i.getValue("color1");
-            String genderBarcode = (String)i.getValue("gender");
-
-            if (articleTypeBarcode.length() == 1)
-                articleTypeBarcode = "0" + articleTypeBarcode;
-            if (primaryColorBarcode.length() == 1)
-                primaryColorBarcode = "0" + primaryColorBarcode;
-
-            String barcodeString5 = genderBarcode + articleTypeBarcode + primaryColorBarcode;
-
-            String Orig = barcodeString5 + myModel.getState("ID");
-//            System.out.println(Orig);
-
             String barcodeString52 = genderString + articleTypeString + color1String;
-//            System.out.println(barcodeString52);
             String barcodeString2;
-            if (!barcodeString52.equals(barcodeString5)){
+            if (!barcodeString52.equals(i.oldBarcode)){
                 myModel.stateChangeRequest("GetID", barcodeString52);
                 barcodeString2 = barcodeString52 + myModel.getState("ID");
-//                System.out.println(barcodeString2);
             }
             else{
-                barcodeString2 = Orig;
+                barcodeString2 = i.oldBarcode;
             }
 
-            insertProp.setProperty("originalBarcode", Orig);
             insertProp.setProperty("barcode", barcodeString2);
             insertProp.setProperty("gender", genderString);
             insertProp.setProperty("size", sizeString);

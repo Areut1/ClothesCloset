@@ -143,14 +143,11 @@ public class ModifyInventoryTransaction extends Transaction{
             throw new RuntimeException();
         }
 
-        System.out.println(ID);
+//        System.out.println(ID);
 
     }
     //---------------------------------------------------------------
     public void processTransaction(Properties props) {
-
-        originalBarcode = props.getProperty("originalBarcode");
-        oldInventory.oldBarcode = originalBarcode;
 
         oldInventory.changeValue("barcode", props.getProperty("barcode"));
         oldInventory.changeValue("gender", props.getProperty("gender"));
@@ -174,7 +171,7 @@ public class ModifyInventoryTransaction extends Transaction{
 
         oldInventory.update();
 
-        System.out.println(oldInventory);
+//        System.out.println(oldInventory);
 
         createAndShowView("InventoryReceipt");
     }
@@ -206,6 +203,7 @@ public class ModifyInventoryTransaction extends Transaction{
 
         if (iCol.size() == 1){
             oldInventory = iCol.get(0);
+            oldInventory.oldBarcode = barcodeString;
             createAndShowView("ModifyInventoryInputView");
         }
         else{
