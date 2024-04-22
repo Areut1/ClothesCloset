@@ -95,7 +95,6 @@ public class CheckOutInventoryTransaction extends Transaction{
                     throw new RuntimeException(e);
                 }
             }
-//            case "ConfirmCheckoutInventoryChoice" -> processConfirm((Properties) value);
         }
         myRegistry.updateSubscribers(key, this);
     }
