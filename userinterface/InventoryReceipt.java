@@ -83,11 +83,18 @@ public class InventoryReceipt extends View
         Text titleText = new Text("");
 
         switch (transaction){
-//            case "AddInventory": titleText.setText("Inventory Receipt");
-            case "DeleteInventory": titleText.setText("Delete Inventory Receipt");
-            case "ModifyInventory": titleText.setText("Modify Inventory Receipt");
-            case "CheckOut": titleText.setText("Check Out Inventory Receipt");
-            default: titleText.setText("Inventory Receipt");
+            case "DeleteInventory":
+                titleText.setText("Delete Inventory Receipt");
+                break;
+            case "ModifyInventory":
+                titleText.setText("Modify Inventory Receipt");
+                break;
+            case "CheckOut":
+                titleText.setText("Check Out Inventory Receipt");
+                break;
+            default:
+                titleText.setText("Inventory Receipt");
+                break;
         }
 
         titleText.getStyleClass().add("title");
