@@ -240,8 +240,14 @@ public class AddInventoryInputView extends View {
         donorPhone.getText() == null || donorEmail.getText() == null){
             clearErrorMessage();
             displayErrorMessage("Please completely fill in all fields");
+        } else if (size.getText().length() > 2) {
+            clearErrorMessage();
+            displayErrorMessage("Error: Size must be less than 2 characters.");
+        } else if (color2.getText().length() > 2 || !color2.getText().matches("[0-9]+")) {
+            // Checks it's not greater than 3 digits and that it is only digits i.e. no letters.
+            clearErrorMessage();
+            displayErrorMessage("Error: Color2 must be a number less than 100.");
         } else {
-
             // Convert properties to string
             String sizeString = size.getText();
             String color2String = color2.getText();
