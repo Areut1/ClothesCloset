@@ -328,22 +328,22 @@ public class ModifyInventoryInputView extends View {
 //            displayErrorMessage("Please completly fill in all fields");
 //        } else {
             //Convert properties to string
-            String genderString = gender.getText();
-            String sizeString = size.getText();
-            String articleTypeString = articleType.getText();
-            String color1String = color1.getText();
-            String color2String = color2.getText();
-            String brandString = brand.getText();
-            String notesString = notes.getText();
-            String donorLastNameString = donorLastName.getText();
-            String donorFirstNameString = donorFirstName.getText();
-            String donorPhoneString = donorPhone.getText();
-            String donorEmailString = donorEmail.getText();
-            String receiverNetIdString = receiverNetId.getText();
-            String receiverLastNameString = receiverLastName.getText();
-            String receiverFirstNameString = receiverFirstName.getText();
-            String dateDonatedString = dateDonated.getText();
-            String dateTakenString = dateTaken.getText();
+            String genderString = "" + gender.getText();
+            String sizeString = "" + size.getText();
+            String articleTypeString = "" + articleType.getText();
+            String color1String = "" + color1.getText();
+            String color2String = "" + color2.getText();
+            String brandString = "" + brand.getText();
+            String notesString = "" + notes.getText();
+            String donorLastNameString = "" + donorLastName.getText();
+            String donorFirstNameString = "" + donorFirstName.getText();
+            String donorPhoneString = "" + donorPhone.getText();
+            String donorEmailString = "" + donorEmail.getText();
+            String receiverNetIdString = "" + receiverNetId.getText();
+            String receiverLastNameString = "" + receiverLastName.getText();
+            String receiverFirstNameString = "" + receiverFirstName.getText();
+            String dateDonatedString = "" + dateDonated.getText();
+            String dateTakenString = "" + dateTaken.getText();
 
             //Create properties and keys
             Properties insertProp = new Properties();
@@ -361,7 +361,6 @@ public class ModifyInventoryInputView extends View {
                 barcodeString2 = i.oldBarcode;
             }
 
-            System.out.println("OBJ TO CHANGE" + insertProp);
 
             insertProp.setProperty("barcode", barcodeString2);
             insertProp.setProperty("gender", genderString);
