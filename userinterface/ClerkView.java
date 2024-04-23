@@ -61,6 +61,11 @@ public class ClerkView extends View
         iv2.setFitWidth(300);
         container.getChildren().add(iv2);
 
+        Image image3 = new Image("images/eagle.gif");
+        ImageView iv3 = createImage(image3);
+        iv3.setFitWidth(300);
+        container.getChildren().add(iv3);
+
         // create a Node (GridPane) for showing data entry fields
         container.getChildren().add(createFormContents());
 
