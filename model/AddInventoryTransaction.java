@@ -149,7 +149,7 @@ public class AddInventoryTransaction extends Transaction{
         Properties finalProps = new Properties();
 
 
-        //TODO: if any of these are null, set to null???
+
         String barcodeString = barcode.getProperty("gender") + barcode.getProperty("articleType") + barcode.getProperty("color1") + barcode.getProperty("id");
         finalProps.setProperty("barcode", barcodeString);
         finalProps.setProperty("gender", barcode.getProperty("gender"));
