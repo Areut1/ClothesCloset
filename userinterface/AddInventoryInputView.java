@@ -235,15 +235,11 @@ public class AddInventoryInputView extends View {
      */
     public void processSubmitAction(Event evt){
         //validate user input
-        if (size.getText() == null || color2.getText() == null || brand.getText() == null ||
-        notes.getText() == null || donorFirstName.getText() == null || donorLastName.getText() == null ||
-        donorPhone.getText() == null || donorEmail.getText() == null){
-            clearErrorMessage();
-            displayErrorMessage("Please completely fill in all fields");
-        } else if (size.getText().length() > 2) {
+
+         if (size.getText().length() > 2 && !size.getText().isBlank()) {
             clearErrorMessage();
             displayErrorMessage("Error: Size must be less than 2 characters.");
-        } else if (color2.getText().length() > 2 || !color2.getText().matches("[0-9]+")) {
+        } else if (!color2.getText().isBlank() && (color2.getText().length() > 2 || !color2.getText().matches("[0-9]+"))) {
             // Checks it's not greater than 3 digits and that it is only digits i.e. no letters.
             clearErrorMessage();
             displayErrorMessage("Error: Color2 must be a number less than 100.");
