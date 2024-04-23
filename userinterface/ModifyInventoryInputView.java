@@ -402,7 +402,9 @@ public class ModifyInventoryInputView extends View {
     //-------------------------------------------------------------
     public void populateFields() {
 
-        if (i.getValue("color2").length() == 1) {
+        if (i.getValue("color2") == null){
+            color2.setText("");
+        } else if (i.getValue("color2").length() == 1) {
             color2.setText("0" + (String) i.getValue("color2"));
         } else if (i.getValue("color2").length() == 2) {
             color2.setText((String) i.getValue("color2"));
