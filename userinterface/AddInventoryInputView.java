@@ -252,8 +252,7 @@ public class AddInventoryInputView extends View {
             String donorPhoneString = donorPhone.getText();
             String donorEmailString = donorEmail.getText();
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String receivedDate = LocalDate.now().format(formatter);
+            String receivedDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
 
             //Create properties and keys
             Properties insertProp = new Properties();
