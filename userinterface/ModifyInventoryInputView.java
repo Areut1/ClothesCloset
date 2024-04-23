@@ -318,15 +318,15 @@ public class ModifyInventoryInputView extends View {
      */
     public void processSubmitAction(Event evt) {
         //validate user input
-        if (gender.getText() == null || size.getText() == null || articleType.getText() == null ||
-            color1.getText() == null || color2.getText() == null || brand.getText() == null ||
-            donorLastName.getText() == null || donorFirstName.getText() == null ||
-            donorPhone.getText() == null || donorEmail.getText() == null || receiverNetId.getText() == null ||
-            receiverFirstName.getText() == null || receiverLastName.getText() == null || dateDonated.getText() == null ||
-            dateTaken.getText() == null) {
-            clearErrorMessage();
-            displayErrorMessage("Please completly fill in all fields");
-        } else {
+//        if (gender.getText() == null || size.getText() == null || articleType.getText() == null ||
+//            color1.getText() == null || color2.getText() == null || brand.getText() == null ||
+//            donorLastName.getText() == null || donorFirstName.getText() == null ||
+//            donorPhone.getText() == null || donorEmail.getText() == null || receiverNetId.getText() == null ||
+//            receiverFirstName.getText() == null || receiverLastName.getText() == null || dateDonated.getText() == null ||
+//            dateTaken.getText() == null) {
+//            clearErrorMessage();
+//            displayErrorMessage("Please completly fill in all fields");
+//        } else {
             //Convert properties to string
             String genderString = gender.getText();
             String sizeString = size.getText();
@@ -361,6 +361,8 @@ public class ModifyInventoryInputView extends View {
                 barcodeString2 = i.oldBarcode;
             }
 
+            System.out.println("OBJ TO CHANGE" + insertProp);
+
             insertProp.setProperty("barcode", barcodeString2);
             insertProp.setProperty("gender", genderString);
             insertProp.setProperty("size", sizeString);
@@ -386,7 +388,7 @@ public class ModifyInventoryInputView extends View {
 
             //Print confirmation
             displayMessage("Inventory was updated!");
-        }
+//        }
     }
 
     // Create the status log field
@@ -399,11 +401,18 @@ public class ModifyInventoryInputView extends View {
 
     //-------------------------------------------------------------
     public void populateFields() {
+
+        if (color2.getText().length() == 1) {
+            color2.setText("0" + (String) i.getValue("color2"));
+        } else if (color2.getText().length() == 2) {
+            color2.setText((String) i.getValue("color2"));
+        }
+
         gender.setText((String)i.getValue("gender"));
         size.setText((String)i.getValue("size"));
         articleType.setText("0" + (String)i.getValue("articleType"));
         color1.setText("0" + (String)i.getValue("color1"));
-        color2.setText("0" + (String)i.getValue("color2"));
+//        color2.setText("0" + (String)i.getValue("color2"));
         brand.setText((String)i.getValue("brand"));
         notes.setText((String)i.getValue("notes"));
         donorLastName.setText((String)i.getValue("donorLastName"));
