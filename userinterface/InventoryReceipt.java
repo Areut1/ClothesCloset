@@ -306,7 +306,10 @@ public class InventoryReceipt extends View
         String color1St = (String)newInventoryInfo.getState("color1");
         color1.setText(color1St);
         String color2St = (String)newInventoryInfo.getState("color2");
-        color2.setText(color2St);
+        if (color2St.isEmpty())
+            color2.setText("null");
+        else
+            color2.setText(color2St);
         String brandSt = (String)newInventoryInfo.getState("brand");
         brand.setText(brandSt);
         String notesSt = (String)newInventoryInfo.getState("notes");

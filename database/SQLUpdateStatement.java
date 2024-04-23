@@ -59,34 +59,31 @@ public class SQLUpdateStatement extends SQLStatement
 		// Now, traverse the update Properties object (used for creating
 		// the SET part of this statement)
 		Enumeration theSetColumns = updateValues.propertyNames();
-		while (theSetColumns.hasMoreElements() == true)
-		{
-			if (theSetString.equals(""))
-			{
+		while (theSetColumns.hasMoreElements() == true) {
+			if (theSetString.equals("")) {
 				theSetString += " SET ";
-			}
-			else
-			{
+			} else {
 				theSetString += " , ";
 			}
 
-			String theColumnName = (String)theSetColumns.nextElement();
+			String theColumnName = (String) theSetColumns.nextElement();
 			/* DEBUG
 			System.out.println("SQLUpdateStatement.<init> : Column Name = " +
 				theColumnName + ". Length = " + theColumnName.length()); */
 			String theColumnValue = insertEscapes(updateValues.getProperty(theColumnName));
-					
+
 			String updateType = schema.getProperty(theColumnName);
-			
+
 			// if the type is numeric, do NOT include quotes
-			if (updateType.equals("numeric") == true)
-			{
-				theSetString += theColumnName + " = " + theColumnValue;
-			}
-			else
-			{
-				// must the a text type, include the quotes
-				theSetString += theColumnName + " = '" + theColumnValue + "'";
+			if (theColumnValue.isEmpty() || theColumnValue.equals("null")) {
+				theSetString += theColumnName + " = NULL";
+			} else {
+				if (updateType.equals("numeric") == true) {
+					theSetString += theColumnName + " = " + theColumnValue;
+				} else {
+					// must the a text type, include the quotes
+					theSetString += theColumnName + " = '" + theColumnValue + "'";
+				}
 			}
 		}
 	  
@@ -125,8 +122,8 @@ public class SQLUpdateStatement extends SQLStatement
 				{
 					// must the a text type, include the quotes
 					theWhereString += theColumnName + " = '" + theColumnValue + "'";
-	
-				}	
+
+				}
 			}
 		}
 	  
@@ -134,7 +131,8 @@ public class SQLUpdateStatement extends SQLStatement
 		
 		theSQLStatement += ";";
 		
-		// DEBUG System.out.println("SQL Query Statement = " + theSQLStatement);
+		// DEBUG
+		System.out.println("SQL Query Statement = " + theSQLStatement);
 		
 	}
 }
