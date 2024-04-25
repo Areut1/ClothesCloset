@@ -61,7 +61,7 @@ public class ListAllDonatedTransaction extends Transaction{
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "Transaction" -> "ListAllDonated";
-            case "DonatedCol" -> iCol;
+            case "InventoryCollection" -> iCol;
             default -> null;
         };
     }
