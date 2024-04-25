@@ -1,52 +1,40 @@
 package userinterface;
 
 // system imports
-import javafx.beans.property.SimpleStringProperty;
+
+import impresario.IModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-
-import java.util.Properties;
-import java.util.Vector;
-import java.util.Enumeration;
-
-// project imports
-import impresario.IModel;
 import model.Inventory;
 import model.InventoryCollection;
+
+import java.util.Enumeration;
+import java.util.Vector;
+
 //==============================================================================
-public class InventoryCollectionView extends View
+public class CheckedOutInventoryCollectionView extends View
 {
     protected TableView<InventoryTableModel> tableOfInventory;
     protected Button cancelButton;
-    protected String transaction = (String) myModel.getState("Transaction");
 
     protected MessageView statusLog;
     //--------------------------------------------------------------------------
-    public InventoryCollectionView(IModel clerk)
+    public CheckedOutInventoryCollectionView(IModel clerk)
     {
-        super(clerk, "InventoryCollectionView");
+        super(clerk, "CheckedOutInventoryCollectionView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -105,7 +93,7 @@ public class InventoryCollectionView extends View
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" Inventory Items List");
+        Text titleText = new Text(" Checked Out Inventory Items List");
         titleText.getStyleClass().add("title");
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -126,20 +114,7 @@ public class InventoryCollectionView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("          ");
-
-        switch (transaction){
-            case "ListAllDonated":
-                prompt.setText("List of all available donated items in system");
-                break;
-            case "ListAllCheckedOut":
-                prompt.setText("List of all checked out items");
-                break;
-            default:
-                prompt.setText("List of inventory items");
-        }
-
-
+        Text prompt = new Text("List of Inventory Items");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -213,19 +188,40 @@ public class InventoryCollectionView extends View
         donorEmailColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorEmail"));
 
+        TableColumn receiverNetIdColumn = new TableColumn("Receiver Net ID") ;
+        receiverNetIdColumn.setMinWidth(100);
+        receiverNetIdColumn.setCellValueFactory(
+                new PropertyValueFactory<InventoryTableModel, String>("receiverNetId"));
+
+        TableColumn receiverLastNameColumn = new TableColumn("Receiver Last Name") ;
+        receiverLastNameColumn.setMinWidth(100);
+        receiverLastNameColumn.setCellValueFactory(
+                new PropertyValueFactory<InventoryTableModel, String>("receiverLastName"));
+
+        TableColumn receiverFirstNameColumn = new TableColumn("Receiver First Name") ;
+        receiverFirstNameColumn.setMinWidth(100);
+        receiverFirstNameColumn.setCellValueFactory(
+                new PropertyValueFactory<InventoryTableModel, String>("receiverFirstName"));
+
         TableColumn dateDonatedColumn = new TableColumn("Date Donated") ;
         dateDonatedColumn.setMinWidth(100);
         dateDonatedColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("dateDonated"));
 
+        TableColumn dateTakenColumn = new TableColumn("Date Taken") ;
+        dateTakenColumn.setMinWidth(100);
+        dateTakenColumn.setCellValueFactory(
+                new PropertyValueFactory<InventoryTableModel, String>("dateTaken"));
+
 
         tableOfInventory.getColumns().addAll(barcodeColumn, genderColumn, sizeColumn, articleTypeColumn,
                 color1Column, color2Column, brandColumn, notesColumn, statusColumn, donorLastNameColumn,
-                donorFirstNameColumn, donorPhoneColumn, donorEmailColumn, dateDonatedColumn);
+                donorFirstNameColumn, donorPhoneColumn, donorEmailColumn, receiverNetIdColumn,
+                receiverLastNameColumn, receiverFirstNameColumn, dateDonatedColumn, dateTakenColumn);
 
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(1000, 150);
+        scrollPane.setPrefSize(520, 150);
         scrollPane.setContent(tableOfInventory);
 
         cancelButton = new Button("Back");
