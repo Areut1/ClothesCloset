@@ -7,80 +7,93 @@ import userinterface.ViewFactory;
 import java.util.Properties;
 
 public class ListAllCheckedOutTransaction extends Transaction {
-        // GUI Components
-        private String transactionErrorMessage = "";
-        private String updateStatusMessage = "";
-        private InventoryCollection iCol;
+    // GUI Components
+    private String transactionErrorMessage = "";
+    private String updateStatusMessage = "";
+    private InventoryCollection iCol;
 
 
-        //help me fix this
+    //help me fix this
 
-        //---------------------------------------------------------------
-        protected ListAllCheckedOutTransaction() throws Exception {
-            super();
-            createCollection();
+    //---------------------------------------------------------------
+    protected ListAllCheckedOutTransaction() throws Exception {
+        super();
+        createCollection();
+    }
+
+    //---------------------------------------------------------------
+    @Override
+    protected void setDependencies() {
+        dependencies = new Properties();
+        dependencies.setProperty("CancelList", "CancelTransaction");
+        dependencies.setProperty("OK", "CancelTransaction");
+
+        myRegistry.setDependencies(dependencies);
+    }
+
+    //---------------------------------------------------------------
+    @Override
+    protected Scene createView() {
+        Scene currentScene = myViews.get("DateRequestView");
+        if (currentScene == null) {
+            // create our initial view
+            View newView = ViewFactory.createView("DateRequestView", this);
+            currentScene = new Scene(newView);
+            myViews.put("DateRequestView", currentScene);
+            currentScene.getStylesheets().add("userinterface/stylesheet.css");
         }
+        return currentScene;
+    }
 
-        //---------------------------------------------------------------
-        @Override
-        protected void setDependencies() {
-            dependencies = new Properties();
-            dependencies.setProperty("CancelList", "CancelTransaction");
-            dependencies.setProperty("OK", "CancelTransaction");
+    //---------------------------------------------------------------
+    @Override
+    public Object getState(String key) {
+        return switch (key) {
+            case "TransactionError" -> transactionErrorMessage;
+            case "UpdateStatusMessage" -> updateStatusMessage;
+            case "Transaction" -> "ListAllCheckedOut";
+            case "InventoryCollection" -> iCol;
+            default -> null;
+        };
+    }
 
-            myRegistry.setDependencies(dependencies);
+    //---------------------------------------------------------------
+    @Override
+    public void stateChangeRequest(String key, Object value) {
+        if (key.equals("DoYourJob")) {
+            doYourJob();
         }
-
-        //---------------------------------------------------------------
-        @Override
-        protected Scene createView() {
-            Scene currentScene = myViews.get("DateRequestView");
-            if (currentScene == null)
-            {
-                // create our initial view
-                View newView = ViewFactory.createView("DateRequestView", this);
-                currentScene = new Scene(newView);
-                myViews.put("DateRequestView", currentScene);
-                currentScene.getStylesheets().add("userinterface/stylesheet.css");
-            }
-            return currentScene;
+        if (key.equals("DateRequest")) {
+            processTransaction((Properties) value);
         }
+        myRegistry.updateSubscribers(key, this);
+    }
 
-        //---------------------------------------------------------------
-        @Override
-        public Object getState(String key) {
-            return switch (key) {
-                case "TransactionError" -> transactionErrorMessage;
-                case "UpdateStatusMessage" -> updateStatusMessage;
-                case "Transaction" -> "ListAllCheckedOut";
-                case "InventoryCollection" -> iCol;
-                default -> null;
-            };
-        }
+    //---------------------------------------------------------------
+    public void createCollection() {
+        //Run query and get collection results
+        iCol = new InventoryCollection();
+    }
 
-        //---------------------------------------------------------------
-        @Override
-        public void stateChangeRequest(String key, Object value) {
-            if (key.equals("DoYourJob")) {
-                doYourJob();
-            }
-            if (key.equals("DateRequest")) {
-                processTransaction((Properties) value);
-            }
-            myRegistry.updateSubscribers(key, this);
+    public void processTransaction(Properties props) {
+        try {
+            iCol.findCheckedOut(props.getProperty("startDate"), props.getProperty("endDate"));
+            createAndShowView("InventoryCollection");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    }
 
-        //---------------------------------------------------------------
-        public void createCollection(){
-            //Run query and get collection results
-            iCol = new InventoryCollection();
-        }
+    protected void createAndShowView(String view) {
+        Scene newScene = myViews.get(view);
 
-        public void processTransaction(Properties props) {
-            try {
-                iCol.findCheckedOut(props.getProperty("startDate"), props.getProperty("endDate"));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        if (newScene == null) {
+            // create our initial view
+            View newView = ViewFactory.createView(view, this);
+            newScene = new Scene(newView);
+            myViews.put(view, newScene);
+            newScene.getStylesheets().add("userinterface/stylesheet.css");
         }
+        swapToView(newScene);
+    }
 }
