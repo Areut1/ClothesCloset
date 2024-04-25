@@ -9,7 +9,7 @@
 
 .button2{
     -fx-text-fill: rgb(10,10,10);
-    -fx-font: bold 12pt "Arial";
+    -fx-font: bold 12pt "Helvetica";
     -fx-background-radius: 10;
     -fx-focus-color:rgb(0, 83, 62);
 }
@@ -27,7 +27,7 @@
 }
 
 .title{
-    -fx-font: bold 20pt "Arial" ;
+    -fx-font: bold 20pt "Helvetica" ;
     -fx-fill: rgb(0, 83, 62);
 }
 
