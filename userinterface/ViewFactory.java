@@ -57,6 +57,8 @@ public class ViewFactory {
 				return new InventoryReceipt(model);
 			case "ReceiverInfoInputView":
 				return new ReceiverInfoInputView(model);
+			case "InventoryCollectionView":
+				return new InventoryCollectionView(model);
 			default: return null;
 		}
 	}
