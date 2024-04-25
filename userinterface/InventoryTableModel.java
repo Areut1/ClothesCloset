@@ -18,11 +18,7 @@ public class InventoryTableModel {
     private final SimpleStringProperty donorFirstName;
     private final SimpleStringProperty donorPhone;
     private final SimpleStringProperty donorEmail;
-    private final SimpleStringProperty receiverNetId;
-    private final SimpleStringProperty receiverLastName;
-    private final SimpleStringProperty receiverFirstName;
     private final SimpleStringProperty dateDonated;
-    private final SimpleStringProperty dateTaken;
     //----------------------------------------------------------------------------
     public InventoryTableModel(Vector<String> inventoryData) {
         barcode = new SimpleStringProperty(inventoryData.elementAt(0));
@@ -38,11 +34,7 @@ public class InventoryTableModel {
         donorFirstName = new SimpleStringProperty(inventoryData.elementAt(10));
         donorPhone = new SimpleStringProperty(inventoryData.elementAt(11));
         donorEmail = new SimpleStringProperty(inventoryData.elementAt(12));
-        receiverNetId = new SimpleStringProperty(inventoryData.elementAt(13));
-        receiverLastName = new SimpleStringProperty(inventoryData.elementAt(14));
-        receiverFirstName = new SimpleStringProperty(inventoryData.elementAt(15));
-        dateDonated = new SimpleStringProperty(inventoryData.elementAt(16));
-        dateTaken = new SimpleStringProperty(inventoryData.elementAt(17));
+        dateDonated = new SimpleStringProperty(inventoryData.elementAt(13));
     }
     //----------------------------------------------------------------------------
     public String getBarcode() {
@@ -150,30 +142,6 @@ public class InventoryTableModel {
         this.donorEmail.set(dE);
     }
     //---------------------------------------------------------------
-    public String getReceiverNetId() {
-        return receiverNetId.get();
-    }
-    //---------------------------------------------------------------
-    public void setReceiverNetId(String rNId) {
-        this.receiverNetId.set(rNId);
-    }
-    //---------------------------------------------------------------
-    public String getReceiverLastName() {
-        return receiverLastName.get();
-    }
-    //---------------------------------------------------------------
-    public void setReceiverLastName(String rLN) {
-        this.receiverLastName.set(rLN);
-    }
-    //---------------------------------------------------------------
-    public String getReceiverFirstName() {
-        return receiverFirstName.get();
-    }
-    //---------------------------------------------------------------
-    public void setReceiverFirstName(String rFN) {
-        this.receiverFirstName.set(rFN);
-    }
-    //---------------------------------------------------------------
     public String getDateDonated() {
         return dateDonated.get();
     }
@@ -182,11 +150,4 @@ public class InventoryTableModel {
         this.dateDonated.set(dD);
     }
     //---------------------------------------------------------------
-    public String getDateTaken() {
-        return dateTaken.get();
-    }
-    //---------------------------------------------------------------
-    public void setDateTaken(String dT) {
-        this.dateTaken.set(dT);
-    }
 }
