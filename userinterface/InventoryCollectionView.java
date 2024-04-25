@@ -213,36 +213,15 @@ public class InventoryCollectionView extends View
         donorEmailColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorEmail"));
 
-        TableColumn receiverNetIdColumn = new TableColumn("Receiver Net ID") ;
-        receiverNetIdColumn.setMinWidth(100);
-        receiverNetIdColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("receiverNetId"));
-
-        TableColumn receiverLastNameColumn = new TableColumn("Receiver Last Name") ;
-        receiverLastNameColumn.setMinWidth(100);
-        receiverLastNameColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("receiverLastName"));
-
-        TableColumn receiverFirstNameColumn = new TableColumn("Receiver First Name") ;
-        receiverFirstNameColumn.setMinWidth(100);
-        receiverFirstNameColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("receiverFirstName"));
-
         TableColumn dateDonatedColumn = new TableColumn("Date Donated") ;
         dateDonatedColumn.setMinWidth(100);
         dateDonatedColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("dateDonated"));
 
-        TableColumn dateTakenColumn = new TableColumn("Date Taken") ;
-        dateTakenColumn.setMinWidth(100);
-        dateTakenColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("dateTaken"));
-
 
         tableOfInventory.getColumns().addAll(barcodeColumn, genderColumn, sizeColumn, articleTypeColumn,
                 color1Column, color2Column, brandColumn, notesColumn, statusColumn, donorLastNameColumn,
-                donorFirstNameColumn, donorPhoneColumn, donorEmailColumn, receiverNetIdColumn,
-                receiverLastNameColumn, receiverFirstNameColumn, dateDonatedColumn, dateTakenColumn);
+                donorFirstNameColumn, donorPhoneColumn, donorEmailColumn, dateDonatedColumn);
 
 
         ScrollPane scrollPane = new ScrollPane();
