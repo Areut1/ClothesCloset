@@ -42,32 +42,16 @@ public class ListAllDonatedTransaction extends Transaction{
     //---------------------------------------------------------------
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("ListResultsView");
+        Scene currentScene = myViews.get("InventoryCollectionView");
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("ListResultsView", this);
+            View newView = ViewFactory.createView("InventoryCollectionView", this);
             currentScene = new Scene(newView);
-            myViews.put("ListResultsView", currentScene);
+            myViews.put("InventoryCollectionView", currentScene);
             currentScene.getStylesheets().add("userinterface/stylesheet.css");
         }
         return currentScene;
-    }
-
-    //------------------------------------------------------
-    protected void createAndShowView(String view)
-    {
-        Scene newScene = myViews.get(view);
-
-        if (newScene == null)
-        {
-            // create our initial view
-            View newView = ViewFactory.createView(view, this);
-            newScene = new Scene(newView);
-            myViews.put(view, newScene);
-            newScene.getStylesheets().add("userinterface/stylesheet.css");
-        }
-        swapToView(newScene);
     }
 
     //---------------------------------------------------------------
@@ -76,9 +60,8 @@ public class ListAllDonatedTransaction extends Transaction{
         return switch (key) {
             case "TransactionError" -> transactionErrorMessage;
             case "UpdateStatusMessage" -> updateStatusMessage;
-            case "Inventory" -> oldInventory;
             case "Transaction" -> "ListAllDonated";
-            case "Barcode" -> barcode;
+            case "DonatedCol" -> iCol;
             default -> null;
         };
     }
@@ -86,17 +69,21 @@ public class ListAllDonatedTransaction extends Transaction{
     //---------------------------------------------------------------
     @Override
     public void stateChangeRequest(String key, Object value) {
-        switch (key) {
-            case "DoYourJob" -> doYourJob();
-
+        if (key.equals("DoYourJob")) {
+            doYourJob();
         }
         myRegistry.updateSubscribers(key, this);
     }
 
     //---------------------------------------------------------------
-    public void processTransaction() throws InvalidPrimaryKeyException {
+    public void processTransaction(){
         //Run query and get collection results
-
+        iCol = new InventoryCollection();
+        try {
+            iCol.findDonated();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     //---------------------------------------------------------------
 
