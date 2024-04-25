@@ -123,7 +123,7 @@ public class InventoryCollectionView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("List of all checked out items");
+        Text prompt = new Text("List of all donated items");
 
 
         prompt.setWrappingWidth(350);
