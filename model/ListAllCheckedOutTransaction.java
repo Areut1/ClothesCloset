@@ -78,7 +78,7 @@ public class ListAllCheckedOutTransaction extends Transaction {
     public void processTransaction(Properties props) {
         try {
             iCol.findCheckedOut(props.getProperty("startDate"), props.getProperty("endDate"));
-            createAndShowView("InventoryCollectionView");
+            createAndShowView("CheckedOutInventoryCollectionView");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
