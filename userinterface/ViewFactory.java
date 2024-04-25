@@ -61,6 +61,8 @@ public class ViewFactory {
 				return new InventoryCollectionView(model);
 			case "DateRequestView":
 				return new DateRequestView(model);
+			case "CheckedOutInventoryCollectionView":
+				return new CheckedOutInventoryCollectionView(model);
 			default: return null;
 		}
 	}
