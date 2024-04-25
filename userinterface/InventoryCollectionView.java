@@ -40,6 +40,7 @@ public class InventoryCollectionView extends View
 {
     protected TableView<InventoryTableModel> tableOfInventory;
     protected Button cancelButton;
+    protected String transaction = (String) myModel.getState("Transaction");
 
     protected MessageView statusLog;
     //--------------------------------------------------------------------------
@@ -125,7 +126,20 @@ public class InventoryCollectionView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("List of Inventory Items");
+        Text prompt = new Text("          ");
+
+        switch (transaction){
+            case "ListAllDonated":
+                prompt.setText("List of all available donated items in system");
+                break;
+            case "ListAllCheckedOut":
+                prompt.setText("List of all checked out items");
+                break;
+            default:
+                prompt.setText("List of inventory items");
+        }
+
+
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -232,7 +246,7 @@ public class InventoryCollectionView extends View
 
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(520, 150);
+        scrollPane.setPrefSize(1000, 150);
         scrollPane.setContent(tableOfInventory);
 
         cancelButton = new Button("Back");

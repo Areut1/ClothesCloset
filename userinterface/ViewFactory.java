@@ -59,6 +59,8 @@ public class ViewFactory {
 				return new ReceiverInfoInputView(model);
 			case "InventoryCollectionView":
 				return new InventoryCollectionView(model);
+			case "DateRequestView":
+				return new DateRequestView(model);
 			default: return null;
 		}
 	}

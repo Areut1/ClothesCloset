@@ -114,6 +114,32 @@ public class InventoryCollection extends EntityBase implements IView {
 
     }
 
+    public void findCheckedOut(String startDate, String endDate) throws Exception {
+        String query = "SELECT * FROM " + myTableName + " WHERE (dateTaken BETWEEN '" + startDate + "' AND '" + endDate + "')";
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        if (allDataRetrieved != null)
+        {
+            inventoryList = new Vector<>();
+
+            for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
+            {
+                Properties nextInventoryData = (Properties)allDataRetrieved.elementAt(cnt);
+
+                Inventory in = new Inventory(nextInventoryData);
+
+                inventoryList.add(in);
+            }
+
+        }
+        else
+        {
+            throw new Exception("No Inventory found with specified fields");
+        }
+
+    }
+
     //---------------------------------------------------------------
     public int size(){
         return inventoryList.size();

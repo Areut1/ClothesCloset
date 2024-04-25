@@ -44,8 +44,8 @@ public class TransactionFactory
 			case "ListAllAvailable":
 				retValue = new ListAllDonatedTransaction();
 				break;
-//			case "ListAllCheckOut":
-//				retValue = new ListCheckOutTransaction();
+			case "ListAllCheckOut":
+				retValue = new ListAllCheckedOutTransaction();
 		}
 		return retValue;
 	}
