@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,17 +36,16 @@ import java.util.Enumeration;
 import impresario.IModel;
 import model.Inventory;
 import model.InventoryCollection;
+
 //==============================================================================
-public class InventoryCollectionView extends View
-{
+public class InventoryCollectionView extends View {
     protected TableView<InventoryTableModel> tableOfInventory;
     protected Button cancelButton;
-    protected String transaction = (String) myModel.getState("Transaction");
 
     protected MessageView statusLog;
+
     //--------------------------------------------------------------------------
-    public InventoryCollectionView(IModel clerk)
-    {
+    public InventoryCollectionView(IModel clerk) {
         super(clerk, "InventoryCollectionView");
 
         // create a container for showing the contents
@@ -63,25 +63,23 @@ public class InventoryCollectionView extends View
 
         populateFields();
     }
+
     //--------------------------------------------------------------------------
-    protected void populateFields()
-    {
+    protected void populateFields() {
         getEntryTableModelValues();
     }
+
     //--------------------------------------------------------------------------
-    protected void getEntryTableModelValues()
-    {
+    protected void getEntryTableModelValues() {
 
         ObservableList<InventoryTableModel> tableData = FXCollections.observableArrayList();
-        try
-        {
+        try {
             InventoryCollection inventoryCollection = (InventoryCollection) myModel.getState("InventoryCollection");
 
-            Vector entryList = (Vector)inventoryCollection.getState("Inventory");
+            Vector entryList = (Vector) inventoryCollection.getState("Inventory");
             Enumeration entries = entryList.elements();
 
-            while (entries.hasMoreElements() == true)
-            {
+            while (entries.hasMoreElements() == true) {
                 Inventory nextInventory = (Inventory) entries.nextElement();
                 Vector<String> view = nextInventory.getEntryListView();
 
@@ -93,15 +91,14 @@ public class InventoryCollectionView extends View
 
             tableOfInventory.setItems(tableData);
 
-        }
-        catch (Exception e) {//SQLException e) {
+        } catch (Exception e) {//SQLException e) {
             // Need to handle this exception
         }
     }
+
     // Create the title container
     //-------------------------------------------------------------
-    private Node createTitle()
-    {
+    private Node createTitle() {
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
@@ -113,11 +110,11 @@ public class InventoryCollectionView extends View
 
         return container;
     }
+
     // Create the main form content
     //-------------------------------------------------------------
     @SuppressWarnings("unchecked")
-    private VBox createFormContent()
-    {
+    private VBox createFormContent() {
         VBox vbox = new VBox(10);
 
         GridPane grid = new GridPane();
@@ -126,18 +123,7 @@ public class InventoryCollectionView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("          ");
-
-        switch (transaction){
-            case "ListAllDonated":
-                prompt.setText("List of all available donated items in system");
-                break;
-            case "ListAllCheckedOut":
-                prompt.setText("List of all checked out items");
-                break;
-            default:
-                prompt.setText("List of inventory items");
-        }
+        Text prompt = new Text("List of all checked out items");
 
 
         prompt.setWrappingWidth(350);
@@ -148,72 +134,72 @@ public class InventoryCollectionView extends View
         tableOfInventory = new TableView<InventoryTableModel>();
         tableOfInventory.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        TableColumn barcodeColumn = new TableColumn("Barcode") ;
+        TableColumn barcodeColumn = new TableColumn("Barcode");
         barcodeColumn.setMinWidth(100);
         barcodeColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("barcode"));
 
-        TableColumn genderColumn = new TableColumn("Gender") ;
+        TableColumn genderColumn = new TableColumn("Gender");
         genderColumn.setMinWidth(100);
         genderColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("gender"));
 
-        TableColumn sizeColumn = new TableColumn("Size") ;
+        TableColumn sizeColumn = new TableColumn("Size");
         sizeColumn.setMinWidth(100);
         sizeColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("size"));
 
-        TableColumn articleTypeColumn = new TableColumn("Article Type") ;
+        TableColumn articleTypeColumn = new TableColumn("Article Type");
         articleTypeColumn.setMinWidth(100);
         articleTypeColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("articleType"));
 
-        TableColumn color1Column = new TableColumn("Color 1") ;
+        TableColumn color1Column = new TableColumn("Color 1");
         color1Column.setMinWidth(100);
         color1Column.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("color1"));
 
-        TableColumn color2Column = new TableColumn("Color 2") ;
+        TableColumn color2Column = new TableColumn("Color 2");
         color2Column.setMinWidth(100);
         color2Column.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("color2"));
 
-        TableColumn brandColumn = new TableColumn("Brand") ;
+        TableColumn brandColumn = new TableColumn("Brand");
         brandColumn.setMinWidth(100);
         brandColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("brand"));
 
-        TableColumn notesColumn = new TableColumn("Notes") ;
+        TableColumn notesColumn = new TableColumn("Notes");
         notesColumn.setMinWidth(100);
         notesColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("notes"));
 
-        TableColumn statusColumn = new TableColumn("Status") ;
+        TableColumn statusColumn = new TableColumn("Status");
         statusColumn.setMinWidth(100);
         statusColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("status"));
 
-        TableColumn donorLastNameColumn = new TableColumn("Donor Last Name") ;
+        TableColumn donorLastNameColumn = new TableColumn("Donor Last Name");
         donorLastNameColumn.setMinWidth(100);
         donorLastNameColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorLastName"));
 
-        TableColumn donorFirstNameColumn = new TableColumn("Donor First Name") ;
+        TableColumn donorFirstNameColumn = new TableColumn("Donor First Name");
         donorFirstNameColumn.setMinWidth(100);
         donorFirstNameColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorFirstName"));
 
-        TableColumn donorPhoneColumn = new TableColumn("Donor Phone") ;
+        TableColumn donorPhoneColumn = new TableColumn("Donor Phone");
         donorPhoneColumn.setMinWidth(100);
         donorPhoneColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorPhone"));
 
-        TableColumn donorEmailColumn = new TableColumn("Donor Email") ;
+        TableColumn donorEmailColumn = new TableColumn("Donor Email");
         donorEmailColumn.setMinWidth(100);
         donorEmailColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorEmail"));
 
-        TableColumn dateDonatedColumn = new TableColumn("Date Donated") ;
+        TableColumn dateDonatedColumn = new TableColumn("Date Donated");
         dateDonatedColumn.setMinWidth(100);
         dateDonatedColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("dateDonated"));
@@ -256,32 +242,31 @@ public class InventoryCollectionView extends View
 
         return vbox;
     }
+
     //--------------------------------------------------------------------------
-    public void updateState(String key, Object value)
-    {
+    public void updateState(String key, Object value) {
     }
 
     //--------------------------------------------------------------------------
-    protected MessageView createStatusLog(String initialMessage)
-    {
+    protected MessageView createStatusLog(String initialMessage) {
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
     }
+
     /**
      * Display info message
      */
     //----------------------------------------------------------
-    public void displayMessage(String message)
-    {
+    public void displayMessage(String message) {
         statusLog.displayMessage(message);
     }
+
     /**
      * Clear error message
      */
     //----------------------------------------------------------
-    public void clearErrorMessage()
-    {
+    public void clearErrorMessage() {
         statusLog.clearErrorMessage();
     }
     //--------------------------------------------------------------------------
