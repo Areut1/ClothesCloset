@@ -34,13 +34,13 @@ public class ListAllCheckedOutTransaction extends Transaction {
         //---------------------------------------------------------------
         @Override
         protected Scene createView() {
-            Scene currentScene = myViews.get("InventoryCollectionView");
+            Scene currentScene = myViews.get("DateRequestView");
             if (currentScene == null)
             {
                 // create our initial view
-                View newView = ViewFactory.createView("InventoryCollectionView", this);
+                View newView = ViewFactory.createView("DateRequestView", this);
                 currentScene = new Scene(newView);
-                myViews.put("InventoryCollectionView", currentScene);
+                myViews.put("DateRequestView", currentScene);
                 currentScene.getStylesheets().add("userinterface/stylesheet.css");
             }
             return currentScene;
