@@ -102,6 +102,7 @@ public class DateRequestView extends View{
 
         startDate = new TextField();
         startDate.setEditable(true);
+        startDate.setPromptText("YYYY-MM-DD");
         grid.add(startDate, 0, 1);
 
         Text endDateLabel = new Text("End Date: ");
@@ -112,6 +113,7 @@ public class DateRequestView extends View{
 
         endDate = new TextField();
         endDate.setEditable(true);
+        endDate.setPromptText("YYYY-MM-DD");
         grid.add(endDate, 1, 1);
 
         //Setup separate hbox for submit and back buttons
