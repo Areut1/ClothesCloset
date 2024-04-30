@@ -410,11 +410,28 @@ public class ModifyInventoryInputView extends View {
             color2.setText((String) i.getValue("color2"));
         }
 
+        if (i.getValue("color1") == null){
+            color1.setText("");
+        } else if (i.getValue("color1").length() == 1) {
+            color1.setText("0" + (String) i.getValue("color1"));
+        } else if (i.getValue("color1").length() == 2) {
+            color1.setText((String) i.getValue("color1"));
+        }
+
+        if (i.getValue("articleType") == null){
+            articleType.setText("");
+        } else if (i.getValue("articleType").length() == 1) {
+            articleType.setText("0" + (String) i.getValue("articleType"));
+        } else if (i.getValue("articleType").length() == 2) {
+            articleType.setText((String) i.getValue("articleType"));
+        }
+
+
+
+
+
         gender.setText((String)i.getValue("gender"));
         size.setText((String)i.getValue("size"));
-        articleType.setText("0" + (String)i.getValue("articleType"));
-        color1.setText("0" + (String)i.getValue("color1"));
-//        color2.setText("0" + (String)i.getValue("color2"));
         brand.setText((String)i.getValue("brand"));
         notes.setText((String)i.getValue("notes"));
         donorLastName.setText((String)i.getValue("donorLastName"));
