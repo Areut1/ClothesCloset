@@ -20,9 +20,14 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import impresario.IModel;
 //---------------------------------------------------------------
 public class AddInventoryInputView extends View {
@@ -266,20 +271,38 @@ public class AddInventoryInputView extends View {
 
             String receivedDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
 
-            //Create properties and keys
-            Properties insertProp = new Properties();
-            insertProp.setProperty("size", sizeString);
-            insertProp.setProperty("color2", color2String);
-            insertProp.setProperty("brand", brandString);
-            insertProp.setProperty("notes", notesString);
-            insertProp.setProperty("donorFirstName", donorFirstNameString);
-            insertProp.setProperty("donorLastName", donorLastNameString);
-            insertProp.setProperty("donorPhone", donorPhoneString);
-            insertProp.setProperty("donorEmail", donorEmailString);
-            insertProp.setProperty("dateDonated", receivedDate);
+            Pattern patternPhone = Pattern.compile("^(\\d{3}[-]){2}\\d{4}$");
+            Matcher matcherPhone = patternPhone.matcher(donorPhoneString);
 
-            //Call Librarian method to create and save book
-            myModel.stateChangeRequest("AddInventory", insertProp);
+            Pattern patternEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+            Matcher matcherEmail = patternEmail.matcher(donorEmailString);
+
+
+
+            if (!matcherPhone.find() && !donorPhoneString.equals("")){
+                clearErrorMessage();
+                displayErrorMessage("Phone not formatted correctly");
+            }
+            else if (!matcherEmail.find() && !donorEmailString.equals("")){
+                clearErrorMessage();
+                displayErrorMessage("Email not formatted correctly");
+            }
+            else{
+                //Create properties and keys
+                Properties insertProp = new Properties();
+                insertProp.setProperty("size", sizeString);
+                insertProp.setProperty("color2", color2String);
+                insertProp.setProperty("brand", brandString);
+                insertProp.setProperty("notes", notesString);
+                insertProp.setProperty("donorFirstName", donorFirstNameString);
+                insertProp.setProperty("donorLastName", donorLastNameString);
+                insertProp.setProperty("donorPhone", donorPhoneString);
+                insertProp.setProperty("donorEmail", donorEmailString);
+                insertProp.setProperty("dateDonated", receivedDate);
+
+                //Call Librarian method to create and save book
+                myModel.stateChangeRequest("AddInventory", insertProp);
+            }
 
         }
     }
@@ -343,4 +366,6 @@ public class AddInventoryInputView extends View {
     {
         statusLog.clearErrorMessage();
     }
+
+
 }

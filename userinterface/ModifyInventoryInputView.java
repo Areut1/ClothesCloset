@@ -26,10 +26,14 @@ import model.ColorCollection;
 import model.Inventory;
 import model.InventoryCollection;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ModifyInventoryInputView extends View {
     // GUI components
@@ -539,34 +543,63 @@ public class ModifyInventoryInputView extends View {
         String dateDonatedString = "" + dateDonated.getText();
         String dateTakenString = "" + dateTaken.getText();
 
-        //Create properties and keys
-        Properties insertProp = new Properties();
+        System.out.println("\"" + dateTakenString + "\"");
+        System.out.println(dateTakenString.isEmpty());
 
-        insertProp.setProperty("barcode", barcodeString);
-        insertProp.setProperty("gender", genderString);
-        insertProp.setProperty("size", sizeString);
-        insertProp.setProperty("articleType", articleTypeString);
-        insertProp.setProperty("color1", color1String);
-        insertProp.setProperty("color2", color2String);
-        insertProp.setProperty("brand", brandString);
-        insertProp.setProperty("notes", notesString);
-        insertProp.setProperty("donorLastName", donorLastNameString);
-        insertProp.setProperty("donorFirstName", donorFirstNameString);
-        insertProp.setProperty("donorPhone", donorPhoneString);
-        insertProp.setProperty("donorEmail", donorEmailString);
-        insertProp.setProperty("receiverNetId", receiverNetIdString);
-        insertProp.setProperty("receiverLastName", receiverLastNameString);
-        insertProp.setProperty("receiverFirstName", receiverFirstNameString);
-        insertProp.setProperty("dateDonated", dateDonatedString);
-        insertProp.setProperty("dateTaken", dateTakenString);
+        Pattern patternPhone = Pattern.compile("^(\\d{3}[-]){2}\\d{4}$");
+        Matcher matcherPhone = patternPhone.matcher(donorPhoneString);
+
+        Pattern patternEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcherEmail = patternEmail.matcher(donorEmailString);
+
+
+
+        if (!matcherPhone.find() && !donorPhoneString.equals("")){
+            clearErrorMessage();
+            displayErrorMessage("Phone not formatted correctly");
+        }
+        else if (!matcherEmail.find() && !donorEmailString.equals("")){
+            clearErrorMessage();
+            displayErrorMessage("Email not formatted correctly");
+        }
+        else if (!isValidDate(dateDonatedString) && !dateDonatedString.equals("")){
+            clearErrorMessage();
+            displayErrorMessage("Donated date is not valid");
+        }
+        else if (dateTakenString != null && !dateTakenString.equals("") && !isValidDate(dateTakenString)){
+            clearErrorMessage();
+            displayErrorMessage("Received date is not valid");
+        }
+        else{
+            //Create properties and keys
+            Properties insertProp = new Properties();
+
+            insertProp.setProperty("barcode", barcodeString);
+            insertProp.setProperty("gender", genderString);
+            insertProp.setProperty("size", sizeString);
+            insertProp.setProperty("articleType", articleTypeString);
+            insertProp.setProperty("color1", color1String);
+            insertProp.setProperty("color2", color2String);
+            insertProp.setProperty("brand", brandString);
+            insertProp.setProperty("notes", notesString);
+            insertProp.setProperty("donorLastName", donorLastNameString);
+            insertProp.setProperty("donorFirstName", donorFirstNameString);
+            insertProp.setProperty("donorPhone", donorPhoneString);
+            insertProp.setProperty("donorEmail", donorEmailString);
+            insertProp.setProperty("receiverNetId", receiverNetIdString);
+            insertProp.setProperty("receiverLastName", receiverLastNameString);
+            insertProp.setProperty("receiverFirstName", receiverFirstNameString);
+            insertProp.setProperty("dateDonated", dateDonatedString);
+            insertProp.setProperty("dateTaken", dateTakenString);
 
 //            System.out.println(insertProp);
 
-        //Call Librarian method to create and save book
-        myModel.stateChangeRequest("ModifyInventory", insertProp);
+            //Call Librarian method to create and save book
+            myModel.stateChangeRequest("ModifyInventory", insertProp);
 
-        //Print confirmation
-        displayMessage("Inventory was updated!");
+            //Print confirmation
+            displayMessage("Inventory was updated!");
+        }
     }
 
     // Create the status log field
@@ -639,4 +672,18 @@ public class ModifyInventoryInputView extends View {
     public void clearErrorMessage() {
         statusLog.clearErrorMessage();
     }
+
+    public static boolean isValidDate(String text) {
+        if (text == null || !text.matches("\\d{4}-[01]\\d-[0-3]\\d"))
+            return false;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setLenient(false);
+        try {
+            df.parse(text);
+            return true;
+        } catch (ParseException ex) {
+            return false;
+        }
+    }
+
 }
