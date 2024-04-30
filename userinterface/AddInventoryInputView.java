@@ -81,7 +81,7 @@ public class AddInventoryInputView extends View {
         container.getChildren().add(new Label(" "));
 
         //Add Article Type page title---------------------------------------
-        Text prompt = new Text("Enter Additional Information:");
+        Text prompt = new Text("*Required Fields");
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -102,7 +102,7 @@ public class AddInventoryInputView extends View {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         //Inventory Size Label and Text Field-----------------------------
-        Text sizeLabel = new Text(" Size : ");
+        Text sizeLabel = new Text(" *Size : ");
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
         sizeLabel.setFont(myFont);
         sizeLabel.setWrappingWidth(150);
@@ -125,7 +125,7 @@ public class AddInventoryInputView extends View {
         grid.add(color2, 1, 1);
 
         //Inventory Brand Name Label and Text Field------------------------
-        Text brandLabel = new Text(" Brand Name : ");
+        Text brandLabel = new Text(" *Brand Name : ");
         brandLabel.setFont(myFont);
         brandLabel.setWrappingWidth(150);
         brandLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -147,7 +147,7 @@ public class AddInventoryInputView extends View {
         grid.add(notes, 1, 3);
 
         //Inventory Donor First Name Label and Text Field------------------------
-        Text donorFirstNameLabel = new Text(" Donor First Name : ");
+        Text donorFirstNameLabel = new Text(" *Donor First Name : ");
         donorFirstNameLabel.setFont(myFont);
         donorFirstNameLabel.setWrappingWidth(150);
         donorFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -158,7 +158,7 @@ public class AddInventoryInputView extends View {
         grid.add(donorFirstName, 1, 4);
 
         //Inventory Donor Last Name Label and Text Field------------------------
-        Text donorLastNameLabel = new Text(" Donor Last Name : ");
+        Text donorLastNameLabel = new Text(" *Donor Last Name : ");
         donorLastNameLabel.setFont(myFont);
         donorLastNameLabel.setWrappingWidth(150);
         donorLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -169,7 +169,7 @@ public class AddInventoryInputView extends View {
         grid.add(donorLastName, 1, 5);
 
         //Inventory Brand Name Label and Text Field------------------------
-        Text donorPhoneLabel = new Text(" Donor Phone Number : ");
+        Text donorPhoneLabel = new Text(" *Donor Phone Number : ");
         donorPhoneLabel.setFont(myFont);
         donorPhoneLabel.setWrappingWidth(150);
         donorPhoneLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -177,10 +177,11 @@ public class AddInventoryInputView extends View {
 
         donorPhone = new TextField();
         donorPhone.setEditable(true);
+        donorPhone.setPromptText("XXX-XXX-XXXX");
         grid.add(donorPhone, 1, 6);
 
         //Inventory Brand Name Label and Text Field------------------------
-        Text donorEmailLabel = new Text(" Donor Email : ");
+        Text donorEmailLabel = new Text(" *Donor Email : ");
         donorEmailLabel.setFont(myFont);
         donorEmailLabel.setWrappingWidth(150);
         donorEmailLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -236,7 +237,16 @@ public class AddInventoryInputView extends View {
     public void processSubmitAction(Event evt){
         //validate user input
 
-         if (size.getText().length() > 2 && !size.getText().isBlank()) {
+        if((size.getText().isEmpty() || size.getText().isBlank()) ||
+                (size.getText().isEmpty() || size.getText().isBlank()) ||
+                (brand.getText().isEmpty() || brand.getText().isBlank()) ||
+                (donorFirstName.getText().isEmpty() || donorFirstName.getText().isBlank()) ||
+                (donorLastName.getText().isEmpty() || donorLastName.getText().isBlank()) ||
+                (donorPhone.getText().isEmpty() || donorPhone.getText().isBlank()) ||
+                (donorEmail.getText().isEmpty() || donorEmail.getText().isBlank())){
+            clearErrorMessage();
+            displayErrorMessage("Error: Enter all required fields");
+        } else if (size.getText().length() > 2 && !size.getText().isBlank()) {
             clearErrorMessage();
             displayErrorMessage("Error: Size must be less than 2 characters.");
         } else if (!color2.getText().isBlank() && (color2.getText().length() > 2 || !color2.getText().matches("[0-9]+"))) {
