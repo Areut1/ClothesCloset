@@ -149,7 +149,7 @@ public class InventoryCollectionView extends View {
         sizeColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("size"));
 
-        TableColumn articleTypeColumn = new TableColumn("Article Type");
+        TableColumn articleTypeColumn = new TableColumn("Article\nType");
         //articleTypeColumn.setMinWidth(100);
         articleTypeColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("articleType"));
@@ -179,12 +179,12 @@ public class InventoryCollectionView extends View {
         statusColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("status"));
 
-        TableColumn donorLastNameColumn = new TableColumn("Donor Last Name");
+        TableColumn donorLastNameColumn = new TableColumn("Donor\nLast Name");
         //donorLastNameColumn.setMinWidth(100);
         donorLastNameColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorLastName"));
 
-        TableColumn donorFirstNameColumn = new TableColumn("Donor First Name");
+        TableColumn donorFirstNameColumn = new TableColumn("Donor\nFirst Name");
         //donorFirstNameColumn.setMinWidth(100);
         donorFirstNameColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorFirstName"));
@@ -199,7 +199,7 @@ public class InventoryCollectionView extends View {
         donorEmailColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("donorEmail"));
 
-        TableColumn dateDonatedColumn = new TableColumn("Date Donated");
+        TableColumn dateDonatedColumn = new TableColumn("Date\nDonated");
         //dateDonatedColumn.setMinWidth(100);
         dateDonatedColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryTableModel, String>("dateDonated"));
