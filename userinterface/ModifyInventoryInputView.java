@@ -47,7 +47,7 @@ public class ModifyInventoryInputView extends View {
     private TextField dateTaken;
     protected Button cancelButton;
     protected Button submitButton;
-    protected Inventory i = (Inventory)myModel.getState("Inventory");
+    protected Inventory i = (Inventory) myModel.getState("Inventory");
 
     private ArticleTypeCollection atCol;
     private ColorCollection cCol;
@@ -65,13 +65,18 @@ public class ModifyInventoryInputView extends View {
 
     String barcodeSubmit;
 
+    // To access their values elsewhere
+    String articleTypeBarcode;
+    String primaryColorBarcode;
+    String secondaryColorBarcode;
+    String genderBarcode;
+
     // For showing error message
     protected MessageView statusLog;
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public ModifyInventoryInputView(IModel clerk)
-    {
+    public ModifyInventoryInputView(IModel clerk) {
         super(clerk, "ModifyInventoryInputView");
 
         // create a container for showing the contents
@@ -99,8 +104,7 @@ public class ModifyInventoryInputView extends View {
 
     // Create the title container
     //-------------------------------------------------------------
-    private Node createTitle()
-    {
+    private Node createTitle() {
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
@@ -113,7 +117,7 @@ public class ModifyInventoryInputView extends View {
 
         container.getChildren().add(new Label(" "));
 
-        barcodeText = new Text("...DEFAULT...this gets updated later..." );
+        barcodeText = new Text("...DEFAULT...this gets updated later...");
         barcodeText.setWrappingWidth(350);
         barcodeText.setTextAlignment(TextAlignment.CENTER);
         barcodeText.setFill(Color.BLACK);
@@ -125,8 +129,7 @@ public class ModifyInventoryInputView extends View {
 
     // Create the main form content
     //-------------------------------------------------------------
-    private VBox createFormContent()
-    {
+    private VBox createFormContent() {
         VBox vbox = new VBox(10);
 
         GridPane grid = new GridPane();
@@ -213,6 +216,11 @@ public class ModifyInventoryInputView extends View {
 
         secondaryColorComboBox = new ComboBox<>();
         secondaryColorComboBox.setMinSize(100, 20);
+
+        // Add a listener, so we can monitor the new secondary color as the selection changes
+        secondaryColorComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            secondaryColorBarcode = getBarcodeFromMapping(primaryColorBarcodeMapping, newValue);
+        });
 
         grid.add(secondaryColorComboBox, 1, 5);
 
@@ -334,7 +342,7 @@ public class ModifyInventoryInputView extends View {
         //Submit Button---------------------------------
         submitButton = new Button("Submit");
         submitButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        submitButton.setOnAction(new EventHandler<ActionEvent>(){
+        submitButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
@@ -367,9 +375,9 @@ public class ModifyInventoryInputView extends View {
     private void updateBarcodeFromFields(String articleType, String primaryColor, String gender) {
         // Update the barcode text with new information.
 
-        String articleTypeBarcode = getBarcodeFromMapping(articleTypeBarcodeMapping, articleType);
-        String primaryColorBarcode = getBarcodeFromMapping(primaryColorBarcodeMapping, primaryColor);
-        String genderBarcode = getBarcodeFromMapping(genderBarcodeMapping, gender);
+        articleTypeBarcode = getBarcodeFromMapping(articleTypeBarcodeMapping, articleType);
+        primaryColorBarcode = getBarcodeFromMapping(primaryColorBarcodeMapping, primaryColor);
+        genderBarcode = getBarcodeFromMapping(genderBarcodeMapping, gender);
 
         if (articleTypeBarcode.length() == 1)
             articleTypeBarcode = "0" + articleTypeBarcode;
@@ -396,6 +404,7 @@ public class ModifyInventoryInputView extends View {
         barcodeSubmit = barcodeWithID;
         clearErrorMessage();
     }
+
     //---------------------------------------------------------------
     public static String getBarcodeFromMapping(Properties props, String name) {
         // Get the key (barcode) of propValues at name
@@ -420,7 +429,7 @@ public class ModifyInventoryInputView extends View {
         for (int i = 0; i < atCol.size(); i++) {
             articleTypeBarcodeMapping.setProperty(atCol.get(i).getValue("barcodePrefix"), atCol.get(i).getValue("description"));
         }
-        for (int i = 0; i < cCol.size(); i++){
+        for (int i = 0; i < cCol.size(); i++) {
             primaryColorBarcodeMapping.setProperty(cCol.get(i).getValue("barcodePrefix"), cCol.get(i).getValue("description"));
         }
 
@@ -485,8 +494,7 @@ public class ModifyInventoryInputView extends View {
             } else if (primaryColorPick == null) {
                 throw new Exception("bad-primary-color");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("ERROR! " + e.getMessage());
 
             if (e.getMessage().equals("bad-gender")) {
@@ -502,7 +510,6 @@ public class ModifyInventoryInputView extends View {
     }
 
 
-
     //--------------------------------------------------------------------------------------------
     /*processAction
      * On submit button click, method will set up properties object with values taken from
@@ -511,69 +518,53 @@ public class ModifyInventoryInputView extends View {
      * Calls the Color's constructor and insert method.
      */
     public void processSubmitAction(Event evt) {
-        //validate user input
-            //Convert properties to string
-//            String genderString = "" + gender.getText();
-            String sizeString = "" + size.getText();
-//            String articleTypeString = "" + articleType.getText();
-//            String color1String = "" + color1.getText();
-//            String color2String = "" + color2.getText();
-            String brandString = "" + brand.getText();
-            String notesString = "" + notes.getText();
-            String donorLastNameString = "" + donorLastName.getText();
-            String donorFirstNameString = "" + donorFirstName.getText();
-            String donorPhoneString = "" + donorPhone.getText();
-            String donorEmailString = "" + donorEmail.getText();
-            String receiverNetIdString = "" + receiverNetId.getText();
-            String receiverLastNameString = "" + receiverLastName.getText();
-            String receiverFirstNameString = "" + receiverFirstName.getText();
-            String dateDonatedString = "" + dateDonated.getText();
-            String dateTakenString = "" + dateTaken.getText();
+        String barcodeString = barcodeSubmit;
+        String genderString = genderBarcode;
+        String color1String = primaryColorBarcode;
+        String color2String = secondaryColorBarcode;
+        String articleTypeString = articleTypeBarcode;
 
-            //Create properties and keys
-            Properties insertProp = new Properties();
+        String sizeString = "" + size.getText();
+        String brandString = "" + brand.getText();
+        String notesString = "" + notes.getText();
+        String donorLastNameString = "" + donorLastName.getText();
+        String donorFirstNameString = "" + donorFirstName.getText();
+        String donorPhoneString = "" + donorPhone.getText();
+        String donorEmailString = "" + donorEmail.getText();
+        String receiverNetIdString = "" + receiverNetId.getText();
+        String receiverLastNameString = "" + receiverLastName.getText();
+        String receiverFirstNameString = "" + receiverFirstName.getText();
+        String dateDonatedString = "" + dateDonated.getText();
+        String dateTakenString = "" + dateTaken.getText();
 
-//            String barcodeString52 = genderString + articleTypeString + color1String;
-//            String barcodeString2;
-//
-//            String barcodeOld5 = i.oldBarcode.substring(0,5);
-////            System.out.println(barcodeOld5);
-//
-//            if (!barcodeString52.equals(barcodeOld5)){
-//                myModel.stateChangeRequest("GetID", barcodeString52);
-//                barcodeString2 = barcodeString52 + myModel.getState("ID");
-//            }
-//            else{
-//                barcodeString2 = i.oldBarcode;
-//            }
+        //Create properties and keys
+        Properties insertProp = new Properties();
 
-
-//            insertProp.setProperty("barcode", barcodeString2);
-//            insertProp.setProperty("gender", genderString);
-            insertProp.setProperty("size", sizeString);
-//            insertProp.setProperty("articleType", articleTypeString);
-//            insertProp.setProperty("color1", color1String);
-//            insertProp.setProperty("color2", color2String);
-            insertProp.setProperty("brand", brandString);
-            insertProp.setProperty("notes", notesString);
-            insertProp.setProperty("donorLastName", donorLastNameString);
-            insertProp.setProperty("donorFirstName", donorFirstNameString);
-            insertProp.setProperty("donorPhone", donorPhoneString);
-            insertProp.setProperty("donorEmail", donorEmailString);
-            insertProp.setProperty("receiverNetId", receiverNetIdString);
-            insertProp.setProperty("receiverLastName", receiverLastNameString);
-            insertProp.setProperty("receiverFirstName", receiverFirstNameString);
-            insertProp.setProperty("dateDonated", dateDonatedString);
-            insertProp.setProperty("dateTaken", dateTakenString);
+        insertProp.setProperty("barcode", barcodeString);
+        insertProp.setProperty("gender", genderString);
+        insertProp.setProperty("size", sizeString);
+        insertProp.setProperty("articleType", articleTypeString);
+        insertProp.setProperty("color1", color1String);
+        insertProp.setProperty("color2", color2String);
+        insertProp.setProperty("brand", brandString);
+        insertProp.setProperty("notes", notesString);
+        insertProp.setProperty("donorLastName", donorLastNameString);
+        insertProp.setProperty("donorFirstName", donorFirstNameString);
+        insertProp.setProperty("donorPhone", donorPhoneString);
+        insertProp.setProperty("donorEmail", donorEmailString);
+        insertProp.setProperty("receiverNetId", receiverNetIdString);
+        insertProp.setProperty("receiverLastName", receiverLastNameString);
+        insertProp.setProperty("receiverFirstName", receiverFirstNameString);
+        insertProp.setProperty("dateDonated", dateDonatedString);
+        insertProp.setProperty("dateTaken", dateTakenString);
 
 //            System.out.println(insertProp);
 
-            //Call Librarian method to create and save book
-            myModel.stateChangeRequest("ModifyInventory", insertProp);
+        //Call Librarian method to create and save book
+        myModel.stateChangeRequest("ModifyInventory", insertProp);
 
-            //Print confirmation
-            displayMessage("Inventory was updated!");
-//        }
+        //Print confirmation
+        displayMessage("Inventory was updated!");
     }
 
     // Create the status log field
@@ -612,22 +603,19 @@ public class ModifyInventoryInputView extends View {
 //        }
 
 
-
-
-
 //        gender.setText((String)i.getValue("gender"));
-        size.setText((String)i.getValue("size"));
-        brand.setText((String)i.getValue("brand"));
-        notes.setText((String)i.getValue("notes"));
-        donorLastName.setText((String)i.getValue("donorLastName"));
-        donorFirstName.setText((String)i.getValue("donorFirstName"));
-        donorPhone.setText((String)i.getValue("donorPhone"));
-        donorEmail.setText((String)i.getValue("donorEmail"));
-        receiverNetId.setText((String)i.getValue("receiverNetId"));
-        receiverLastName.setText((String)i.getValue("receiverLastName"));
-        receiverFirstName.setText((String)i.getValue("receiverFirstName"));
-        dateDonated.setText((String)i.getValue("dateDonated"));
-        dateTaken.setText((String)i.getValue("dateTaken"));
+        size.setText((String) i.getValue("size"));
+        brand.setText((String) i.getValue("brand"));
+        notes.setText((String) i.getValue("notes"));
+        donorLastName.setText((String) i.getValue("donorLastName"));
+        donorFirstName.setText((String) i.getValue("donorFirstName"));
+        donorPhone.setText((String) i.getValue("donorPhone"));
+        donorEmail.setText((String) i.getValue("donorEmail"));
+        receiverNetId.setText((String) i.getValue("receiverNetId"));
+        receiverLastName.setText((String) i.getValue("receiverLastName"));
+        receiverFirstName.setText((String) i.getValue("receiverFirstName"));
+        dateDonated.setText((String) i.getValue("dateDonated"));
+        dateTaken.setText((String) i.getValue("dateTaken"));
     }
 
     /**
@@ -636,10 +624,10 @@ public class ModifyInventoryInputView extends View {
     //---------------------------------------------------------
     public void updateState(String key, Object value) {
         clearErrorMessage();
-        String temp = ((String)value);
+        String temp = ((String) value);
 
         if (key.equals("inventoryMessage") == true) {
-            String val = (String)value;
+            String val = (String) value;
             //serviceCharge.setText(val);
             displayMessage(val);
         }
@@ -649,8 +637,7 @@ public class ModifyInventoryInputView extends View {
      * Display error message
      */
     //----------------------------------------------------------
-    public void displayErrorMessage(String message)
-    {
+    public void displayErrorMessage(String message) {
         statusLog.displayErrorMessage(message);
     }
 
@@ -658,8 +645,7 @@ public class ModifyInventoryInputView extends View {
      * Display info message
      */
     //----------------------------------------------------------
-    public void displayMessage(String message)
-    {
+    public void displayMessage(String message) {
         statusLog.displayMessage(message);
     }
 
@@ -667,8 +653,7 @@ public class ModifyInventoryInputView extends View {
      * Clear error message
      */
     //----------------------------------------------------------
-    public void clearErrorMessage()
-    {
+    public void clearErrorMessage() {
         statusLog.clearErrorMessage();
     }
 }
