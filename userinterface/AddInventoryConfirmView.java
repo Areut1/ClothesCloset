@@ -225,13 +225,6 @@ public class AddInventoryConfirmView extends View {
             return;
         }
 
-//        // Checking to set the ID for this barcode
-//        Properties checkIdBarcodeInformation = new Properties();
-//        checkIdBarcodeInformation.setProperty("gender", genderBarcode);
-//        checkIdBarcodeInformation.setProperty("articleType", articleTypeBarcode);
-//        checkIdBarcodeInformation.setProperty("color1", primaryColorBarcode);
-
-
         // Retrieve the ID
         String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
         myModel.stateChangeRequest("GetID", barcode);
