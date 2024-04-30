@@ -1,6 +1,8 @@
 package userinterface;
 
 import impresario.IModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -8,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,8 +20,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.ArticleTypeCollection;
+import model.ColorCollection;
 import model.Inventory;
+import model.InventoryCollection;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class ModifyInventoryInputView extends View {
@@ -42,6 +51,21 @@ public class ModifyInventoryInputView extends View {
     protected Button cancelButton;
     protected Button submitButton;
     protected Inventory i = (Inventory)myModel.getState("Inventory");
+
+    private ArticleTypeCollection atCol;
+    private ColorCollection cCol;
+    private InventoryCollection iCol;
+    // GUI Components
+    protected ComboBox<String> genderComboBox;
+    protected ComboBox<String> articleTypeComboBox;
+    protected ComboBox<String> primaryColorComboBox;
+    protected Text barcodeText;
+    // Properties object containing all the barcode mappings
+    public Properties genderBarcodeMapping;
+    public Properties articleTypeBarcodeMapping;
+    public Properties primaryColorBarcodeMapping;
+
+    String barcodeSubmit;
 
     // For showing error message
     protected MessageView statusLog;
@@ -308,6 +332,142 @@ public class ModifyInventoryInputView extends View {
 
         return vbox;
     }
+
+    private void updateBarcodeFromFields(String articleType, String primaryColor, String gender) {
+        // Update the barcode text with new information.
+
+        String articleTypeBarcode = getBarcodeFromMapping(articleTypeBarcodeMapping, articleType);
+        String primaryColorBarcode = getBarcodeFromMapping(primaryColorBarcodeMapping, primaryColor);
+        String genderBarcode = getBarcodeFromMapping(genderBarcodeMapping, gender);
+
+        if (articleTypeBarcode.length() == 1)
+            articleTypeBarcode = "0" + articleTypeBarcode;
+        if (primaryColorBarcode.length() == 1)
+            primaryColorBarcode = "0" + primaryColorBarcode;
+
+        if (articleTypeBarcode.equals("-1") || primaryColorBarcode.equals("-1") || genderBarcode.equals("-1")) {
+            Properties barcode2 = (Properties) myModel.getState("Barcode");
+            String genderBarcode2 = barcode2.getProperty("gender");
+            String articleTypeBarcode2 = barcode2.getProperty("articleType");
+            String primaryColorBarcode2 = barcode2.getProperty("color1");
+            String idBarcode2 = barcode2.getProperty("id");
+
+            barcodeText.setText("The Inserted Barcode is: " + genderBarcode2 + articleTypeBarcode2 + primaryColorBarcode2 + idBarcode2);
+            return;
+        }
+
+        // Retrieve the ID
+        String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
+        myModel.stateChangeRequest("GetID", barcode);
+        String barcodeWithID = barcode + (String) myModel.getState("ID");
+
+        barcodeText.setText("The New Barcode is: " + barcodeWithID);
+        barcodeSubmit = barcodeWithID;
+        clearErrorMessage();
+    }
+    //---------------------------------------------------------------
+    public static String getBarcodeFromMapping(Properties props, String name) {
+        // Get the key (barcode) of propValues at name
+        for (Map.Entry<Object, Object> entry : props.entrySet()) {
+            if (entry.getValue().equals(name))
+                return (String) entry.getKey();
+        }
+        return "-1";
+    }
+
+
+    private void initBarcodeMappings() {
+        // Get the tables
+        atCol = (ArticleTypeCollection) myModel.getState("ArticleTypeList");
+        cCol = (ColorCollection) myModel.getState("ColorList");
+
+        articleTypeBarcodeMapping = new Properties();
+        primaryColorBarcodeMapping = new Properties();
+        genderBarcodeMapping = new Properties();
+
+        // Loop over and get the barcodes.
+        for (int i = 0; i < atCol.size(); i++) {
+            articleTypeBarcodeMapping.setProperty(atCol.get(i).getValue("barcodePrefix"), atCol.get(i).getValue("description"));
+        }
+        for (int i = 0; i < cCol.size(); i++){
+            primaryColorBarcodeMapping.setProperty(cCol.get(i).getValue("barcodePrefix"), cCol.get(i).getValue("description"));
+        }
+
+        genderBarcodeMapping.setProperty("0", "Male");
+        genderBarcodeMapping.setProperty("1", "Female");
+
+
+        // SET ARTICLE TYPE COMBO BOX FIELDS
+        List<String> values = new ArrayList<>();
+        for (Object value : articleTypeBarcodeMapping.values()) {
+            values.add((String) value);
+        }
+        ObservableList<String> articleTypes = FXCollections.observableList(values);
+        articleTypeComboBox.setItems(articleTypes);
+
+        // SET GENDER BARCODE TYPE COMBO BOX FIELDS
+        values = new ArrayList<>();
+        for (Object value : genderBarcodeMapping.values()) {
+            values.add((String) value);
+        }
+        ObservableList<String> genderTypes = FXCollections.observableList(values);
+        genderComboBox.setItems(genderTypes);
+
+        // SET PRIMARY COLOR BARCODE COMBO BOX FIELDS
+        values = new ArrayList<>();
+        for (Object value : primaryColorBarcodeMapping.values()) {
+            values.add((String) value);
+        }
+        ObservableList<String> primaryColors = FXCollections.observableList(values);
+        primaryColorComboBox.setItems(primaryColors);
+
+
+        // Selecting the items according to inserted barcode
+        Properties barcode = (Properties) myModel.getState("Barcode");
+        String genderBarcode = barcode.getProperty("gender");
+        String articleTypeBarcode = barcode.getProperty("articleType");
+        String primaryColorBarcode = barcode.getProperty("color1");
+        String idBarcode = barcode.getProperty("id");
+
+        articleTypeBarcode = Integer.toString(Integer.parseInt(articleTypeBarcode));
+        primaryColorBarcode = Integer.toString(Integer.parseInt(primaryColorBarcode));
+
+        barcodeText.setText("The Inserted Barcode is: " + genderBarcode + articleTypeBarcode + primaryColorBarcode + idBarcode);
+        barcodeSubmit = genderBarcode + articleTypeBarcode + primaryColorBarcode + idBarcode;
+
+        try {
+            String genderPick = (String) genderBarcodeMapping.get(genderBarcode);
+            String articleTypePick = (String) articleTypeBarcodeMapping.get(articleTypeBarcode);
+            String primaryColorPick = (String) primaryColorBarcodeMapping.get(primaryColorBarcode);
+
+            genderComboBox.setValue(genderPick);
+            articleTypeComboBox.setValue(articleTypePick);
+            primaryColorComboBox.setValue(primaryColorPick);
+
+            if (genderPick == null) {
+                throw new Exception("bad-gender");
+            } else if (articleTypePick == null) {
+                throw new Exception("bad-article-type");
+            } else if (primaryColorPick == null) {
+                throw new Exception("bad-primary-color");
+            }
+        }
+        catch (Exception e) {
+            System.out.println("ERROR! " + e.getMessage());
+
+            if (e.getMessage().equals("bad-gender")) {
+                displayErrorMessage("Invalid gender from barcode!");
+            } else if (e.getMessage().equals("bad-article-type")) {
+                displayErrorMessage("Invalid article type from barcode!");
+            } else if (e.getMessage().equals("bad-primary-color")) {
+                displayErrorMessage("Invalid primary color from barcode!");
+            } else {
+                displayErrorMessage("Uh oh.. An error occurred!");
+            }
+        }
+    }
+
+
 
     //--------------------------------------------------------------------------------------------
     /*processAction
