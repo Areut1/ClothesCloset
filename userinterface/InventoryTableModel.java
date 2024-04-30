@@ -34,7 +34,7 @@ public class InventoryTableModel {
         donorFirstName = new SimpleStringProperty(inventoryData.elementAt(10));
         donorPhone = new SimpleStringProperty(inventoryData.elementAt(11));
         donorEmail = new SimpleStringProperty(inventoryData.elementAt(12));
-        dateDonated = new SimpleStringProperty(inventoryData.elementAt(13));
+        dateDonated = new SimpleStringProperty(inventoryData.elementAt(16));
     }
     //----------------------------------------------------------------------------
     public String getBarcode() {
