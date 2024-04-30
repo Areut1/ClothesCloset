@@ -546,7 +546,7 @@ public class ModifyInventoryInputView extends View {
         System.out.println("\"" + dateTakenString + "\"");
         System.out.println(dateTakenString.isEmpty());
 
-        Pattern patternPhone = Pattern.compile("^(\\d{3}[-]){2}\\d{4}$");
+        Pattern patternPhone = Pattern.compile("^(\\d{3}-){2}\\d{4}$");
         Matcher matcherPhone = patternPhone.matcher(donorPhoneString);
 
         Pattern patternEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
