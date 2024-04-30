@@ -175,6 +175,9 @@ public class ReceiverInfoInputView extends View {
         if (receiverNetId.getText() == null || receiverLastName.getText() == null || receiverFirstName.getText() == null) {
             clearErrorMessage();
             displayErrorMessage("Please completely fill in all fields");
+        } else if (receiverNetId.getText().isBlank() || receiverLastName.getText().isBlank() || receiverFirstName.getText().isBlank()) {
+            clearErrorMessage();
+            displayErrorMessage("Please enter valid fields");
         } else {
 
             // Convert properties to string
