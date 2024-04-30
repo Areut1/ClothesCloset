@@ -384,7 +384,7 @@ public class ModifyInventoryInputView extends View {
         if (primaryColorBarcode.length() == 1)
             primaryColorBarcode = "0" + primaryColorBarcode;
 
-        if (articleTypeBarcode.equals("-1") || primaryColorBarcode.equals("-1") || genderBarcode.equals("-1")) {
+        if (articleTypeBarcode.isEmpty() || primaryColorBarcode.isEmpty() || genderBarcode.isEmpty()) {
             Properties barcode2 = (Properties) myModel.getState("Barcode");
             String genderBarcode2 = barcode2.getProperty("gender");
             String articleTypeBarcode2 = barcode2.getProperty("articleType");
@@ -412,7 +412,7 @@ public class ModifyInventoryInputView extends View {
             if (entry.getValue().equals(name))
                 return (String) entry.getKey();
         }
-        return "-1";
+        return "";
     }
 
 
@@ -461,6 +461,7 @@ public class ModifyInventoryInputView extends View {
         ObservableList<String> primaryColors = FXCollections.observableList(values);
         primaryColorComboBox.setItems(primaryColors);
 
+        values.add("");
         ObservableList<String> secondaryColors = FXCollections.observableList(values);
         secondaryColorComboBox.setItems(secondaryColors);
 
@@ -482,6 +483,7 @@ public class ModifyInventoryInputView extends View {
             String genderPick = (String) genderBarcodeMapping.get(genderBarcode);
             String articleTypePick = (String) articleTypeBarcodeMapping.get(articleTypeBarcode);
             String primaryColorPick = (String) primaryColorBarcodeMapping.get(primaryColorBarcode);
+
 
             genderComboBox.setValue(genderPick);
             articleTypeComboBox.setValue(articleTypePick);
@@ -578,32 +580,13 @@ public class ModifyInventoryInputView extends View {
     //-------------------------------------------------------------
     public void populateFields() {
 
-//        if (i.getValue("color2") == null){
-//            color2.setText("");
-//        } else if (i.getValue("color2").length() == 1) {
-//            color2.setText("0" + (String) i.getValue("color2"));
-//        } else if (i.getValue("color2").length() == 2) {
-//            color2.setText((String) i.getValue("color2"));
-//        }
-//
-//        if (i.getValue("color1") == null){
-//            color1.setText("");
-//        } else if (i.getValue("color1").length() == 1) {
-//            color1.setText("0" + (String) i.getValue("color1"));
-//        } else if (i.getValue("color1").length() == 2) {
-//            color1.setText((String) i.getValue("color1"));
-//        }
-//
-//        if (i.getValue("articleType") == null){
-//            articleType.setText("");
-//        } else if (i.getValue("articleType").length() == 1) {
-//            articleType.setText("0" + (String) i.getValue("articleType"));
-//        } else if (i.getValue("articleType").length() == 2) {
-//            articleType.setText((String) i.getValue("articleType"));
-//        }
+//        System.out.println("color2 is: " + (String) i.getValue("color2"));
+//        System.out.println("is color2 empty? " + ((String) i.getValue("color2")).isEmpty());
 
-
-//        gender.setText((String)i.getValue("gender"));
+        if ((String) i.getValue("color2") == null)
+            secondaryColorComboBox.setValue("");
+        else
+            secondaryColorComboBox.setValue((String) i.getValue("color2"));
         size.setText((String) i.getValue("size"));
         brand.setText((String) i.getValue("brand"));
         notes.setText((String) i.getValue("notes"));
@@ -626,7 +609,7 @@ public class ModifyInventoryInputView extends View {
         clearErrorMessage();
         String temp = ((String) value);
 
-        if (key.equals("inventoryMessage") == true) {
+        if (key.equals("inventoryMessage")) {
             String val = (String) value;
             //serviceCharge.setText(val);
             displayMessage(val);
