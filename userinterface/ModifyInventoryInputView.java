@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -110,6 +111,15 @@ public class ModifyInventoryInputView extends View {
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
         container.getChildren().add(titleText);
+
+        container.getChildren().add(new Label(" "));
+
+        barcodeText = new Text("...DEFAULT...this gets updated later..." );
+        barcodeText.setWrappingWidth(350);
+        barcodeText.setTextAlignment(TextAlignment.CENTER);
+        barcodeText.setFill(Color.BLACK);
+        //grid.add(barcodeText, 0, 1);
+        container.getChildren().add(barcodeText);
 
         return container;
     }
