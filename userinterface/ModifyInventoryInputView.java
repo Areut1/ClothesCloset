@@ -33,11 +33,7 @@ import java.util.Properties;
 
 public class ModifyInventoryInputView extends View {
     // GUI components
-    private TextField gender;
     private TextField size;
-    private TextField articleType;
-    private TextField color1;
-    private TextField color2;
     private TextField brand;
     private TextField notes;
     private TextField donorLastName;
@@ -517,11 +513,11 @@ public class ModifyInventoryInputView extends View {
     public void processSubmitAction(Event evt) {
         //validate user input
             //Convert properties to string
-            String genderString = "" + gender.getText();
+//            String genderString = "" + gender.getText();
             String sizeString = "" + size.getText();
-            String articleTypeString = "" + articleType.getText();
-            String color1String = "" + color1.getText();
-            String color2String = "" + color2.getText();
+//            String articleTypeString = "" + articleType.getText();
+//            String color1String = "" + color1.getText();
+//            String color2String = "" + color2.getText();
             String brandString = "" + brand.getText();
             String notesString = "" + notes.getText();
             String donorLastNameString = "" + donorLastName.getText();
@@ -537,27 +533,27 @@ public class ModifyInventoryInputView extends View {
             //Create properties and keys
             Properties insertProp = new Properties();
 
-            String barcodeString52 = genderString + articleTypeString + color1String;
-            String barcodeString2;
+//            String barcodeString52 = genderString + articleTypeString + color1String;
+//            String barcodeString2;
+//
+//            String barcodeOld5 = i.oldBarcode.substring(0,5);
+////            System.out.println(barcodeOld5);
+//
+//            if (!barcodeString52.equals(barcodeOld5)){
+//                myModel.stateChangeRequest("GetID", barcodeString52);
+//                barcodeString2 = barcodeString52 + myModel.getState("ID");
+//            }
+//            else{
+//                barcodeString2 = i.oldBarcode;
+//            }
 
-            String barcodeOld5 = i.oldBarcode.substring(0,5);
-//            System.out.println(barcodeOld5);
 
-            if (!barcodeString52.equals(barcodeOld5)){
-                myModel.stateChangeRequest("GetID", barcodeString52);
-                barcodeString2 = barcodeString52 + myModel.getState("ID");
-            }
-            else{
-                barcodeString2 = i.oldBarcode;
-            }
-
-
-            insertProp.setProperty("barcode", barcodeString2);
-            insertProp.setProperty("gender", genderString);
+//            insertProp.setProperty("barcode", barcodeString2);
+//            insertProp.setProperty("gender", genderString);
             insertProp.setProperty("size", sizeString);
-            insertProp.setProperty("articleType", articleTypeString);
-            insertProp.setProperty("color1", color1String);
-            insertProp.setProperty("color2", color2String);
+//            insertProp.setProperty("articleType", articleTypeString);
+//            insertProp.setProperty("color1", color1String);
+//            insertProp.setProperty("color2", color2String);
             insertProp.setProperty("brand", brandString);
             insertProp.setProperty("notes", notesString);
             insertProp.setProperty("donorLastName", donorLastNameString);
