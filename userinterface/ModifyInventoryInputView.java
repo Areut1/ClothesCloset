@@ -60,6 +60,7 @@ public class ModifyInventoryInputView extends View {
     protected ComboBox<String> genderComboBox;
     protected ComboBox<String> articleTypeComboBox;
     protected ComboBox<String> primaryColorComboBox;
+    protected ComboBox<String> secondaryColorComboBox;
     protected Text barcodeText;
     // Properties object containing all the barcode mappings
     public Properties genderBarcodeMapping;
@@ -90,6 +91,8 @@ public class ModifyInventoryInputView extends View {
         container.getChildren().add(createStatusLog("             "));
 
         getChildren().add(container);
+
+        initBarcodeMappings();
 
         populateFields();
 
@@ -151,9 +154,16 @@ public class ModifyInventoryInputView extends View {
         genderLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(genderLabel, 0, 1);
 
-        gender = new TextField();
-        gender.setEditable(true);
-        grid.add(gender, 1, 1);
+        ObservableList<String> data = FXCollections.observableArrayList("Active", "Inactive");
+        genderComboBox = new ComboBox<>(data);
+        genderComboBox.setMinSize(100, 20);
+
+        // Add a listener, so we can monitor the new barcode as the selection changes
+        genderComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            // Update barcode with new gender
+            updateBarcodeFromFields(articleTypeComboBox.getValue(), primaryColorComboBox.getValue(), newValue);
+        });
+        grid.add(genderComboBox, 1, 1);
 
         Text sizeLabel = new Text(" Size : ");
         sizeLabel.setFont(myFont);
@@ -171,9 +181,16 @@ public class ModifyInventoryInputView extends View {
         articleTypeLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(articleTypeLabel, 0, 3);
 
-        articleType = new TextField();
-        articleType.setEditable(true);
-        grid.add(articleType, 1, 3);
+        articleTypeComboBox = new ComboBox<>();
+        articleTypeComboBox.setMinSize(100, 20);
+
+        // Add a listener, so we can monitor the new barcode as the selection changes
+        articleTypeComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            // Update barcode with new article type
+            updateBarcodeFromFields(newValue, primaryColorComboBox.getValue(), genderComboBox.getValue());
+        });
+
+        grid.add(articleTypeComboBox, 1, 3);
 
         Text color1Label = new Text(" Color 1 : ");
         color1Label.setFont(myFont);
@@ -181,9 +198,16 @@ public class ModifyInventoryInputView extends View {
         color1Label.setTextAlignment(TextAlignment.RIGHT);
         grid.add(color1Label, 0, 4);
 
-        color1 = new TextField();
-        color1.setEditable(true);
-        grid.add(color1, 1, 4);
+        primaryColorComboBox = new ComboBox<>();
+        primaryColorComboBox.setMinSize(100, 20);
+
+        // Add a listener, so we can monitor the new barcode as the selection changes
+        primaryColorComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            // Update barcode with new primary color
+            updateBarcodeFromFields(articleTypeComboBox.getValue(), newValue, genderComboBox.getValue());
+        });
+
+        grid.add(primaryColorComboBox, 1, 4);
 
         Text color2Label = new Text(" Color 2 : ");
         color2Label.setFont(myFont);
@@ -191,9 +215,10 @@ public class ModifyInventoryInputView extends View {
         color2Label.setTextAlignment(TextAlignment.RIGHT);
         grid.add(color2Label, 0, 5);
 
-        color2 = new TextField();
-        color2.setEditable(true);
-        grid.add(color2, 1, 5);
+        secondaryColorComboBox = new ComboBox<>();
+        secondaryColorComboBox.setMinSize(100, 20);
+
+        grid.add(secondaryColorComboBox, 1, 5);
 
         Text brandLabel = new Text(" Brand : ");
         brandLabel.setFont(myFont);
@@ -431,6 +456,9 @@ public class ModifyInventoryInputView extends View {
         ObservableList<String> primaryColors = FXCollections.observableList(values);
         primaryColorComboBox.setItems(primaryColors);
 
+        ObservableList<String> secondaryColors = FXCollections.observableList(values);
+        secondaryColorComboBox.setItems(secondaryColors);
+
 
         // Selecting the items according to inserted barcode
         Properties barcode = (Properties) myModel.getState("Barcode");
@@ -488,15 +516,6 @@ public class ModifyInventoryInputView extends View {
      */
     public void processSubmitAction(Event evt) {
         //validate user input
-//        if (gender.getText() == null || size.getText() == null || articleType.getText() == null ||
-//            color1.getText() == null || color2.getText() == null || brand.getText() == null ||
-//            donorLastName.getText() == null || donorFirstName.getText() == null ||
-//            donorPhone.getText() == null || donorEmail.getText() == null || receiverNetId.getText() == null ||
-//            receiverFirstName.getText() == null || receiverLastName.getText() == null || dateDonated.getText() == null ||
-//            dateTaken.getText() == null) {
-//            clearErrorMessage();
-//            displayErrorMessage("Please completly fill in all fields");
-//        } else {
             //Convert properties to string
             String genderString = "" + gender.getText();
             String sizeString = "" + size.getText();
@@ -572,35 +591,35 @@ public class ModifyInventoryInputView extends View {
     //-------------------------------------------------------------
     public void populateFields() {
 
-        if (i.getValue("color2") == null){
-            color2.setText("");
-        } else if (i.getValue("color2").length() == 1) {
-            color2.setText("0" + (String) i.getValue("color2"));
-        } else if (i.getValue("color2").length() == 2) {
-            color2.setText((String) i.getValue("color2"));
-        }
-
-        if (i.getValue("color1") == null){
-            color1.setText("");
-        } else if (i.getValue("color1").length() == 1) {
-            color1.setText("0" + (String) i.getValue("color1"));
-        } else if (i.getValue("color1").length() == 2) {
-            color1.setText((String) i.getValue("color1"));
-        }
-
-        if (i.getValue("articleType") == null){
-            articleType.setText("");
-        } else if (i.getValue("articleType").length() == 1) {
-            articleType.setText("0" + (String) i.getValue("articleType"));
-        } else if (i.getValue("articleType").length() == 2) {
-            articleType.setText((String) i.getValue("articleType"));
-        }
-
-
+//        if (i.getValue("color2") == null){
+//            color2.setText("");
+//        } else if (i.getValue("color2").length() == 1) {
+//            color2.setText("0" + (String) i.getValue("color2"));
+//        } else if (i.getValue("color2").length() == 2) {
+//            color2.setText((String) i.getValue("color2"));
+//        }
+//
+//        if (i.getValue("color1") == null){
+//            color1.setText("");
+//        } else if (i.getValue("color1").length() == 1) {
+//            color1.setText("0" + (String) i.getValue("color1"));
+//        } else if (i.getValue("color1").length() == 2) {
+//            color1.setText((String) i.getValue("color1"));
+//        }
+//
+//        if (i.getValue("articleType") == null){
+//            articleType.setText("");
+//        } else if (i.getValue("articleType").length() == 1) {
+//            articleType.setText("0" + (String) i.getValue("articleType"));
+//        } else if (i.getValue("articleType").length() == 2) {
+//            articleType.setText((String) i.getValue("articleType"));
+//        }
 
 
 
-        gender.setText((String)i.getValue("gender"));
+
+
+//        gender.setText((String)i.getValue("gender"));
         size.setText((String)i.getValue("size"));
         brand.setText((String)i.getValue("brand"));
         notes.setText((String)i.getValue("notes"));
