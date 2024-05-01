@@ -400,13 +400,20 @@ public class ModifyInventoryInputView extends View {
         }
 
         // Retrieve the ID
-        String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
-        myModel.stateChangeRequest("GetID", barcode);
-        String barcodeWithID = barcode + (String) myModel.getState("ID");
 
-        barcodeText.setText("The New Barcode is: " + barcodeWithID);
-        barcodeSubmit = barcodeWithID;
-        clearErrorMessage();
+        String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
+        if(!i.oldBarcode.substring(0, 5).equals(barcode)){
+            myModel.stateChangeRequest("GetID", barcode);
+            String barcodeWithID = barcode + (String) myModel.getState("ID");
+
+            barcodeText.setText("The New Barcode is: " + barcodeWithID);
+            barcodeSubmit = barcodeWithID;
+            clearErrorMessage();
+        }
+        else{
+            barcodeSubmit = i.oldBarcode;
+        }
+
     }
 
     //---------------------------------------------------------------
