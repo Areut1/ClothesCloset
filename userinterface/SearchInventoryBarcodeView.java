@@ -179,7 +179,7 @@ public class SearchInventoryBarcodeView extends View{
                 displayErrorMessage("Barcode does not exist");
             }
             else {
-                if (transaction.equals("CheckOut")){
+                if (transaction.equals("CheckOut") || transaction.equals("DeleteInventory")){
                     //run through collection (which has 1 item) and check for status=="Donated"
                     if (iCol.get(0).getValue("status").equals("Donated")){
                         populateFields();
@@ -190,7 +190,7 @@ public class SearchInventoryBarcodeView extends View{
                         }
                     }
                     else{
-                        displayErrorMessage("Barcode not available to take");
+                        displayErrorMessage("Barcode not available");
                     }
                 }
                 else{
