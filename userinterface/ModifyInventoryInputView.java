@@ -375,6 +375,7 @@ public class ModifyInventoryInputView extends View {
         });
         submitCancel.getChildren().add(cancelButton);
 
+
         //Add form and buttons
         vbox.getChildren().add(grid);
         vbox.getChildren().add(submitCancel);
@@ -651,6 +652,14 @@ public class ModifyInventoryInputView extends View {
         receiverFirstName.setText((String) inventory.getValue("receiverFirstName"));
         dateDonated.setText((String) inventory.getValue("dateDonated"));
         dateTaken.setText((String) inventory.getValue("dateTaken"));
+
+        if(!inventory.getValue("status").equals("Received")){
+            receiverNetId.setDisable(true);
+            receiverLastName.setDisable(true);
+            receiverFirstName.setDisable(true);
+            dateTaken.setDisable(true);
+        }
+
     }
 
     /**
