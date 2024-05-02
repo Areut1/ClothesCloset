@@ -622,11 +622,14 @@ public class ModifyInventoryInputView extends View {
 
 //        System.out.println("color2 is: " + (String) i.getValue("color2"));
 //        System.out.println("is color2 empty? " + ((String) i.getValue("color2")).isEmpty());
-
-        if ((String) i.getValue("color2") == null)
+        String secondaryColorPick;
+        if ((String) i.getValue("color2") == null) {
             secondaryColorComboBox.setValue("");
-        else
-            secondaryColorComboBox.setValue((String) i.getValue("color2"));
+        }
+        else{
+            secondaryColorPick = (String) primaryColorBarcodeMapping.get((String) i.getValue("color2"));
+            secondaryColorComboBox.setValue(secondaryColorPick);
+        }
         size.setText((String) i.getValue("size"));
         brand.setText((String) i.getValue("brand"));
         notes.setText((String) i.getValue("notes"));
