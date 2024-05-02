@@ -1,5 +1,6 @@
 package userinterface;
 
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -187,7 +188,11 @@ public class AddInventoryConfirmView extends View {
                  */
                 //----------------------------------------------------------
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -227,7 +232,11 @@ public class AddInventoryConfirmView extends View {
 
         // Retrieve the ID
         String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
-        myModel.stateChangeRequest("GetID", barcode);
+        try {
+            myModel.stateChangeRequest("GetID", barcode);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
         String barcodeWithID = barcode + (String) myModel.getState("ID");
 
         barcodeText.setText("The New Barcode is: " + barcodeWithID);
@@ -336,7 +345,11 @@ public class AddInventoryConfirmView extends View {
     }
     //---------------------------------------------------------------
     public void processConfirm() {
-        myModel.stateChangeRequest("SubmitBarcode", barcodeSubmit);
+        try {
+            myModel.stateChangeRequest("SubmitBarcode", barcodeSubmit);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
     }
     //---------------------------------------------------------------
     public void updateState(String key, Object value) { }

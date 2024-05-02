@@ -3,6 +3,7 @@ package userinterface;
 
 // system imports
 
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.ArticleType;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -47,8 +49,7 @@ public class AddInventoryReceipt extends View
     private Button okButton;
     // constructor for this class
     //----------------------------------------------------------
-    public AddInventoryReceipt(IModel trans)
-    {
+    public AddInventoryReceipt(IModel trans) throws InvalidPrimaryKeyException {
         super(trans, "AddInventoryReceipt");
 
         Calendar todaysCalendar = Calendar.getInstance();	// creation date and time
@@ -230,7 +231,11 @@ public class AddInventoryReceipt extends View
                  * to the model to decide to tell the teller to do the switch back.
                  */
                 //----------------------------------------------------------
-                myModel.stateChangeRequest("OK", null);
+                try {
+                    myModel.stateChangeRequest("OK", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -244,14 +249,17 @@ public class AddInventoryReceipt extends View
         return vbox;
     }
     //-------------------------------------------------------------
-    public void populateFields()
-    {
+    public void populateFields() throws InvalidPrimaryKeyException {
         IModel newInventoryInfo = (IModel)myModel.getState("Inventory");
 
         String barcodeSt = (String)newInventoryInfo.getState("barcode");
         barcode.setText(barcodeSt);
         String genderSt = (String)newInventoryInfo.getState("gender");
-        gender.setText(genderSt);
+        if (genderSt.equals("0")){
+            gender.setText("Male");
+        } else {
+            gender.setText("Female");
+        }
         String sizeSt = (String)newInventoryInfo.getState("size");
         if (sizeSt.isEmpty())
             size.setText("NULL");
@@ -259,14 +267,21 @@ public class AddInventoryReceipt extends View
             size.setText(sizeSt);
 
         String articleTypeSt = (String)newInventoryInfo.getState("articleType");
-        articleType.setText(articleTypeSt);
+        ArticleType articleTypeObject = new ArticleType(articleTypeSt); // retrieve the article type whose id is articleTypeSt
+        String articleTypeDescription = articleTypeObject.getValue("description"); // retrieve the description from that article type
+        articleType.setText(articleTypeDescription);
         String color1St = (String)newInventoryInfo.getState("color1");
-        color1.setText(color1St);
+        model.Color color1Object = new model.Color(color1St); // retrieve the color whose id is color1st
+        String color1Description = color1Object.getValue("description"); // retrieve the description from that color
+        color1.setText(color1Description);
         String color2St = (String)newInventoryInfo.getState("color2");
         if (color2St.isEmpty())
             color2.setText("NULL");
-        else
-            color2.setText(color2St);
+        else {
+            model.Color color2Object = new model.Color(color2St); // retrieve the color item whose id is color2st
+            String color2Description = color2Object.getValue("description"); // retrieve the description from the color item
+            color2.setText(color2Description);
+        }
 
         String brandSt = (String)newInventoryInfo.getState("brand");
         if (brandSt.isEmpty())

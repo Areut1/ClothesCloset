@@ -1,5 +1,6 @@
 package userinterface;
 
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -99,7 +100,11 @@ public class ConfirmDeleteInventoryView extends View{
                  */
                 //----------------------------------------------------------
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -115,7 +120,11 @@ public class ConfirmDeleteInventoryView extends View{
     }
     //---------------------------------------------------------------
     public void processConfirm(){
-        myModel.stateChangeRequest("DeleteInventory", null);
+        try {
+            myModel.stateChangeRequest("DeleteInventory", null);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
     }
     //---------------------------------------------------------------
     public void updateState(String key, Object value)

@@ -2,6 +2,7 @@ package userinterface;
 
 // system imports
 
+import exception.InvalidPrimaryKeyException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -228,7 +229,11 @@ public class InventoryCollectionView extends View {
                  */
                 //----------------------------------------------------------
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

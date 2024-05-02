@@ -4,6 +4,7 @@ package model;
 // system imports
 
 import event.Event;
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import impresario.IView;
 import impresario.ModelRegistry;
@@ -50,7 +51,7 @@ abstract public class Transaction implements IView, IModel
 	//----------------------------------------------------------
 	protected abstract void setDependencies();
 	//---------------------------------------------------------
-	protected abstract Scene createView();
+	protected abstract Scene createView() throws InvalidPrimaryKeyException;
 	/**
 	 * Template method
 	 *
@@ -72,15 +73,19 @@ abstract public class Transaction implements IView, IModel
 	//-----------------------------------------------------------
 	public abstract Object getState(String key);
 	//-----------------------------------------------------------
-	public abstract void stateChangeRequest(String key, Object value);
+	public abstract void stateChangeRequest(String key, Object value) throws InvalidPrimaryKeyException;
 	/** Called via the IView relationship
 	 * Re-define in sub-class, if necessary
 	 */
 	//----------------------------------------------------------
 	public void updateState(String key, Object value)
 	{
-		stateChangeRequest(key, value);
-	}
+        try {
+            stateChangeRequest(key, value);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	/** Register objects to receive state updates. */
 	//----------------------------------------------------------

@@ -28,7 +28,7 @@ public class ModifyColorTransaction extends Transaction{
     }
     //---------------------------------------------------------------
     @Override
-    protected Scene createView() {
+    protected Scene createView() throws InvalidPrimaryKeyException {
         Scene currentScene = myViews.get("SearchColorView");
         if (currentScene == null)
         {
@@ -45,8 +45,7 @@ public class ModifyColorTransaction extends Transaction{
         }
     }
     //------------------------------------------------------
-    protected void createAndShowView(String view)
-    {
+    protected void createAndShowView(String view) throws InvalidPrimaryKeyException {
         Scene newScene = myViews.get(view);
 
         if (newScene == null)
@@ -73,7 +72,7 @@ public class ModifyColorTransaction extends Transaction{
     }
     //---------------------------------------------------------------
     @Override
-    public void stateChangeRequest(String key, Object value) {
+    public void stateChangeRequest(String key, Object value) throws InvalidPrimaryKeyException {
         switch (key) {
             case "DoYourJob" -> doYourJob();
             case "ModifyColor" -> processTransaction((Properties) value);
@@ -89,8 +88,7 @@ public class ModifyColorTransaction extends Transaction{
         myRegistry.updateSubscribers(key, this);
     }
     //---------------------------------------------------------------
-    public void processTransaction(Properties props)
-    {
+    public void processTransaction(Properties props) throws InvalidPrimaryKeyException {
         oldColor.changeValue("description", props.getProperty("description"));
         oldColor.changeValue("barcodePrefix", props.getProperty("barcodePrefix"));
         oldColor.changeValue("alphaCode", props.getProperty("alphaCode"));
@@ -108,7 +106,7 @@ public class ModifyColorTransaction extends Transaction{
         createAndShowView("SelectColorView");
     }
     //---------------------------------------------------------------
-    public void processConfirm(Properties props) {
+    public void processConfirm(Properties props) throws InvalidPrimaryKeyException {
         String id = props.getProperty("colorId");
         try {
             oldColor = new Color(id);

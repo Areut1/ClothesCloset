@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+import exception.InvalidPrimaryKeyException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -137,7 +138,11 @@ private VBox createFormContent(){
         public void handle(ActionEvent e) {
             clearErrorMessage();
             populateFields();
-            myModel.stateChangeRequest("CancelTransaction", null);
+            try {
+                myModel.stateChangeRequest("CancelTransaction", null);
+            } catch (InvalidPrimaryKeyException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     });
     subBack.getChildren().add(cancelButton);
@@ -195,7 +200,11 @@ private VBox createFormContent(){
             searchAlphaCode.setText("");
 
 
-            myModel.stateChangeRequest("SearchTableArticleType", props);
+            try {
+                myModel.stateChangeRequest("SearchTableArticleType", props);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

@@ -1,5 +1,6 @@
 package userinterface;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -221,7 +222,11 @@ public class AddInventoryInputView extends View {
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         submitCancel.getChildren().add(cancelButton);
@@ -301,7 +306,11 @@ public class AddInventoryInputView extends View {
                 insertProp.setProperty("dateDonated", receivedDate);
 
                 //Call Librarian method to create and save book
-                myModel.stateChangeRequest("AddInventory", insertProp);
+                try {
+                    myModel.stateChangeRequest("AddInventory", insertProp);
+                } catch (InvalidPrimaryKeyException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
         }

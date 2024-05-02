@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -142,7 +143,11 @@ public class ModifyArticleTypeReceipt extends View
                  * to the model to decide to tell the teller to do the switch back.
                  */
                 //----------------------------------------------------------
-                myModel.stateChangeRequest("OK", null);
+                try {
+                    myModel.stateChangeRequest("OK", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

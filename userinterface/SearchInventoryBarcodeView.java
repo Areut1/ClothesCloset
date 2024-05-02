@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+import exception.InvalidPrimaryKeyException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -127,7 +128,11 @@ public class SearchInventoryBarcodeView extends View{
             public void handle(ActionEvent e) {
                 clearErrorMessage();
                 populateFields();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         subBack.getChildren().add(cancelButton);
@@ -178,7 +183,11 @@ public class SearchInventoryBarcodeView extends View{
                     //run through collection (which has 1 item) and check for status=="Donated"
                     if (iCol.get(0).getValue("status").equals("Donated")){
                         populateFields();
-                        myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+                        try {
+                            myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+                        } catch (InvalidPrimaryKeyException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else{
                         displayErrorMessage("Barcode not available to take");
@@ -186,7 +195,11 @@ public class SearchInventoryBarcodeView extends View{
                 }
                 else{
                     populateFields();
-                    myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+                    try {
+                        myModel.stateChangeRequest("SubmitBarcode", barcodeEntered);
+                    } catch (InvalidPrimaryKeyException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }

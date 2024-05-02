@@ -5,6 +5,7 @@ package model;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -146,7 +147,12 @@ public class Clerk implements IView, IModel
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("TransactionChoiceView", this); // USE VIEW FACTORY
+            View newView = null; // USE VIEW FACTORY
+            try {
+                newView = ViewFactory.createView("TransactionChoiceView", this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             currentScene = new Scene(newView);
             myViews.put("TransactionChoiceView", currentScene);
         }
@@ -162,7 +168,12 @@ public class Clerk implements IView, IModel
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("ClerkView", this); // USE VIEW FACTORY
+            View newView = null; // USE VIEW FACTORY
+            try {
+                newView = ViewFactory.createView("ClerkView", this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             currentScene = new Scene(newView);
             myViews.put("ClerkView", currentScene);
         }

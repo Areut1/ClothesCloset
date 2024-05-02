@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+import exception.InvalidPrimaryKeyException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -139,7 +140,11 @@ public class SearchColorView extends View{
             public void handle(ActionEvent e) {
                 clearErrorMessage();
                 populateFields();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         subBack.getChildren().add(cancelButton);
@@ -198,7 +203,11 @@ public class SearchColorView extends View{
             searchAlphaCode.setText("");
 
 
-            myModel.stateChangeRequest("SearchTableColor", props);
+            try {
+                myModel.stateChangeRequest("SearchTableColor", props);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
         }
     }//End processSubAction------------------------------
     // Create the status log field

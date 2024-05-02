@@ -27,6 +27,8 @@ package impresario;
 
 // local includes
 
+import exception.InvalidPrimaryKeyException;
+
 //==============================================================
 public interface IModel
 {
@@ -38,7 +40,7 @@ public interface IModel
 	public void unSubscribe(String key, IView subscriber);
 	
 	/** Accept state change requests from Control objects */
-	public void stateChangeRequest(String key, Object value);
+	public void stateChangeRequest(String key, Object value) throws InvalidPrimaryKeyException;
 }
 
 //**************************************************************

@@ -5,6 +5,7 @@ package userinterface;
 // system imports
 import java.util.Properties;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -171,7 +172,11 @@ public class ClerkView extends View
         props.setProperty("ID", useridString);
         props.setProperty("Password", passwordString);
 
-        myModel.stateChangeRequest("Login", props);
+        try {
+            myModel.stateChangeRequest("Login", props);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
     }
     //---------------------------------------------------------
     public void updateState(String key, Object value)

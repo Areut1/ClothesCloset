@@ -46,7 +46,12 @@ public class ListAllDonatedTransaction extends Transaction{
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("InventoryCollectionView", this);
+            View newView = null;
+            try {
+                newView = ViewFactory.createView("InventoryCollectionView", this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             currentScene = new Scene(newView);
             myViews.put("InventoryCollectionView", currentScene);
             currentScene.getStylesheets().add("userinterface/stylesheet.css");

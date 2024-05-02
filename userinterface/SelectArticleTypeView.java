@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+import exception.InvalidPrimaryKeyException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -202,7 +203,11 @@ public class SelectArticleTypeView extends View
                  */
                 //----------------------------------------------------------
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -232,7 +237,11 @@ public class SelectArticleTypeView extends View
             Properties props = new Properties();
             props.setProperty("articleTypeId", selectedArticleTypeId);
 
-            myModel.stateChangeRequest("ConfirmArticleTypeChoice", props);
+            try {
+                myModel.stateChangeRequest("ConfirmArticleTypeChoice", props);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     //--------------------------------------------------------------------------

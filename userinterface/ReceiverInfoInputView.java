@@ -1,5 +1,6 @@
 package userinterface;
 
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -152,7 +153,11 @@ public class ReceiverInfoInputView extends View {
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         submitCancel.getChildren().add(cancelButton);
@@ -197,7 +202,11 @@ public class ReceiverInfoInputView extends View {
             insertProp.setProperty("receiverFirstName", receiverFirstNameString);
 
             //Call Librarian method to create and save book
-            myModel.stateChangeRequest("CheckOutInventory", insertProp);
+            try {
+                myModel.stateChangeRequest("CheckOutInventory", insertProp);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
 
         }
     }

@@ -1,5 +1,6 @@
 package userinterface;
 
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -100,7 +101,11 @@ public class ConfirmDeleteColorView extends View{
                  */
                 //----------------------------------------------------------
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -116,7 +121,11 @@ public class ConfirmDeleteColorView extends View{
     }
     //---------------------------------------------------------------
     public void processConfirm(){
-        myModel.stateChangeRequest("DeleteColor", null);
+        try {
+            myModel.stateChangeRequest("DeleteColor", null);
+        } catch (InvalidPrimaryKeyException e) {
+            throw new RuntimeException(e);
+        }
     }
     //---------------------------------------------------------------
     public void updateState(String key, Object value) { }

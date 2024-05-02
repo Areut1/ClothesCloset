@@ -2,6 +2,7 @@
 package userinterface;
 
 // system imports
+import exception.InvalidPrimaryKeyException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -144,7 +145,11 @@ public class TransactionChoiceView extends View
         addArticleTypeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("AddArticleType", null);
+                try {
+                    myModel.stateChangeRequest("AddArticleType", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(addArticleTypeButton, 0, 0);
@@ -154,7 +159,11 @@ public class TransactionChoiceView extends View
         updateArticleTypeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ModifyArticleType", null);
+                try {
+                    myModel.stateChangeRequest("ModifyArticleType", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(updateArticleTypeButton, 1, 0);
@@ -164,7 +173,11 @@ public class TransactionChoiceView extends View
         deleteArticleTypeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("DeleteArticleType", null);
+                try {
+                    myModel.stateChangeRequest("DeleteArticleType", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(deleteArticleTypeButton, 2, 0);
@@ -175,7 +188,11 @@ public class TransactionChoiceView extends View
         addColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("AddColor", null);
+                try {
+                    myModel.stateChangeRequest("AddColor", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(addColorButton, 0, 1);
@@ -185,7 +202,11 @@ public class TransactionChoiceView extends View
         updateColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ModifyColor", null);
+                try {
+                    myModel.stateChangeRequest("ModifyColor", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(updateColorButton, 1, 1);
@@ -195,7 +216,11 @@ public class TransactionChoiceView extends View
         deleteColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("DeleteColor", null);
+                try {
+                    myModel.stateChangeRequest("DeleteColor", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(deleteColorButton, 2, 1);
@@ -206,7 +231,11 @@ public class TransactionChoiceView extends View
         addInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("AddInventory", null);
+                try {
+                    myModel.stateChangeRequest("AddInventory", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(addInventoryButton, 0, 2);
@@ -216,7 +245,11 @@ public class TransactionChoiceView extends View
         updateInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ModifyInventory", null);
+                try {
+                    myModel.stateChangeRequest("ModifyInventory", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(updateInventoryButton, 1, 2);
@@ -226,7 +259,11 @@ public class TransactionChoiceView extends View
         deleteInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("DeleteInventory", null);
+                try {
+                    myModel.stateChangeRequest("DeleteInventory", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(deleteInventoryButton, 2, 2);
@@ -237,7 +274,11 @@ public class TransactionChoiceView extends View
         checkOutInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("CheckOut", null);
+                try {
+                    myModel.stateChangeRequest("CheckOut", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(checkOutInventoryButton, 0, 3);
@@ -247,7 +288,11 @@ public class TransactionChoiceView extends View
         listInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ListAllAvailable", null);
+                try {
+                    myModel.stateChangeRequest("ListAllAvailable", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(listInventoryButton, 1, 3);
@@ -257,7 +302,11 @@ public class TransactionChoiceView extends View
         listCheckedOutInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ListAllCheckOut", null);
+                try {
+                    myModel.stateChangeRequest("ListAllCheckOut", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(listCheckedOutInventoryButton, 2, 3);
@@ -268,7 +317,11 @@ public class TransactionChoiceView extends View
 
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Logout", null);
+                try {
+                    myModel.stateChangeRequest("Logout", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         grid.add(cancelButton, 1, 6);

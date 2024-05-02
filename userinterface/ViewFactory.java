@@ -1,9 +1,9 @@
 package userinterface;
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 //==============================================================================
 public class ViewFactory {
-	public static View createView(String viewName, IModel model)
-	{
+	public static View createView(String viewName, IModel model) throws InvalidPrimaryKeyException {
 		switch (viewName) {
 			case "ClerkView":
 				return  new ClerkView(model);

@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+import exception.InvalidPrimaryKeyException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -142,7 +143,11 @@ public class DateRequestView extends View{
             public void handle(ActionEvent e) {
                 clearErrorMessage();
                 populateFields();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         subBack.getChildren().add(cancelButton);
@@ -179,7 +184,11 @@ public class DateRequestView extends View{
             startDate.setText("");
             endDate.setText("");
 
-            myModel.stateChangeRequest("DateRequest", props);
+            try {
+                myModel.stateChangeRequest("DateRequest", props);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
         }
     }//End processSubAction------------------------------
     // Create the status log field

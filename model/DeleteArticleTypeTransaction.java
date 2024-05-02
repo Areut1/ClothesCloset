@@ -34,7 +34,12 @@ public class DeleteArticleTypeTransaction extends Transaction{
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("SearchArticleTypeView", this);
+            View newView = null;
+            try {
+                newView = ViewFactory.createView("SearchArticleTypeView", this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             currentScene = new Scene(newView);
             myViews.put("SearchArticleTypeView", currentScene);
             currentScene.getStylesheets().add("userinterface/stylesheet.css");
@@ -53,7 +58,12 @@ public class DeleteArticleTypeTransaction extends Transaction{
         if (newScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView(view, this);
+            View newView = null;
+            try {
+                newView = ViewFactory.createView(view, this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             newScene = new Scene(newView);
             myViews.put(view, newScene);
             newScene.getStylesheets().add("userinterface/stylesheet.css");

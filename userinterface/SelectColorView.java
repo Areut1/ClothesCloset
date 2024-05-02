@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+import exception.InvalidPrimaryKeyException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -201,7 +202,11 @@ public class SelectColorView extends View
                  */
                 //----------------------------------------------------------
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -231,7 +236,11 @@ public class SelectColorView extends View
             Properties props = new Properties();
             props.setProperty("colorId", selectedColorId);
 
-            myModel.stateChangeRequest("ConfirmColorChoice", props);
+            try {
+                myModel.stateChangeRequest("ConfirmColorChoice", props);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     //--------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 package userinterface;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -150,7 +151,11 @@ public class ModifyArticleTypeView extends View {
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         submitCancel.getChildren().add(cancelButton);
@@ -201,7 +206,11 @@ public class ModifyArticleTypeView extends View {
             insertProp.setProperty("alphaCode", alphaCodeString);
 
             //Call Librarian method to create and save book
-            myModel.stateChangeRequest("ModifyArticleType", insertProp);
+            try {
+                myModel.stateChangeRequest("ModifyArticleType", insertProp);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
 
             //Print confirmation
             displayMessage("Article Type was updated!");

@@ -1,5 +1,6 @@
 package model;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.scene.Scene;
 import userinterface.View;
 import userinterface.ViewFactory;
@@ -34,7 +35,12 @@ public class AddArticleTypeTransaction extends Transaction{
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("AddArticleTypeView", this);
+            View newView = null;
+            try {
+                newView = ViewFactory.createView("AddArticleTypeView", this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             currentScene = new Scene(newView);
             myViews.put("AddArticleTypeView", currentScene);
             currentScene.getStylesheets().add("userinterface/stylesheet.css");
@@ -54,7 +60,12 @@ public class AddArticleTypeTransaction extends Transaction{
         if (newScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("AddArticleTypeReceipt", this);
+            View newView = null;
+            try {
+                newView = ViewFactory.createView("AddArticleTypeReceipt", this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             newScene = new Scene(newView);
             myViews.put("AddArticleTypeReceipt", newScene);
             newScene.getStylesheets().add("userinterface/stylesheet.css");

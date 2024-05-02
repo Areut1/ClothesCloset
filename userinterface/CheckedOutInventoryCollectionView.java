@@ -2,6 +2,7 @@ package userinterface;
 
 // system imports
 
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -234,7 +235,11 @@ public class CheckedOutInventoryCollectionView extends View
                  */
                 //----------------------------------------------------------
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

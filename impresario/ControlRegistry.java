@@ -34,6 +34,7 @@ import common.PropertyFile;
 import common.StringList;
 
 import event.Event;
+import exception.InvalidPrimaryKeyException;
 
 /** 
  * This class is used to instantiate the object that is encapsulated
@@ -94,8 +95,12 @@ public class ControlRegistry extends Registry
 				if(subscriber instanceof IModel)
         		{
 					// DEBUG: System.out.println("Vector StateRepository [" + key + "] " + dependProperty + ": " + client.getValue(dependProperty));
-        			((IModel)subscriber).stateChangeRequest(key, value);
-        		}
+                    try {
+                        ((IModel)subscriber).stateChangeRequest(key, value);
+                    } catch (InvalidPrimaryKeyException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
         		else 
         		{
 					new Event(Event.getLeafLevelClassName(this), "UpdateSubscribers", "EVT_InvalidSubscriber", "Vector Invalid Subscriber: " + subscriber.getClass(), Event.WARNING);
@@ -108,8 +113,12 @@ public class ControlRegistry extends Registry
 		if(tempObj instanceof IModel)
 		{
 			// DEBUG: System.out.println("Changeable [" + key + "] " + dependProperty + ": " + client.getValue(dependProperty));
-        	((IModel)tempObj).stateChangeRequest(key, value);
-		}
+            try {
+                ((IModel)tempObj).stateChangeRequest(key, value);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
+        }
         else 
         {
 			new Event(Event.getLeafLevelClassName(this), "UpdateSubscribers", "EVT_InvalidSubscriber", "Invalid Subscriber: " + tempObj.getClass(), Event.WARNING);

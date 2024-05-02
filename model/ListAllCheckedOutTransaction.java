@@ -1,5 +1,6 @@
 package model;
 
+import exception.InvalidPrimaryKeyException;
 import javafx.scene.Scene;
 import userinterface.View;
 import userinterface.ViewFactory;
@@ -37,7 +38,12 @@ public class ListAllCheckedOutTransaction extends Transaction {
         Scene currentScene = myViews.get("DateRequestView");
         if (currentScene == null) {
             // create our initial view
-            View newView = ViewFactory.createView("DateRequestView", this);
+            View newView = null;
+            try {
+                newView = ViewFactory.createView("DateRequestView", this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             currentScene = new Scene(newView);
             myViews.put("DateRequestView", currentScene);
             currentScene.getStylesheets().add("userinterface/stylesheet.css");
@@ -89,7 +95,12 @@ public class ListAllCheckedOutTransaction extends Transaction {
 
         if (newScene == null) {
             // create our initial view
-            View newView = ViewFactory.createView(view, this);
+            View newView = null;
+            try {
+                newView = ViewFactory.createView(view, this);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             newScene = new Scene(newView);
             myViews.put(view, newScene);
             newScene.getStylesheets().add("userinterface/stylesheet.css");

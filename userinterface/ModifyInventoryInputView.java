@@ -1,5 +1,6 @@
 package userinterface;
 
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -364,7 +365,11 @@ public class ModifyInventoryInputView extends View {
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                try {
+                    myModel.stateChangeRequest("CancelTransaction", null);
+                } catch (InvalidPrimaryKeyException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         submitCancel.getChildren().add(cancelButton);
@@ -403,7 +408,11 @@ public class ModifyInventoryInputView extends View {
 
         String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
         if(!i.oldBarcode.substring(0, 5).equals(barcode)){
-            myModel.stateChangeRequest("GetID", barcode);
+            try {
+                myModel.stateChangeRequest("GetID", barcode);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
             String barcodeWithID = barcode + (String) myModel.getState("ID");
 
             barcodeText.setText("The New Barcode is: " + barcodeWithID);
@@ -602,7 +611,11 @@ public class ModifyInventoryInputView extends View {
 //            System.out.println(insertProp);
 
             //Call Librarian method to create and save book
-            myModel.stateChangeRequest("ModifyInventory", insertProp);
+            try {
+                myModel.stateChangeRequest("ModifyInventory", insertProp);
+            } catch (InvalidPrimaryKeyException e) {
+                throw new RuntimeException(e);
+            }
 
             //Print confirmation
             displayMessage("Inventory was updated!");
