@@ -1,6 +1,8 @@
 package userinterface;
 
 import exception.InvalidPrimaryKeyException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,22 +27,31 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import impresario.IModel;
+import model.ColorCollection;
+import model.Inventory;
+import model.InventoryCollection;
+
 //---------------------------------------------------------------
 public class AddInventoryInputView extends View {
     // GUI components
     protected TextField size;
-    protected TextField color2;
+    protected ComboBox<String> secondaryColorComboBox;
     protected TextField brand;
     protected TextField notes;
     protected TextField donorFirstName;
     protected TextField donorLastName;
     protected TextField donorPhone;
     protected TextField donorEmail;
+    private ColorCollection cCol;
+    public Properties primaryColorBarcodeMapping;
     protected Button cancelButton;
     protected Button submitButton;
     // For showing error message
@@ -64,6 +75,8 @@ public class AddInventoryInputView extends View {
         container.getChildren().add(createStatusLog("             "));
 
         getChildren().add(container);
+
+        initComboBox();
 
         populateFields();
 
@@ -126,9 +139,9 @@ public class AddInventoryInputView extends View {
         color2Label.setTextAlignment(TextAlignment.RIGHT);
         grid.add(color2Label, 0, 1);
 
-        color2 = new TextField();
-        color2.setEditable(true);
-        grid.add(color2, 1, 1);
+        secondaryColorComboBox = new ComboBox<>();
+        secondaryColorComboBox.setMinSize(100, 20);
+        grid.add(secondaryColorComboBox, 1, 1);
 
         //Inventory Brand Name Label and Text Field------------------------
         Text brandLabel = new Text(" *Brand Name : ");
@@ -237,6 +250,24 @@ public class AddInventoryInputView extends View {
 
         return vbox;
     }
+
+    private void initComboBox() {
+        cCol = (ColorCollection) myModel.getState("ColorList");
+
+        primaryColorBarcodeMapping = new Properties();
+
+        for (int i = 0; i < cCol.size(); i++) {
+            primaryColorBarcodeMapping.setProperty(cCol.get(i).getValue("barcodePrefix"), cCol.get(i).getValue("description"));
+        }
+
+        // SET PRIMARY COLOR BARCODE COMBO BOX FIELDS
+        List<String> values = new ArrayList<>();
+        for (Object value : primaryColorBarcodeMapping.values()) {
+            values.add((String) value);
+        }
+        ObservableList<String> secondaryColor = FXCollections.observableList(values);
+        secondaryColorComboBox.setItems(secondaryColor);
+    }
     //--------------------------------------------------------------------------------------------
     /*processAction
      * On submit button click, method will set up properties object with values taken from
@@ -259,14 +290,10 @@ public class AddInventoryInputView extends View {
         } else if (size.getText().length() > 2 && !size.getText().isBlank()) {
             clearErrorMessage();
             displayErrorMessage("Error: Size must be less than 2 characters.");
-        } else if (!color2.getText().isBlank() && (color2.getText().length() > 2 || !color2.getText().matches("[0-9]+"))) {
-            // Checks it's not greater than 3 digits and that it is only digits i.e. no letters.
-            clearErrorMessage();
-            displayErrorMessage("Error: Color2 must be a number less than 100.");
         } else {
             // Convert properties to string
             String sizeString = size.getText();
-            String color2String = color2.getText();
+            String color2String = getBarcodeFromMapping(primaryColorBarcodeMapping, secondaryColorComboBox.getValue());
             String brandString = brand.getText();
             String notesString = notes.getText();
             String donorFirstNameString = donorFirstName.getText();
@@ -315,6 +342,14 @@ public class AddInventoryInputView extends View {
 
         }
     }
+    public static String getBarcodeFromMapping(Properties props, String name) {
+        // Get the key (barcode) of propValues at name
+        for (Map.Entry<Object, Object> entry : props.entrySet()) {
+            if (entry.getValue().equals(name))
+                return (String) entry.getKey();
+        }
+        return "-1";
+    }
     // Create the status log field
     //-------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
@@ -327,7 +362,7 @@ public class AddInventoryInputView extends View {
     public void populateFields()
     {
         size.setText("");
-        color2.setText("");
+        secondaryColorComboBox.setValue("");
         brand.setText("");
         notes.setText("");
         donorFirstName.setText("");
