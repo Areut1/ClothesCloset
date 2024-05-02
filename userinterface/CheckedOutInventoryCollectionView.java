@@ -28,7 +28,7 @@ import java.util.Vector;
 //==============================================================================
 public class CheckedOutInventoryCollectionView extends View
 {
-    protected TableView<InventoryTableModel> tableOfInventory;
+    protected TableView<CheckedOutInventoryTableModel> tableOfInventory;
     protected Button cancelButton;
 
     protected MessageView statusLog;
@@ -61,7 +61,7 @@ public class CheckedOutInventoryCollectionView extends View
     protected void getEntryTableModelValues()
     {
 
-        ObservableList<InventoryTableModel> tableData = FXCollections.observableArrayList();
+        ObservableList<CheckedOutInventoryTableModel> tableData = FXCollections.observableArrayList();
         try
         {
             InventoryCollection inventoryCollection = (InventoryCollection) myModel.getState("InventoryCollection");
@@ -75,7 +75,7 @@ public class CheckedOutInventoryCollectionView extends View
                 Vector<String> view = nextInventory.getEntryListView();
 
                 // add this list entry to the list
-                InventoryTableModel nextTableRowData = new InventoryTableModel(view);
+                CheckedOutInventoryTableModel nextTableRowData = new CheckedOutInventoryTableModel(view);
                 tableData.add(nextTableRowData);
 
             }
@@ -121,98 +121,98 @@ public class CheckedOutInventoryCollectionView extends View
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        tableOfInventory = new TableView<InventoryTableModel>();
+        tableOfInventory = new TableView<CheckedOutInventoryTableModel>();
         tableOfInventory.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         TableColumn barcodeColumn = new TableColumn("Barcode") ;
         //barcodeColumn.setMinWidth(100);
         barcodeColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("barcode"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("barcode"));
 
         TableColumn genderColumn = new TableColumn("Gender") ;
         //genderColumn.setMinWidth(100);
         genderColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("gender"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("gender"));
 
         TableColumn sizeColumn = new TableColumn("Size") ;
         //sizeColumn.setMinWidth(100);
         sizeColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("size"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("size"));
 
         TableColumn articleTypeColumn = new TableColumn("Article\nType") ;
         //articleTypeColumn.setMinWidth(100);
         articleTypeColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("articleType"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("articleType"));
 
         TableColumn color1Column = new TableColumn("Color 1") ;
         //color1Column.setMinWidth(100);
         color1Column.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("color1"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("color1"));
 
         TableColumn color2Column = new TableColumn("Color 2") ;
         //color2Column.setMinWidth(100);
         color2Column.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("color2"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("color2"));
 
         TableColumn brandColumn = new TableColumn("Brand") ;
         //brandColumn.setMinWidth(100);
         brandColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("brand"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("brand"));
 
         TableColumn notesColumn = new TableColumn("Notes") ;
         //notesColumn.setMinWidth(100);
         notesColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("notes"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("notes"));
 
         TableColumn statusColumn = new TableColumn("Status") ;
         //statusColumn.setMinWidth(100);
         statusColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("status"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("status"));
 
         TableColumn donorLastNameColumn = new TableColumn("Donor\nLast Name") ;
         //donorLastNameColumn.setMinWidth(100);
         donorLastNameColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("donorLastName"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("donorLastName"));
 
         TableColumn donorFirstNameColumn = new TableColumn("Donor\nFirst Name") ;
         //donorFirstNameColumn.setMinWidth(100);
         donorFirstNameColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("donorFirstName"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("donorFirstName"));
 
         TableColumn donorPhoneColumn = new TableColumn("Donor Phone") ;
         //donorPhoneColumn.setMinWidth(100);
         donorPhoneColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("donorPhone"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("donorPhone"));
 
         TableColumn donorEmailColumn = new TableColumn("Donor Email") ;
         //donorEmailColumn.setMinWidth(100);
         donorEmailColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("donorEmail"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("donorEmail"));
 
         TableColumn receiverNetIdColumn = new TableColumn("Receiver\nNet ID") ;
         //receiverNetIdColumn.setMinWidth(100);
         receiverNetIdColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("receiverNetId"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("receiverNetId"));
 
         TableColumn receiverLastNameColumn = new TableColumn("Receiver\nLast Name") ;
         //receiverLastNameColumn.setMinWidth(100);
         receiverLastNameColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("receiverLastName"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("receiverLastName"));
 
         TableColumn receiverFirstNameColumn = new TableColumn("Receiver\nFirst Name") ;
         //receiverFirstNameColumn.setMinWidth(100);
         receiverFirstNameColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("receiverFirstName"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("receiverFirstName"));
 
         TableColumn dateDonatedColumn = new TableColumn("Date\nDonated") ;
         //dateDonatedColumn.setMinWidth(100);
         dateDonatedColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("dateDonated"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("dateDonated"));
 
         TableColumn dateTakenColumn = new TableColumn("Date\nTaken") ;
         //dateTakenColumn.setMinWidth(100);
         dateTakenColumn.setCellValueFactory(
-                new PropertyValueFactory<InventoryTableModel, String>("dateTaken"));
+                new PropertyValueFactory<CheckedOutInventoryTableModel, String>("dateTaken"));
 
 
         tableOfInventory.getColumns().addAll(barcodeColumn, genderColumn, sizeColumn, articleTypeColumn,
