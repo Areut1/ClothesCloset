@@ -52,7 +52,7 @@ public class ModifyInventoryInputView extends View {
     private TextField dateTaken;
     protected Button cancelButton;
     protected Button submitButton;
-    protected Inventory i = (Inventory) myModel.getState("Inventory");
+    protected Inventory inventory = (Inventory) myModel.getState("Inventory");
 
     private ArticleTypeCollection atCol;
     private ColorCollection cCol;
@@ -407,7 +407,7 @@ public class ModifyInventoryInputView extends View {
         // Retrieve the ID
 
         String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
-        if(!i.oldBarcode.substring(0, 5).equals(barcode)){
+        if(!inventory.oldBarcode.substring(0, 5).equals(barcode)){
             try {
                 myModel.stateChangeRequest("GetID", barcode);
             } catch (InvalidPrimaryKeyException e) {
@@ -420,7 +420,7 @@ public class ModifyInventoryInputView extends View {
             clearErrorMessage();
         }
         else{
-            barcodeSubmit = i.oldBarcode;
+            barcodeSubmit = inventory.oldBarcode;
         }
 
     }
@@ -631,25 +631,25 @@ public class ModifyInventoryInputView extends View {
 //        System.out.println("color2 is: " + (String) i.getValue("color2"));
 //        System.out.println("is color2 empty? " + ((String) i.getValue("color2")).isEmpty());
         String secondaryColorPick;
-        if ((String) i.getValue("color2") == null) {
+        if ((String) inventory.getValue("color2") == null) {
             secondaryColorComboBox.setValue("");
         }
         else{
-            secondaryColorPick = (String) primaryColorBarcodeMapping.get((String) i.getValue("color2"));
+            secondaryColorPick = (String) primaryColorBarcodeMapping.get((String) inventory.getValue("color2"));
             secondaryColorComboBox.setValue(secondaryColorPick);
         }
-        size.setText((String) i.getValue("size"));
-        brand.setText((String) i.getValue("brand"));
-        notes.setText((String) i.getValue("notes"));
-        donorLastName.setText((String) i.getValue("donorLastName"));
-        donorFirstName.setText((String) i.getValue("donorFirstName"));
-        donorPhone.setText((String) i.getValue("donorPhone"));
-        donorEmail.setText((String) i.getValue("donorEmail"));
-        receiverNetId.setText((String) i.getValue("receiverNetId"));
-        receiverLastName.setText((String) i.getValue("receiverLastName"));
-        receiverFirstName.setText((String) i.getValue("receiverFirstName"));
-        dateDonated.setText((String) i.getValue("dateDonated"));
-        dateTaken.setText((String) i.getValue("dateTaken"));
+        size.setText((String) inventory.getValue("size"));
+        brand.setText((String) inventory.getValue("brand"));
+        notes.setText((String) inventory.getValue("notes"));
+        donorLastName.setText((String) inventory.getValue("donorLastName"));
+        donorFirstName.setText((String) inventory.getValue("donorFirstName"));
+        donorPhone.setText((String) inventory.getValue("donorPhone"));
+        donorEmail.setText((String) inventory.getValue("donorEmail"));
+        receiverNetId.setText((String) inventory.getValue("receiverNetId"));
+        receiverLastName.setText((String) inventory.getValue("receiverLastName"));
+        receiverFirstName.setText((String) inventory.getValue("receiverFirstName"));
+        dateDonated.setText((String) inventory.getValue("dateDonated"));
+        dateTaken.setText((String) inventory.getValue("dateTaken"));
     }
 
     /**
