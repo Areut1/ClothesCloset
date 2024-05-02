@@ -581,12 +581,7 @@ public class ModifyInventoryInputView extends View {
         else if (!isValidDate(dateDonatedString) && !dateDonatedString.equals("")){
             clearErrorMessage();
             displayErrorMessage("Donated date is not valid");
-        }
-        else if (dateTakenString != null && !dateTakenString.equals("") && !isValidDate(dateTakenString)){
-            clearErrorMessage();
-            displayErrorMessage("Received date is not valid");
-        }
-        else{
+        } else {
             //Create properties and keys
             Properties insertProp = new Properties();
 
