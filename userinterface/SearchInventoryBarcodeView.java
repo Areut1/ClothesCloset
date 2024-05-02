@@ -190,7 +190,7 @@ public class SearchInventoryBarcodeView extends View{
                         }
                     }
                     else{
-                        displayErrorMessage("Barcode not available to take");
+                        displayErrorMessage("Barcode not available");
                     }
                 }
                 else{
