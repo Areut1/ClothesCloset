@@ -54,6 +54,10 @@ public class AddInventoryInputView extends View {
     public Properties primaryColorBarcodeMapping;
     protected Button cancelButton;
     protected Button submitButton;
+
+    String secondaryColorBarcode;
+
+
     // For showing error message
     protected MessageView statusLog;
     // constructor for this class -- takes a model object
@@ -142,6 +146,10 @@ public class AddInventoryInputView extends View {
         secondaryColorComboBox = new ComboBox<>();
         secondaryColorComboBox.setMinSize(100, 20);
         grid.add(secondaryColorComboBox, 1, 1);
+
+        secondaryColorComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            secondaryColorBarcode = getBarcodeFromMapping(primaryColorBarcodeMapping, newValue);
+        });
 
         //Inventory Brand Name Label and Text Field------------------------
         Text brandLabel = new Text(" *Brand Name : ");
@@ -265,6 +273,8 @@ public class AddInventoryInputView extends View {
         for (Object value : primaryColorBarcodeMapping.values()) {
             values.add((String) value);
         }
+
+        values.add("");
         ObservableList<String> secondaryColor = FXCollections.observableList(values);
         secondaryColorComboBox.setItems(secondaryColor);
     }
@@ -293,7 +303,8 @@ public class AddInventoryInputView extends View {
         } else {
             // Convert properties to string
             String sizeString = size.getText();
-            String color2String = getBarcodeFromMapping(primaryColorBarcodeMapping, secondaryColorComboBox.getValue());
+            String color2String = secondaryColorBarcode;
+            System.out.println(secondaryColorBarcode);
             String brandString = brand.getText();
             String notesString = notes.getText();
             String donorFirstNameString = donorFirstName.getText();
@@ -348,7 +359,7 @@ public class AddInventoryInputView extends View {
             if (entry.getValue().equals(name))
                 return (String) entry.getKey();
         }
-        return "-1";
+        return "";
     }
     // Create the status log field
     //-------------------------------------------------------------

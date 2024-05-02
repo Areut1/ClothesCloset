@@ -110,7 +110,7 @@ public class ModifyInventoryInputView extends View {
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle() {
-        HBox container = new HBox();
+        VBox container = new VBox();
         container.setAlignment(Pos.CENTER);
 
         Text titleText = new Text(" Modify Inventory ");
