@@ -67,7 +67,7 @@ public class AddInventoryConfirmView extends View {
         // Initialize the barcode mappings
         initBarcodeMappings();
 
-        // updateBarcodeFromFields();
+//         updateBarcodeFromFields();
     }
 
     private Node createTitle()
@@ -233,6 +233,7 @@ public class AddInventoryConfirmView extends View {
         // Retrieve the ID
         String barcode = genderBarcode + articleTypeBarcode + primaryColorBarcode;
         try {
+            System.out.println("GetID");
             myModel.stateChangeRequest("GetID", barcode);
         } catch (InvalidPrimaryKeyException e) {
             throw new RuntimeException(e);

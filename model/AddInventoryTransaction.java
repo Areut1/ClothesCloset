@@ -129,10 +129,13 @@ public class AddInventoryTransaction extends Transaction{
         }
 
         if (iCol.size() > 0){
+            System.out.println("Size greater than 0");
             Inventory inv = iCol.get(iCol.size() - 1);
+
+            String barcode = inv.getValue("barcode");
             String id = inv.getValue("barcode").substring(5);
 
-            Integer newID = parseInt(id);
+            int newID = parseInt(id);
             newID++;
 
             String finalID = "" + newID;
