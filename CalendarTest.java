@@ -1,12 +1,13 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javafx.application.Application;
+import javafx.css.converter.StringConverter;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 public class CalendarTest extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -20,8 +21,8 @@ public class CalendarTest extends Application {
         DatePicker startDatePicker = new DatePicker();
         DatePicker endDatePicker = new DatePicker();
 
-        startDatePicker.setValue(LocalDate.now());
-        endDatePicker.setValue(startDatePicker.getValue().plusDays(1));
+        endDatePicker.setValue(LocalDate.now());
+        startDatePicker.setValue(endDatePicker.getValue().minusDays(1));
 
         vbox.getChildren().add(new Label("Start Date:"));
         vbox.getChildren().add(startDatePicker);
