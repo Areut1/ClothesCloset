@@ -262,7 +262,7 @@ public class AddInventoryReceipt extends View
         }
         String sizeSt = (String)newInventoryInfo.getState("size");
         if (sizeSt.isEmpty())
-            size.setText("NULL");
+            size.setText("");
         else
             size.setText(sizeSt);
 
@@ -276,7 +276,7 @@ public class AddInventoryReceipt extends View
         color1.setText(color1Description);
         String color2St = (String)newInventoryInfo.getState("color2");
         if (color2St.isEmpty())
-            color2.setText("NULL");
+            color2.setText("");
         else {
             model.Color color2Object = new model.Color(color2St); // retrieve the color item whose id is color2st
             String color2Description = color2Object.getValue("description"); // retrieve the description from the color item
@@ -285,13 +285,13 @@ public class AddInventoryReceipt extends View
 
         String brandSt = (String)newInventoryInfo.getState("brand");
         if (brandSt.isEmpty())
-            brand.setText("NULL");
+            brand.setText("");
         else
             brand.setText(brandSt);
 
         String notesSt = (String)newInventoryInfo.getState("notes");
         if (notesSt.isEmpty())
-            notes.setText("NULL");
+            notes.setText("");
         else
             notes.setText(notesSt);
 
@@ -299,25 +299,25 @@ public class AddInventoryReceipt extends View
         status.setText(statusSt);
         String donorLastNameSt = (String)newInventoryInfo.getState("donorLastName");
         if (donorLastNameSt.isEmpty())
-            donorLastName.setText("NULL");
+            donorLastName.setText("");
         else
             donorLastName.setText(donorLastNameSt);
 
         String donorFirstNameSt = (String)newInventoryInfo.getState("donorFirstName");
         if (donorFirstNameSt.isEmpty())
-            donorFirstName.setText("NULL");
+            donorFirstName.setText("");
         else
             donorFirstName.setText(donorFirstNameSt);
 
         String donorPhoneSt = (String)newInventoryInfo.getState("donorPhone");
         if (donorPhoneSt.isEmpty())
-            donorPhone.setText("NULL");
+            donorPhone.setText("");
         else
             donorPhone.setText(donorPhoneSt);
 
         String donorEmailSt = (String)newInventoryInfo.getState("donorEmail");
         if (donorEmailSt.isEmpty())
-            donorEmail.setText("NULL");
+            donorEmail.setText("");
         else
             donorEmail.setText(donorEmailSt);
 
