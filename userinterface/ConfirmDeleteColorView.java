@@ -75,7 +75,7 @@ public class ConfirmDeleteColorView extends View{
         grid.add(prompt, 0, 0, 2, 1);
 
 
-        confirmButton = new Button("Submit");
+        confirmButton = new Button("Yes");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -87,7 +87,7 @@ public class ConfirmDeleteColorView extends View{
             }
         });
 
-        cancelButton = new Button("Cancel");
+        cancelButton = new Button("No");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
