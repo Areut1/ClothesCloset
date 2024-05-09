@@ -14,6 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.Inventory;
+
+import java.util.Properties;
 
 //---------------------------------------------------------------
 public class ConfirmDeleteInventoryView extends View{
@@ -21,6 +24,8 @@ public class ConfirmDeleteInventoryView extends View{
     protected Button cancelButton;
     protected Button confirmButton;
     protected MessageView statusLog;
+
+    private String barcode;
     //---------------------------------------------------------------
     public ConfirmDeleteInventoryView(IModel clerk)
     {
@@ -38,6 +43,8 @@ public class ConfirmDeleteInventoryView extends View{
         container.getChildren().add(createStatusLog("                                            "));
 
         getChildren().add(container);
+
+        getBarcode();
 
     }
     //---------------------------------------------------------------
@@ -67,7 +74,7 @@ public class ConfirmDeleteInventoryView extends View{
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("Are you sure you would like to delete this Inventory?");
+        Text prompt = new Text("Are you sure you would like to delete the Inventory with the barcode '" + barcode + "'?");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -119,6 +126,11 @@ public class ConfirmDeleteInventoryView extends View{
         return vbox;
     }
     //---------------------------------------------------------------
+    private void getBarcode() {
+        Inventory inventory = (Inventory) myModel.getState("Inventory");
+
+        barcode = inventory.oldBarcode;
+    }
     public void processConfirm(){
         try {
             myModel.stateChangeRequest("DeleteInventory", null);

@@ -198,7 +198,7 @@ public class InventoryReceipt extends View
         status = new Text("                       ");
         grid.add(status, 1, 9);
 
-        Text donorLastNameLabel = new Text("Donor Lastname : ");
+        Text donorLastNameLabel = new Text("Donor Last Name : ");
         donorLastNameLabel.setWrappingWidth(150);
         donorLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(donorLastNameLabel, 0, 10);
@@ -206,7 +206,7 @@ public class InventoryReceipt extends View
         donorLastName = new Text("                       ");
         grid.add(donorLastName, 1, 10);
 
-        Text donorFirstNameLabel = new Text("Donor Firstname : ");
+        Text donorFirstNameLabel = new Text("Donor First Name : ");
         donorFirstNameLabel.setWrappingWidth(150);
         donorFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(donorFirstNameLabel, 0, 11);
@@ -238,7 +238,7 @@ public class InventoryReceipt extends View
         receiverNetId = new Text("                       ");
         grid.add(receiverNetId, 1, 14);
 
-        Text receiverLastNameLabel = new Text("Receiver Lastname : ");
+        Text receiverLastNameLabel = new Text("Receiver Last Name : ");
         receiverLastNameLabel.setWrappingWidth(150);
         receiverLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(receiverLastNameLabel, 0, 15);
@@ -246,7 +246,7 @@ public class InventoryReceipt extends View
         receiverLastName = new Text("                       ");
         grid.add(receiverLastName, 1, 15);
 
-        Text receiverFirstNameLabel = new Text("Receiver Firstname : ");
+        Text receiverFirstNameLabel = new Text("Receiver First Name : ");
         receiverFirstNameLabel.setWrappingWidth(150);
         receiverFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(receiverFirstNameLabel, 0, 16);
@@ -339,7 +339,7 @@ public class InventoryReceipt extends View
         brand.setText(brandSt);
         String notesSt = (String)newInventoryInfo.getState("notes");
         if (notesSt == null || notesSt.isEmpty())
-            notes.setText("NULL");
+            notes.setText("");
         else
             notes.setText(notesSt);
         String statusSt = (String)newInventoryInfo.getState("status");
@@ -354,17 +354,17 @@ public class InventoryReceipt extends View
         donorEmail.setText(donorEmailSt);
         String receiverNetIdSt = (String)newInventoryInfo.getState("receiverNetId");
         if (receiverNetIdSt == null || receiverNetIdSt.isEmpty())
-            receiverNetId.setText("NULL");
+            receiverNetId.setText("");
             else
             receiverNetId.setText(receiverNetIdSt);
         String receiverLastNameSt = (String)newInventoryInfo.getState("receiverLastName");
         if (receiverLastNameSt == null || receiverLastNameSt.isEmpty())
-            receiverLastName.setText("NULL");
+            receiverLastName.setText("");
         else
             receiverLastName.setText(receiverLastNameSt);
         String receiverFirstNameSt = (String)newInventoryInfo.getState("receiverFirstName");
         if (receiverFirstNameSt == null || receiverFirstNameSt.isEmpty())
-            receiverFirstName.setText("NULL");
+            receiverFirstName.setText("");
         else
             receiverFirstName.setText(receiverFirstNameSt);
         String dateDonatedSt = (String)newInventoryInfo.getState("dateDonated");

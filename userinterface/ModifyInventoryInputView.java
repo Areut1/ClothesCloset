@@ -550,16 +550,16 @@ public class ModifyInventoryInputView extends View {
 
         String sizeString = "" + size.getText();
         String brandString = "" + brand.getText();
-        String notesString = "" + notes.getText();
+        String notesString = notes.getText() == null ? "" : notes.getText();
         String donorLastNameString = "" + donorLastName.getText();
         String donorFirstNameString = "" + donorFirstName.getText();
         String donorPhoneString = "" + donorPhone.getText();
         String donorEmailString = "" + donorEmail.getText();
-        String receiverNetIdString = "" + receiverNetId.getText();
-        String receiverLastNameString = "" + receiverLastName.getText();
-        String receiverFirstNameString = "" + receiverFirstName.getText();
+        String receiverNetIdString = receiverNetId.getText() == null ? "" : receiverNetId.getText();
+        String receiverLastNameString = receiverLastName.getText() == null ? "" : receiverLastName.getText();
+        String receiverFirstNameString = receiverFirstName.getText() == null ? "" : receiverFirstName.getText();
         String dateDonatedString = "" + dateDonated.getText();
-        String dateTakenString = "" + dateTaken.getText();
+        String dateTakenString = dateTaken.getText() == null ? "" : dateTaken.getText();
 
         System.out.println("\"" + dateTakenString + "\"");
         System.out.println(dateTakenString.isEmpty());
