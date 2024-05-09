@@ -8,6 +8,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 public class CalendarTest extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -29,5 +31,10 @@ public class CalendarTest extends Application {
         vbox.getChildren().add(new Label("End Date:"));
         vbox.getChildren().add(endDatePicker);
         stage.show();
+
+        LocalDate endDate = endDatePicker.getValue();
+        String date = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+
+        System.out.println(date);
     }
 }
