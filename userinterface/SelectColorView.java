@@ -172,9 +172,9 @@ public class SelectColorView extends View
             }
         });
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(520, 150);
-        scrollPane.setContent(tableOfColors);
+        //ScrollPane scrollPane = new ScrollPane();
+        //scrollPane.setPrefSize(520, 150);
+        //scrollPane.setContent(tableOfColors);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -216,7 +216,7 @@ public class SelectColorView extends View
         btnContainer.getChildren().add(cancelButton);
 
         vbox.getChildren().add(grid);
-        vbox.getChildren().add(scrollPane);
+        vbox.getChildren().add(tableOfColors);
         vbox.getChildren().add(btnContainer);
 
         return vbox;

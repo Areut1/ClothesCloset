@@ -173,9 +173,9 @@ public class SelectArticleTypeView extends View
             }
         });
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(520, 150);
-        scrollPane.setContent(tableOfArticleTypes);
+        //ScrollPane scrollPane = new ScrollPane();
+        //scrollPane.setPrefSize(520, 150);
+        //scrollPane.setContent(tableOfArticleTypes);
 
 		submitButton = new Button("Submit");
  		submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -217,7 +217,7 @@ public class SelectArticleTypeView extends View
         btnContainer.getChildren().add(cancelButton);
 
         vbox.getChildren().add(grid);
-        vbox.getChildren().add(scrollPane);
+        vbox.getChildren().add(tableOfArticleTypes);
         vbox.getChildren().add(btnContainer);
 
         return vbox;
