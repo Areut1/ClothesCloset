@@ -19,15 +19,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.ArticleTypeCollection;
+import model.ColorCollection;
 import model.Inventory;
 import model.InventoryCollection;
 
 import java.util.Enumeration;
+import java.util.Properties;
 import java.util.Vector;
 
 //==============================================================================
 public class CheckedOutInventoryCollectionView extends View
 {
+    Properties articleTypeBarcodeMapping;
+    Properties primaryColorBarcodeMapping;
+    Properties genderBarcodeMapping;
+
     protected TableView<CheckedOutInventoryTableModel> tableOfInventory;
     protected Button cancelButton;
 
@@ -60,19 +67,44 @@ public class CheckedOutInventoryCollectionView extends View
     //--------------------------------------------------------------------------
     protected void getEntryTableModelValues()
     {
+        initBarcodeMappings();
 
         ObservableList<CheckedOutInventoryTableModel> tableData = FXCollections.observableArrayList();
         try
         {
             InventoryCollection inventoryCollection = (InventoryCollection) myModel.getState("InventoryCollection");
 
-            Vector entryList = (Vector)inventoryCollection.getState("Inventory");
-            Enumeration entries = entryList.elements();
+            Vector<Inventory> entryList = (Vector<Inventory>) inventoryCollection.getState("Inventory");
+            Enumeration<Inventory> entries = entryList.elements();
 
-            while (entries.hasMoreElements() == true)
+            while (entries.hasMoreElements())
             {
-                Inventory nextInventory = (Inventory) entries.nextElement();
+                Inventory nextInventory = entries.nextElement();
                 Vector<String> view = nextInventory.getEntryListView();
+
+                System.out.println("\nOld view is: " + view);
+
+                // -------------------------------------------------------------------------
+                // Switching from INTs to String values for Gender, Article type, and Colors
+                // To see where indices are being pulled from, see the `Inventory.java` file
+
+                // Gender: Located at index 1
+                view.set(1, (String) genderBarcodeMapping.get(view.get(1)));
+
+                // Article type: Located at index 3
+                view.set(3, (String) articleTypeBarcodeMapping.get(view.get(3)));
+//                System.out.println("article id is: " + view.get(3) + "\t article value is: " + articleTypeBarcodeMapping.get(view.get(3)));
+//
+//                // Colors: Located at index 4 & 5
+                view.set(4, (String) primaryColorBarcodeMapping.get(view.get(4)));
+                if (view.get(5) == null)
+                    view.set(5, "");
+                else
+                    view.set(5, (String) primaryColorBarcodeMapping.get(view.get(5)));
+                // -------------------------------------------------------------------------
+
+                System.out.println("New view is: " + view);
+
 
                 // add this list entry to the list
                 CheckedOutInventoryTableModel nextTableRowData = new CheckedOutInventoryTableModel(view);
@@ -87,6 +119,47 @@ public class CheckedOutInventoryCollectionView extends View
             // Need to handle this exception
         }
     }
+
+
+    /**
+     * Initialize the Barcode mapping fun stuff
+     */
+    private void initBarcodeMappings() {
+        // Get the tables
+        ArticleTypeCollection articleTypeCollection = (ArticleTypeCollection) myModel.getState("ArticleTypeList");
+        ColorCollection colorCollection = (ColorCollection) myModel.getState("ColorList");
+
+        articleTypeBarcodeMapping = new Properties();
+        primaryColorBarcodeMapping = new Properties();
+        genderBarcodeMapping = new Properties();
+
+        // Loop over and create the barcode mappings
+        for (int i = 0; i < articleTypeCollection.size(); i++) {
+            articleTypeBarcodeMapping.setProperty(
+                    articleTypeCollection.get(i).getValue("barcodePrefix"),
+                    articleTypeCollection.get(i).getValue("description")
+            );
+        }
+        for (int i = 0; i < colorCollection.size(); i++){
+            primaryColorBarcodeMapping.setProperty(
+                    colorCollection.get(i).getValue("barcodePrefix"),
+                    colorCollection.get(i).getValue("description")
+            );
+        }
+
+        genderBarcodeMapping.setProperty("0", "Male");
+        genderBarcodeMapping.setProperty("1", "Female");
+    }
+
+
+
+
+
+
+
+
+
+
     // Create the title container
     //-------------------------------------------------------------
     private Node createTitle()
