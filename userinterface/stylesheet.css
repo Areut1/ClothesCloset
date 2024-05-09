@@ -81,3 +81,18 @@
     -fx-padding: 0;
     -fx-shape: null;
 }
+
+.date-picker .selected:focused {
+	-fx-background-color: rgb(0, 83, 62);
+	-fx-text-fill: white;
+}
+.date-picker .arrow-button {
+	-fx-background-color: rgb(0, 83, 62);
+}
+* {
+	-fx-primary-color:rgb(0, 83, 62);
+	-fx-secondary-color: rgb(0, 83, 62);
+	-fx-light-grey-color: rgb(0, 83, 62);
+
+	-fx-focus-color: rgb(0, 83, 62);
+}
