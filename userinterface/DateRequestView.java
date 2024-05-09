@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+
 import exception.InvalidPrimaryKeyException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
@@ -29,8 +30,9 @@ import java.util.Vector;
 
 // project imports
 import impresario.IModel;
+
 //---------------------------------------------------------------
-public class DateRequestView extends View{
+public class DateRequestView extends View {
 
     private Button subButton;
     private Button cancelButton;
@@ -38,11 +40,12 @@ public class DateRequestView extends View{
     private DatePicker endDate;
     //Show error message
     private MessageView statusLog;
+
     //---------------------------------------------
     /*CONSTRUCTOR
      * Takes model object from ViewFactory
      */
-    public DateRequestView(IModel clerk){
+    public DateRequestView(IModel clerk) {
         super(clerk, "DateRequestView");
 
         //Create container
@@ -63,11 +66,12 @@ public class DateRequestView extends View{
         myModel.subscribe("dateRequestMessage", this);
         myModel.subscribe("UpdateStatusMessage", this);
     }//END CONSTRUCTOR--------------------------------
+
     //-------------------------------------------------
     /*createTitle
      * Create title field for the view
      */
-    private Node createTitle(){
+    private Node createTitle() {
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
@@ -80,12 +84,13 @@ public class DateRequestView extends View{
         return container;
 
     }
+
     //End createTitle-------------------------------------
     //---------------------------------------------------
     /*createFormContent
      * Method creates actual form for user input
      */
-    private VBox createFormContent(){
+    private VBox createFormContent() {
         VBox vbox = new VBox(10);
 
         //Establish grid
@@ -105,7 +110,7 @@ public class DateRequestView extends View{
         grid.add(startDateLabel, 0, 0);
 
         startDate = new DatePicker();
-        startDate.setEditable(true);
+        startDate.getEditor().setDisable(true);
         startDate.setPromptText("YYYY-MM-DD");
         grid.add(startDate, 0, 1);
 
@@ -116,7 +121,7 @@ public class DateRequestView extends View{
         grid.add(endDateLabel, 1, 0);
 
         endDate = new DatePicker();
-        endDate.setEditable(true);
+        endDate.getEditor().setDisable(true);
         endDate.setPromptText("YYYY-MM-DD");
         grid.add(endDate, 1, 1);
 
@@ -127,7 +132,7 @@ public class DateRequestView extends View{
         //Submit Button---------------------------------
         subButton = new Button("Submit");
         subButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        subButton.setOnAction(new EventHandler<ActionEvent>(){
+        subButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
@@ -162,26 +167,21 @@ public class DateRequestView extends View{
         return vbox;
 
     }
+
     //End createFormContent----------------------------
     //----------------------------------------------------
     /*processSubAction
      */
-    public void processSubAction(Event evt){
+    public void processSubAction(Event evt) {
 
         LocalDate startDateDate = startDate.getValue();
         LocalDate endDateDate = endDate.getValue();
 
-        String startDateEntered = startDateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
-        String endDateEntered = endDateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+        if (startDateDate.compareTo(endDateDate) <= 0) {
+            String startDateEntered = startDateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+            String endDateEntered = endDateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
 
-        //Validate user input
-        if ((startDateEntered == null) || (endDateEntered == null)){
-            clearErrorMessage();
-            displayErrorMessage("Please enter start and end date");
-        }
-        else {
-
-            //Convert textfield to strings based on filled out fields
+            //Validate user input
 
             Properties props = new Properties();
             props.setProperty("startDate", startDateEntered);
@@ -194,45 +194,49 @@ public class DateRequestView extends View{
             } catch (InvalidPrimaryKeyException e) {
                 throw new RuntimeException(e);
             }
+
+        } else {
+            clearErrorMessage();
+            displayErrorMessage("Start date must be before end date!");
         }
+
     }//End processSubAction------------------------------
+
     // Create the status log field
     //-------------------------------------------------------------
-    protected MessageView createStatusLog(String initialMessage)
-    {
+    protected MessageView createStatusLog(String initialMessage) {
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
     }
+
     //-------------------------------------------------------------
-    public void populateFields()
-    {
+    public void populateFields() {
         //If test does not work change to match searchBook or searchPatron for this method
         //Intended result clears fields after search is done
         endDate.setValue(LocalDate.now());
         startDate.setValue(endDate.getValue().minusDays(365));
     }
+
     /**
      * Update method
      */
     //---------------------------------------------------------
-    public void updateState(String key, Object value)
-    {
+    public void updateState(String key, Object value) {
         clearErrorMessage();
-        String temp = ((String)value);
+        String temp = ((String) value);
 
-        if (key.equals("dateRequestMessage") == true)
-        {
-            String val = (String)value;
+        if (key.equals("dateRequestMessage") == true) {
+            String val = (String) value;
             displayMessage(val);
         }
     }
+
     /**
      * Display error message
      */
     //----------------------------------------------------------
-    public void displayErrorMessage(String message)
-    {
+    public void displayErrorMessage(String message) {
         statusLog.displayErrorMessage(message);
     }
 
@@ -240,8 +244,7 @@ public class DateRequestView extends View{
      * Display info message
      */
     //----------------------------------------------------------
-    public void displayMessage(String message)
-    {
+    public void displayMessage(String message) {
         statusLog.displayMessage(message);
     }
 
@@ -249,8 +252,7 @@ public class DateRequestView extends View{
      * Clear error message
      */
     //----------------------------------------------------------
-    public void clearErrorMessage()
-    {
+    public void clearErrorMessage() {
         statusLog.clearErrorMessage();
     }
 }//END CLASS===============================================
