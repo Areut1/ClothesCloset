@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.Inventory;
 
 import java.util.Properties;
 
@@ -126,9 +127,9 @@ public class ConfirmDeleteInventoryView extends View{
     }
     //---------------------------------------------------------------
     private void getBarcode() {
-        Properties inventory = (Properties) myModel.getState("Barcode");
+        Inventory inventory = (Inventory) myModel.getState("Inventory");
 
-        barcode = inventory.getProperty("id");
+        barcode = (String) inventory.getState("barcode");
     }
     public void processConfirm(){
         try {
