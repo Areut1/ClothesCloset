@@ -339,7 +339,7 @@ public class InventoryReceipt extends View
         brand.setText(brandSt);
         String notesSt = (String)newInventoryInfo.getState("notes");
         if (notesSt == null || notesSt.isEmpty())
-            notes.setText("NULL");
+            notes.setText("");
         else
             notes.setText(notesSt);
         String statusSt = (String)newInventoryInfo.getState("status");
@@ -354,17 +354,17 @@ public class InventoryReceipt extends View
         donorEmail.setText(donorEmailSt);
         String receiverNetIdSt = (String)newInventoryInfo.getState("receiverNetId");
         if (receiverNetIdSt == null || receiverNetIdSt.isEmpty())
-            receiverNetId.setText("NULL");
+            receiverNetId.setText("");
             else
             receiverNetId.setText(receiverNetIdSt);
         String receiverLastNameSt = (String)newInventoryInfo.getState("receiverLastName");
         if (receiverLastNameSt == null || receiverLastNameSt.isEmpty())
-            receiverLastName.setText("NULL");
+            receiverLastName.setText("");
         else
             receiverLastName.setText(receiverLastNameSt);
         String receiverFirstNameSt = (String)newInventoryInfo.getState("receiverFirstName");
         if (receiverFirstNameSt == null || receiverFirstNameSt.isEmpty())
-            receiverFirstName.setText("NULL");
+            receiverFirstName.setText("");
         else
             receiverFirstName.setText(receiverFirstNameSt);
         String dateDonatedSt = (String)newInventoryInfo.getState("dateDonated");
