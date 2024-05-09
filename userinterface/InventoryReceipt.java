@@ -198,7 +198,7 @@ public class InventoryReceipt extends View
         status = new Text("                       ");
         grid.add(status, 1, 9);
 
-        Text donorLastNameLabel = new Text("Donor Lastname : ");
+        Text donorLastNameLabel = new Text("Donor Last Name : ");
         donorLastNameLabel.setWrappingWidth(150);
         donorLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(donorLastNameLabel, 0, 10);
@@ -206,7 +206,7 @@ public class InventoryReceipt extends View
         donorLastName = new Text("                       ");
         grid.add(donorLastName, 1, 10);
 
-        Text donorFirstNameLabel = new Text("Donor Firstname : ");
+        Text donorFirstNameLabel = new Text("Donor First Name : ");
         donorFirstNameLabel.setWrappingWidth(150);
         donorFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(donorFirstNameLabel, 0, 11);
@@ -238,7 +238,7 @@ public class InventoryReceipt extends View
         receiverNetId = new Text("                       ");
         grid.add(receiverNetId, 1, 14);
 
-        Text receiverLastNameLabel = new Text("Receiver Lastname : ");
+        Text receiverLastNameLabel = new Text("Receiver Last Name : ");
         receiverLastNameLabel.setWrappingWidth(150);
         receiverLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(receiverLastNameLabel, 0, 15);
@@ -246,7 +246,7 @@ public class InventoryReceipt extends View
         receiverLastName = new Text("                       ");
         grid.add(receiverLastName, 1, 15);
 
-        Text receiverFirstNameLabel = new Text("Receiver Firstname : ");
+        Text receiverFirstNameLabel = new Text("Receiver First Name : ");
         receiverFirstNameLabel.setWrappingWidth(150);
         receiverFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(receiverFirstNameLabel, 0, 16);
