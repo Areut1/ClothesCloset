@@ -22,10 +22,14 @@ public class ConfirmDeleteColorView extends View{
     protected Button cancelButton;
     protected Button confirmButton;
     protected MessageView statusLog;
+
+    private String colorDescription;
     //---------------------------------------------------------------
     public ConfirmDeleteColorView(IModel clerk)
     {
         super(clerk, "DeleteColorView");
+
+        getColorDescription();
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -68,7 +72,7 @@ public class ConfirmDeleteColorView extends View{
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("Are you sure you would like to delete this Color?");
+        Text prompt = new Text("Are you sure you would like to delete the color '" + colorDescription + "'?");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -120,6 +124,11 @@ public class ConfirmDeleteColorView extends View{
         return vbox;
     }
     //---------------------------------------------------------------
+    private void getColorDescription() {
+        model.Color color = (model.Color) myModel.getState("Color");
+
+        colorDescription = (String) color.getState("description");
+    }
     public void processConfirm(){
         try {
             myModel.stateChangeRequest("DeleteColor", null);
