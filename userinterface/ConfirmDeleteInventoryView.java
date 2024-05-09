@@ -129,7 +129,7 @@ public class ConfirmDeleteInventoryView extends View{
     private void getBarcode() {
         Inventory inventory = (Inventory) myModel.getState("Inventory");
 
-        barcode = (String) inventory.getState("barcode");
+        barcode = inventory.oldBarcode;
     }
     public void processConfirm(){
         try {
