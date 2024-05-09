@@ -82,8 +82,6 @@ public class CheckedOutInventoryCollectionView extends View
                 Inventory nextInventory = entries.nextElement();
                 Vector<String> view = nextInventory.getEntryListView();
 
-                System.out.println("\nOld view is: " + view);
-
                 // -------------------------------------------------------------------------
                 // Switching from INTs to String values for Gender, Article type, and Colors
                 // To see where indices are being pulled from, see the `Inventory.java` file
@@ -93,18 +91,14 @@ public class CheckedOutInventoryCollectionView extends View
 
                 // Article type: Located at index 3
                 view.set(3, (String) articleTypeBarcodeMapping.get(view.get(3)));
-//                System.out.println("article id is: " + view.get(3) + "\t article value is: " + articleTypeBarcodeMapping.get(view.get(3)));
-//
-//                // Colors: Located at index 4 & 5
+
+                // Colors: Located at index 4 & 5
                 view.set(4, (String) primaryColorBarcodeMapping.get(view.get(4)));
                 if (view.get(5) == null)
                     view.set(5, "");
                 else
                     view.set(5, (String) primaryColorBarcodeMapping.get(view.get(5)));
                 // -------------------------------------------------------------------------
-
-                System.out.println("New view is: " + view);
-
 
                 // add this list entry to the list
                 CheckedOutInventoryTableModel nextTableRowData = new CheckedOutInventoryTableModel(view);
