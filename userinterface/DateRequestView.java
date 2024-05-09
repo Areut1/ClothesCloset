@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,6 +22,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -31,8 +34,8 @@ public class DateRequestView extends View{
 
     private Button subButton;
     private Button cancelButton;
-    private TextField startDate;
-    private TextField endDate;
+    private DatePicker startDate;
+    private DatePicker endDate;
     //Show error message
     private MessageView statusLog;
     //---------------------------------------------
@@ -101,7 +104,7 @@ public class DateRequestView extends View{
         startDateLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(startDateLabel, 0, 0);
 
-        startDate = new TextField();
+        startDate = new DatePicker();
         startDate.setEditable(true);
         startDate.setPromptText("YYYY-MM-DD");
         grid.add(startDate, 0, 1);
@@ -112,7 +115,7 @@ public class DateRequestView extends View{
         endDateLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(endDateLabel, 1, 0);
 
-        endDate = new TextField();
+        endDate = new DatePicker();
         endDate.setEditable(true);
         endDate.setPromptText("YYYY-MM-DD");
         grid.add(endDate, 1, 1);
@@ -165,8 +168,11 @@ public class DateRequestView extends View{
      */
     public void processSubAction(Event evt){
 
-        String startDateEntered = startDate.getText();
-        String endDateEntered = endDate.getText();
+        LocalDate startDateDate = startDate.getValue();
+        LocalDate endDateDate = endDate.getValue();
+
+        String startDateEntered = startDateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+        String endDateEntered = endDateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
 
         //Validate user input
         if ((startDateEntered == null) || (endDateEntered == null)){
@@ -181,8 +187,7 @@ public class DateRequestView extends View{
             props.setProperty("startDate", startDateEntered);
             props.setProperty("endDate", endDateEntered);
 
-            startDate.setText("");
-            endDate.setText("");
+            populateFields();
 
             try {
                 myModel.stateChangeRequest("DateRequest", props);
@@ -204,8 +209,8 @@ public class DateRequestView extends View{
     {
         //If test does not work change to match searchBook or searchPatron for this method
         //Intended result clears fields after search is done
-        startDate.setText("");
-        endDate.setText("");
+        endDate.setValue(LocalDate.now());
+        startDate.setValue(endDate.getValue().minusDays(365));
     }
     /**
      * Update method
