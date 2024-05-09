@@ -15,10 +15,10 @@ public class ListAllDonatedTransaction extends Transaction{
     // GUI Components
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
-    private Properties barcode;
-    private String ID;
+
     private InventoryCollection iCol;
-    private Inventory oldInventory;
+    private ArticleTypeCollection atCol;
+    private ColorCollection cCol;
 
 
     //help me fix this
@@ -26,7 +26,7 @@ public class ListAllDonatedTransaction extends Transaction{
     //---------------------------------------------------------------
     protected ListAllDonatedTransaction() throws Exception {
         super();
-        processTransaction();
+        createCollection();
     }
 
     //---------------------------------------------------------------
@@ -67,6 +67,8 @@ public class ListAllDonatedTransaction extends Transaction{
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "Transaction" -> "ListAllDonated";
             case "InventoryCollection" -> iCol;
+            case "ArticleTypeList" -> atCol;
+            case "ColorList" -> cCol;
             default -> null;
         };
     }
@@ -81,11 +83,14 @@ public class ListAllDonatedTransaction extends Transaction{
     }
 
     //---------------------------------------------------------------
-    public void processTransaction(){
-        //Run query and get collection results
+    private void createCollection() throws Exception {
         iCol = new InventoryCollection();
+        atCol = new ArticleTypeCollection();
+        cCol = new ColorCollection();
         try {
             iCol.findDonated();
+            atCol.findAllArticleTypes();
+            cCol.findAllColors();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -12,7 +12,8 @@ public class ListAllCheckedOutTransaction extends Transaction {
     private String transactionErrorMessage = "";
     private String updateStatusMessage = "";
     private InventoryCollection iCol;
-
+    private ArticleTypeCollection atCol;
+    private ColorCollection cCol;
 
     //help me fix this
 
@@ -59,6 +60,8 @@ public class ListAllCheckedOutTransaction extends Transaction {
             case "UpdateStatusMessage" -> updateStatusMessage;
             case "Transaction" -> "ListAllCheckedOut";
             case "InventoryCollection" -> iCol;
+            case "ArticleTypeList" -> atCol;
+            case "ColorList" -> cCol;
             default -> null;
         };
     }
@@ -76,9 +79,16 @@ public class ListAllCheckedOutTransaction extends Transaction {
     }
 
     //---------------------------------------------------------------
-    public void createCollection() {
-        //Run query and get collection results
+    private void createCollection() throws Exception {
         iCol = new InventoryCollection();
+        atCol = new ArticleTypeCollection();
+        cCol = new ColorCollection();
+        try {
+            atCol.findAllArticleTypes();
+            cCol.findAllColors();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void processTransaction(Properties props) {
