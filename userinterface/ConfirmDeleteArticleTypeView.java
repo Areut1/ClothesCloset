@@ -16,16 +16,22 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.ArticleType;
+
 //---------------------------------------------------------------
 public class ConfirmDeleteArticleTypeView extends View{
 
     protected Button cancelButton;
     protected Button confirmButton;
     protected MessageView statusLog;
+
+    private String articleTypeDescription;
     //---------------------------------------------------------------
     public ConfirmDeleteArticleTypeView(IModel clerk)
     {
         super(clerk, "DeleteArticleTypeView");
+
+        getArticleTypeDescription();
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -68,7 +74,7 @@ public class ConfirmDeleteArticleTypeView extends View{
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("Are you sure you would like to delete this Article Type?");
+        Text prompt = new Text("Are you sure you would like to delete the article type '" + articleTypeDescription + "'?");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -120,6 +126,11 @@ public class ConfirmDeleteArticleTypeView extends View{
         return vbox;
     }
     //---------------------------------------------------------------
+    private void getArticleTypeDescription() {
+        ArticleType articleType = (ArticleType) myModel.getState("ArticleType");
+
+        articleTypeDescription = (String) articleType.getState("description");
+    }
     public void processConfirm(){
         try {
             myModel.stateChangeRequest("DeleteArticleType", null);

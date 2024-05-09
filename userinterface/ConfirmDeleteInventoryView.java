@@ -31,6 +31,8 @@ public class ConfirmDeleteInventoryView extends View{
     {
         super(clerk, "DeleteInventoryView");
 
+        getBarcode();
+
         // create a container for showing the contents
         VBox container = new VBox(10);
         container.setPadding(new Insets(15, 5, 5, 5));
@@ -43,8 +45,6 @@ public class ConfirmDeleteInventoryView extends View{
         container.getChildren().add(createStatusLog("                                            "));
 
         getChildren().add(container);
-
-        getBarcode();
 
     }
     //---------------------------------------------------------------
