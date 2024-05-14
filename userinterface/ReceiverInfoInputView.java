@@ -107,7 +107,7 @@ public class ReceiverInfoInputView extends View {
         grid.add(receiverNetId, 1, 0);
 
         //Inventory Color 2 Label and Text Field-----------------------------
-        Text receiverLastNameLabel = new Text(" Receiver LastName : ");
+        Text receiverLastNameLabel = new Text(" Receiver Last Name : ");
         receiverLastNameLabel.setFont(myFont);
         receiverLastNameLabel.setWrappingWidth(150);
         receiverLastNameLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -118,7 +118,7 @@ public class ReceiverInfoInputView extends View {
         grid.add(receiverLastName, 1, 1);
 
         //Inventory Brand Name Label and Text Field------------------------
-        Text receiverFirstNameLabel = new Text(" Receiver FirstName : ");
+        Text receiverFirstNameLabel = new Text(" Receiver First Name : ");
         receiverFirstNameLabel.setFont(myFont);
         receiverFirstNameLabel.setWrappingWidth(150);
         receiverFirstNameLabel.setTextAlignment(TextAlignment.RIGHT);
